@@ -1,0 +1,102 @@
+.mainBox {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 20px 0px 20px 0px;
+  }
+  
+  .mainBox::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .mainBox > * {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .qualificationBox {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 40px 40px 20px 40px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .highlightSpan {
+    color: red;
+    font-weight: 700;
+    font-size: 24px;
+  }
+  
+  .highlightSpan:hover {
+    color: red;
+  }
+  
+  .benefitCard {
+    position: relative;
+    width: 300px;
+    height: 250px;
+    padding: 10px;
+    color: #000;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
+  }
+  
+  .benefitCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  }
+  
+  .benefitCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: inherit;
+    border-radius: 20px;
+    background: #f9f3fe;
+    border: 10px solid #e4d4fa;
+    z-index: -1;
+  }
+  
+  .iconContainer {
+    color: #49326b;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .handshakeImage {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+  }
+  
+  @media (max-width: 600px) {
+    .handshakeImage {
+      display: none;
+    }
+  }

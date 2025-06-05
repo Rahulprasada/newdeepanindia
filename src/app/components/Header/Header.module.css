@@ -1,0 +1,350 @@
+.headerContainer {
+  }
+  
+  .headerContainer .mobileMenus {
+    display: none;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .headerContainer .sample {
+      display: none;
+    }
+    .headerContainer .mobileMenus {
+      display: block;
+      transition: all 0.5s ease-in-out;
+    }
+    .headerContainer .mobileMenus .navbar-toggler,
+    .headerContainer .mobileMenus .dropdown-menu {
+      border: none;
+    }
+    .headerContainer .mobileMenus .navbar-toggler {
+      color: #013396;
+    }
+  }
+  
+  .topHeader {
+    background-color: #49326b;
+    border-bottom: 1px solid #16151553;
+  }
+  
+  .topHeader h6 {
+    font-weight: 800;
+    margin: 0;
+    color: #ffffff;
+  }
+  
+  .topHeader a {
+    font-size: 14px;
+    padding: 0;
+  }
+  
+  .topHeader .dropdown-menu {
+    padding: 10px 15px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .topHeader {
+      display: none;
+    }
+  }
+  
+  .myTopHeader {
+    display: flex;
+    justify-content:space-evenly;
+  }
+  
+  .topMenuItem {
+    padding: 50px;
+  }
+  
+  .btnTopHeader {
+    padding: 6px 15px;
+    border-radius: 5px;
+    border: 1px solid #49326b;
+    background-color: #fff;
+    color: #49326b;
+    font-size: 14px;
+  }
+  
+  .btnTopHeader:hover {
+    background-color: #33197a;
+    color: #fff;
+    border: 1px solid #33197a;
+  }
+  
+  .styledDivider {
+    background-color: #e9e3e3;
+    width: 100%;
+  }
+  
+  .headerBottom {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+  }
+  
+  .myContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .myContainer .sample {
+      display: none;
+    }
+  }
+  
+  .logoContainer {
+    min-width: 50%;
+    display: flex;
+    justify-content:space-evenly;
+  }
+  
+  .logo {
+    width: 150px;
+    height: 100px;
+    cursor: pointer;
+  }
+  
+  .hamburger {
+    display: none;
+  }
+  
+  @media (max-width: 920px) {
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 25px;
+      height: 15px;
+      cursor: pointer;
+    }
+  }
+  
+  .hamburgerLine {
+    width: 100%;
+    height: 3px;
+    background-color: #07319f;
+    transition: all 0.3s;
+  }
+  
+  .hamburgerLine1Open {
+    width: 100%;
+    height: 3px;
+    background-color: #07319f;
+    transform: rotate(45deg) translateY(8px);
+  }
+  
+  .hamburgerLine2Open {
+    width: 100%;
+    height: 3px;
+    background-color: #07319f;
+    opacity: 0;
+  }
+  
+  .hamburgerLine3Open {
+    width: 100%;
+    height: 3px;
+    background-color: #07319f;
+    transform: rotate(-45deg) translateY(-8px);
+  }
+  
+  .styledNavLink {
+    color: white !important;
+    transition: color 0.3s ease;
+  }
+  
+  .styledNavLink:hover {
+    color: red !important;
+  }
+  
+  .algoTradingLink {
+    color: #49326b;
+    transition: color 0.3s ease;
+    background-color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    animation: blink 1s infinite;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .algoTradingLink:hover {
+    color: #16155e;
+  }
+  
+  @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+  }
+  
+  .algoTradingMobileLink {
+    color: white;
+    transition: color 0.3s ease;
+    background-color: #260b57;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    animation: blink 1s infinite;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  .algoTradingMobileLink:hover {
+    color: #16155e;
+  }
+  
+  .navBtn {
+    display: flex;
+  }
+  
+  @media (max-width: 920px) {
+    .navBtn {
+      position: fixed;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: calc(100vh - 3rem);
+      top: 7rem;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      transform: translateX(100%);
+      transition: transform 0.5s ease-in-out;
+      z-index: 9999;
+    }
+    .navBtnOpen {
+      transform: translateX(0);
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .navBtn {
+      top: 4rem;
+      height: calc(75vh - 3rem);
+    }
+  }
+  
+  .navLinks {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  @media (max-width: 920px) {
+    .navLinks {
+      flex-direction: column;
+      align-items: center;
+      z-index: 900;
+      position: relative;
+    }
+  }
+  
+  .navLink {
+    position: relative;
+    color: #49326b;
+    padding: 0 0.8rem;
+    letter-spacing: 1px;
+    font-size: 16px;
+    transition: 0.5s;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .navLink:hover {
+    transform: scale(1);
+    background-color: #d3d0d0;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .navLink {
+      padding: 10px 0.8rem;
+    }
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 20rem;
+    background-color: #fff;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.5s, transform 0.5s;
+    z-index: 9999;
+    visibility: hidden;
+  }
+  
+  .navLink:hover .dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+  }
+  
+  .dropdownShow {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+  }
+  
+  .dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dropdown ul li {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #49326b;
+    background: #f0f0f5;
+    transition: 0.3s;
+    border-bottom: 1px solid white;
+  }
+  
+  .dropdown ul li:hover {
+    background: #49326b;
+    color: white;
+    border-top: 5px solid #ffffff;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .dropdown {
+      width: 90vw;
+      left: 5%;
+      top: 100%;
+      display: none;
+    }
+    .dropdownShow {
+      display: block;
+    }
+  }
+  
+  .customNavbarToggle {
+    color: #013396;
+  }
+  
+  .customNavbarLinks {
+    /* Additional styles for mobile navbar links if needed */
+  }
+  
+  .navDropdown {
+    /* Additional styles for dropdown items if needed */
+  }
