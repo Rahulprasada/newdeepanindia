@@ -46,7 +46,7 @@ const PrivacyPolicy = () => {
             <div className="prose max-w-none">
               <h2 className="text-2xl font-semibold text-blue-900 mb-4">Introduction</h2>
               <p className="mb-6 text-gray-700">
-                Capital Investments Trading Fund ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you engage with our trading fund services, website, and mobile application.
+              Capital Investments Trading Fund (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you engage with our trading fund services, website, and mobile application.
               </p>
               <p className="mb-6 text-gray-700">
                 Please read this Privacy Policy carefully. By accessing or using our services, you acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy.

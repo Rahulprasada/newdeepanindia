@@ -37,7 +37,7 @@ const TermsOfServices = () => {
         <div className="container mx-auto mt-20" style={{ padding: "50px" }}>
           <h1 className="text-3xl font-bold mb-4 border-b-2 pb-2">Terms and Conditions</h1>
           <p className="text-gray-700 mb-4">
-            These Terms and Conditions ("Terms") govern your use of our services. By accessing our website and using our services, you agree to be bound by these Terms.
+          These Terms and Conditions (&quot;Terms&quot;) govern your use of our services. By accessing our website and using our services, you agree to be bound by these Terms.
           </p>
           
           <h2 className="text-2xl font-semibold mt-6">Use of Our Services</h2>

@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import React, { useState } from "react";
 import Image from "next/image"; // Assuming next/image setup is correct
 import VerifiedIcon from "@mui/icons-material/Verified";
-
+import Typography from '@mui/material/Typography';
 const PricingCard = ({
   index,
   title,
