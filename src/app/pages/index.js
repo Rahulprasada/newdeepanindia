@@ -11,7 +11,6 @@ import Wealthy from '../components/Wealthy/page';
 import PricingPlans from '../components/pricingplans/page';
 import Services from '../components/Servicess/page';
 import Cardpart from '../components/cardpart/page';
-import FinancialCalculatorsMUI from '../components/calculators/page';
 import SlideShowBar from '../components/slider/page';
 
 export default function Mains() {
@@ -35,7 +34,6 @@ export default function Mains() {
          <Cardpart />
          <Partner />
          <MediaContent data={2}/>
-         <FinancialCalculatorsMUI />
          <Contact />
         </section>
       </main>
