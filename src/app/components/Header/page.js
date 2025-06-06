@@ -147,8 +147,9 @@ export default function Header() {
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(0)}
                   onMouseLeave={handleMouseLeave}
+                  style={{display:'flex'}}
                 >
-                  What We Serve <FaAngleDown />
+                  What We Serve <FaAngleDown style={{marginTop:'5px'}} />
                   <div className={`${styles.dropdown} ${visibleDropdown === 0 ? styles.dropdownShow : ""}`}>
                     <ul>
                       <li onClick={() => router.push("/WhatWeServe/investment-solution")}>
@@ -170,8 +171,9 @@ export default function Header() {
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(1)}
                   onMouseLeave={handleMouseLeave}
+                  style={{display:'flex'}}
                 >
-                  What We Do <FaAngleDown />
+                  What We Do <FaAngleDown style={{marginTop:'5px'}} />
                   <div className={`${styles.dropdown} ${visibleDropdown === 1 ? styles.dropdownShow : ""}`}>
                     <ul>
                       <li onClick={() => router.push("/WhatWeDo/mutual-funds")}>
@@ -205,8 +207,9 @@ export default function Header() {
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(3)}
                   onMouseLeave={handleMouseLeave}
+                  style={{display:'flex'}}
                 >
-                  What We Think <FaAngleDown />
+                  What We Think <FaAngleDown style={{marginTop:'5px'}} />
                   <div className={`${styles.dropdown} ${visibleDropdown === 3 ? styles.dropdownShow : ""}`}>
                     <ul>
                       <li onClick={() => handleNavigation("/#card")}>Blogs</li>
@@ -219,8 +222,9 @@ export default function Header() {
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(2)}
                   onMouseLeave={handleMouseLeave}
+                  style={{display:'flex'}}
                 >
-                  Calculator <FaAngleDown />
+                  Calculator <FaAngleDown style={{marginTop:'5px'}}/>
                   <div className={`${styles.dropdown} ${visibleDropdown === 2 ? styles.dropdownShow : ""}`}>
                     <ul>
                       <li onClick={() => router.push("../calculators/sip-calculator")}>SIP Calculator</li>

@@ -160,7 +160,7 @@ const SlideShowBar = ({ data = [] }) => {
         </Typography>
         <Typography className="description">{description}</Typography>
         {showButton && (
-          <Link href="#contact" passHref legacyBehavior>
+          <Link href="#contact"  >
             <Button
               variant="contained"
               className="ctaButton"

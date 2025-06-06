@@ -16,7 +16,7 @@ export default function Cards({ e }) {
   const router = useRouter();
 
   const handleReadMore = () => {
-    router.push(`/details/${e?.id || "default"}`);
+    router.push(`/card-details/${e?.id || "default"}`);
   };
 
   return (

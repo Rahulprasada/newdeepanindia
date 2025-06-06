@@ -13,22 +13,22 @@ import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-
 
 // Define keyframes directly in the component
 const fadeInUp = {
-  "from": {
+  from: {
     opacity: 0,
     transform: "translateY(30px)",
   },
-  "to": {
+  to: {
     opacity: 1,
     transform: "translateY(0)",
   },
 };
 
 const slideInRight = {
-  "from": {
+  from: {
     opacity: 0,
     transform: "translateX(50px)",
   },
-  "to": {
+  to: {
     opacity: 1,
     transform: "translateX(0)",
   },
@@ -70,8 +70,7 @@ export const About = ({ data }) => {
         },
       }}
     >
-      <Container
-        maxWidth="xl"
+      <Container maxWidth={'lg'}
         sx={{
           position: "relative",
           zIndex: 2,
@@ -80,7 +79,7 @@ export const About = ({ data }) => {
           flexDirection: "column",
           justifyContent: "center",
         }}
-      > 
+      >
         {/* Title */}
         <Typography
           sx={{
@@ -97,10 +96,10 @@ export const About = ({ data }) => {
         </Typography>
 
         {/* Grid for Text and Image */}
-        <Box sx={{width:'100%'}}>
-        <Grid container spacing={{ xs: 4, md: 6 }}>
-          {/* Text Column */}
-          <Grid item xs={12} md={6}>
+        <Box sx={{ width: "100%" }}>
+          <Grid container spacing={{ xs: 4, md: 6 }}>
+            {/* Text Column */}
+            <Grid item xs={12} md={6}>
               <Box>
                 <Typography
                   sx={{
@@ -142,64 +141,64 @@ export const About = ({ data }) => {
                   </Typography>
                 </Box>
               </Box>
-          </Grid>
+            </Grid>
 
-          {/* Image Column */}
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              mt: { xs: 4, md: 0 }, // Margin-top on mobile to separate from text
-              animation: "slideInRight 1.2s ease-out",
-              "@keyframes slideInRight": slideInRight,
-            }}
-          >
-            <Slide direction="right" in={isVisible} timeout={1200}>
-              <Box
-                sx={{
-                  position: "relative",
-                  width: "100%",
-                  maxWidth: { xs: 300, sm: 400, md: 500 },
-                  mx: "auto",
-                  display:'flex',
-                  justifyContent:'center'
-                }}
-              >
-                <Image
-                  src={aboutImg}
-                  alt="About Us"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "10px",
-                    transition: "transform 0.3s ease",
-                    "&:hover": {
-                      transform: "scale(1.05)",
-                    },
-                  }}
-                />
+            {/* Image Column */}
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{
+                mt: { xs: 4, md: 0 }, // Margin-top on mobile to separate from text
+                animation: "slideInRight 1.2s ease-out",
+                "@keyframes slideInRight": slideInRight,
+              }}
+            >
+              <Slide direction="right" in={isVisible} timeout={1200}>
                 <Box
                   sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: "linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(245, 61, 37, 0.1))",
-                    borderRadius: "10px",
-                    opacity: 0,
-                    transition: "opacity 0.3s ease",
-                    zIndex: 1,
-                    "&:hover": {
-                      opacity: 1,
-                    },
+                    position: "relative",
+                    width: "50%",
+                    mx: "auto",
+                    display: "flex",
+                    justifyContent: "center",
                   }}
-                />
-              </Box>
-            </Slide>
+                >
+                  <Image
+                    src={aboutImg}
+                    alt="About Us"
+                    style={{
+                      width: {sm:"100%",md:'100%'},
+                      height: "auto",
+                      borderRadius: "10px",
+                      transition: "transform 0.3s ease",
+                      "&:hover": {
+                        transform: "scale(1.05)",
+                      },
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background:
+                        "linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(245, 61, 37, 0.1))",
+                      borderRadius: "10px",
+                      opacity: 0,
+                      transition: "opacity 0.3s ease",
+                      zIndex: 1,
+                      "&:hover": {
+                        opacity: 1,
+                      },
+                    }}
+                  />
+                </Box>
+              </Slide>
+            </Grid>
           </Grid>
-        </Grid>
         </Box>
       </Container>
     </Box>

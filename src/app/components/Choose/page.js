@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Container from '@mui/material/Container';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Fade from '@mui/material/Fade';
-import Slide from '@mui/material/Slide';
-import Chip from '@mui/material/Chip';
+import { useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Fade from "@mui/material/Fade";
+import Slide from "@mui/material/Slide";
+import Chip from "@mui/material/Chip";
 import { Grid } from "@mui/system";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -236,15 +236,21 @@ const Choose = ({ data }) => {
               marginTop: "50px",
             }}
           >
-            <Grid container spacing={{ xs: 2, md: 3 }} alignItems={"stretch"}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              alignItems={"normal"}
+           
+            >
               {reviewData.map((item, index) => {
                 const IconComponent = iconMap[index] || AdsClickIcon;
                 return (
-                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={index}>
+                  <Grid item xs={12} key={index}>
                     <Card
                       sx={{
-                        height: "100%",
-                        width: "100%",
+                        width: "300px", // ✅ Add this line
+                        height: "200px",
+                        maxWidth: "100%", // You already have this
                         backgroundColor: "#ffffff",
                         borderRadius: "10px",
                         borderTop: "10px solid #49326b",
@@ -252,7 +258,7 @@ const Choose = ({ data }) => {
                         position: "relative",
                         overflow: "hidden",
                         "&:hover": {
-                          cursor:'pointer',
+                          cursor: "pointer",
                           transform: "translateY(-8px)",
                           boxShadow: `0 20px 40px #49326b`,
                         },
