@@ -7,22 +7,50 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
-import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField'; // Added for input fields
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip'; // Added for validation tooltips
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip as ChartTooltip, Legend } from "chart.js";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber"; // Added for validation icons
 import { useRouter, usePathname } from "next/navigation";
+import styled from "styled-components"; // Added for styled components
+import { keyframes } from "@emotion/react";
+// Added for animations
 
 // Register Chart.js components
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, ChartTooltip, Legend);
+
+// Define keyframes for animation
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+// Styled components matching the first component
+const Main2Box = styled(Box)`
+  padding: 60px 0;
+  background-color: #f9f3fe;
+  position: relative;
+  overflow: hidden;
+
+  @media screen and (max-width: 600px) {
+    padding: 30px 0;
+  }
+`;
+
+const StyledDivider = styled(Divider)`
+  background-color: #49326b;
+  height: 6px;
+  width: 100%;
+`;
 
 const SWPCalculator = () => {
   const router = useRouter();
@@ -67,12 +95,17 @@ const SWPCalculator = () => {
 
   // Calculate remaining balance using the formula for future value with withdrawals
   const remainingBalance =
-    periodicRate === 0
-      ? investment - totalWithdrawn
-      : investment * Math.pow(1 + periodicRate, n) -
-        (withdrawalAmount * (Math.pow(1 + periodicRate, n) - 1)) / periodicRate;
+    investment === 0 ||
+    years === 0 ||
+    withdrawalAmount === 0 ||
+    interestRate === 0
+      ? 0
+      : periodicRate === 0
+        ? investment - totalWithdrawn
+        : investment * Math.pow(1 + periodicRate, n) -
+          (withdrawalAmount * (Math.pow(1 + periodicRate, n) - 1)) / periodicRate;
 
-  // Chart data for react-chartjs-2
+  // Chart data for react-chartjs-2, updated to include percentage in tooltip
   const chartData = useMemo(
     () => ({
       labels: ["Total Withdrawn", "Remaining Balance"],
@@ -83,7 +116,7 @@ const SWPCalculator = () => {
             remainingBalance > 0 ? remainingBalance : 0,
           ],
           backgroundColor: ["#d32f2f", "#17307a"],
-          borderColor: ["#ffffff", "#ffffff"],
+          borderColor: ["#ffffff", "#ffffff"], // Fixed to match the first component
           borderWidth: 2,
         },
       ],
@@ -104,58 +137,71 @@ const SWPCalculator = () => {
       },
       tooltip: {
         callbacks: {
-          label: (context) =>
-            `${context.label}: ₹${context.raw.toLocaleString()}`,
+          label: (context) => {
+            const label = context.label || "";
+            const value = context.raw || 0;
+            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage =
+              total === 0 ? 0 : ((value / total) * 100).toFixed(0);
+            return `${label}: ₹${value.toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })} (${percentage}%)`;
+          },
         },
       },
     },
   };
 
+  // Handlers for TextField input changes
+  const handleInvestmentChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
+    setInvestment(value === "" ? 0 : Number(value));
+  };
+
+  const handleWithdrawalAmountChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
+    setWithdrawalAmount(value === "" ? 0 : Number(value));
+  };
+
+  const handleInterestRateChange = (e) => {
+    const value = e.target.value.replace(/[^0-9.]/g, ""); // Allow numbers and decimal
+    setInterestRate(value === "" ? 0 : Number(value));
+  };
+
+  const handleYearsChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
+    setYears(value === "" ? 0 : Number(value));
+  };
+
   return (
-    <Box
-      sx={{
-        padding: { xs: "30px 0", sm: "60px 0" },
-        backgroundColor: "#f9f3fe",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <Main2Box>
       <Container maxWidth="lg">
         <Box
           sx={{
-            padding: { xs: "20px 0", md: "10px 0 10px 0" },
+            padding: { xs: "20px 0", md: "10px 0 10px" },
             display: "flex",
             flexDirection: "row",
             alignItems: "baseline",
           }}
         >
           <ArrowBackIosIcon
-            sx={{ cursor: "pointer", marginRight: "15px" }}
+            sx={{ cursor: "pointer", marginRight: "20px", color: "#49326b" }} // Adjusted margin to match first component
             onClick={() => handleNavigation("/#calculator")}
           />
           <Typography
             sx={{
               fontWeight: 400,
               color: "#49326b",
-              fontSize: { xs: "28px", sm: "36px", md: "48px" },
-              animation: "fadeIn 1s ease-in-out",
-              "@keyframes fadeIn": {
-                from: { opacity: 0 },
-                to: { opacity: 1 },
-              },
-              mb: "20px",
+              fontSize: { xs: "28px", sm: "36px", md: "48px" }, // Adjusted to match first component
+              animation: `${fadeIn} 1s ease-in-out`,
+              marginBottom: "20px",
             }}
           >
             Systematic Withdrawal Plan Calculator
           </Typography>
         </Box>
-        <Divider
-          sx={{
-            backgroundColor: "#49326b",
-            height: "6px",
-            width: "100%",
-          }}
-        />
+        <StyledDivider sx={{ marginBottom: "40px" }} /> {/* Adjusted to match first component */}
         <Box
           sx={{
             display: "flex",
@@ -167,47 +213,73 @@ const SWPCalculator = () => {
         >
           <Grid container spacing={4}>
             {/* Controls */}
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6}> {/* Adjusted to match first component */}
               <CardContent sx={{ backgroundColor: "#f9f3fe", p: "20px" }}>
-                {/* Investment Slider */}
+                {/* Investment Amount Input */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
                     variant="h6"
                     sx={{ fontWeight: 600, color: "#49326b" }}
                   >
-                    Initial Investment (₹)
+                    Initial Investment
                   </Typography>
-                  <Chip
-                    label={`₹${investment.toLocaleString()}`}
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                      value={investment}
+                      onChange={handleInvestmentChange}
+                      size="small"
+                      sx={{
+                        width: "120px",
+                        bgcolor: "#e4d4fa",
+                        "& .MuiInputBase-input": {
+                          color: "#49326b",
+                          fontWeight: 900,
+                          textAlign: "center",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <Typography sx={{ color: "#49326b", mr: 0.5 }}>
+                            ₹
+                          </Typography>
+                        ),
+                      }}
+                    />
+                    {investment === 0 && (
+                      <Tooltip title="Minimum value is 10000">
+                        <WarningAmberIcon sx={{ color: "red", ml: 1 }} />
+                      </Tooltip>
+                    )}
+                  </Box>
                 </Box>
                 <Slider
                   value={investment}
                   onChange={(e, val) => setInvestment(val)}
-                  min={10000}
+                  min={0} // Adjusted to match first component
                   max={10000000}
                   step={10000}
                   valueLabelDisplay="auto"
-                  valueLabelFormat={(value) => `₹${value.toLocaleString()}`}
+                  valueLabelFormat={(value) =>
+                    `₹${value.toLocaleString("en-IN")}`
+                  }
                 />
 
-                {/* Withdrawal Amount Slider */}
+                {/* Withdrawal Amount Input */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
@@ -215,86 +287,152 @@ const SWPCalculator = () => {
                     sx={{ fontWeight: 600, color: "#49326b" }}
                   >
                     {frequency.charAt(0).toUpperCase() + frequency.slice(1)}{" "}
-                    Withdrawal (₹)
+                    Withdrawal
                   </Typography>
-                  <Chip
-                    label={`₹${withdrawalAmount.toLocaleString()}`}
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                      value={withdrawalAmount}
+                      onChange={handleWithdrawalAmountChange}
+                      size="small"
+                      sx={{
+                        width: "120px",
+                        bgcolor: "#e4d4fa",
+                        "& .MuiInputBase-input": {
+                          color: "#49326b",
+                          fontWeight: 900,
+                          textAlign: "center",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <Typography sx={{ color: "#49326b", mr: 0.5 }}>
+                            ₹
+                          </Typography>
+                        ),
+                      }}
+                    />
+                    {withdrawalAmount === 0 && (
+                      <Tooltip title="Minimum value is 100">
+                        <WarningAmberIcon sx={{ color: "red", ml: 1 }} />
+                      </Tooltip>
+                    )}
+                  </Box>
                 </Box>
                 <Slider
                   value={withdrawalAmount}
                   onChange={(e, val) => setWithdrawalAmount(val)}
-                  min={100}
+                  min={0} // Adjusted to match first component
                   max={100000}
                   step={100}
                   valueLabelDisplay="auto"
-                  valueLabelFormat={(value) => `₹${value.toLocaleString()}`}
+                  valueLabelFormat={(value) =>
+                    `₹${value.toLocaleString("en-IN")}`
+                  }
                 />
 
-                {/* Interest Rate Slider */}
+                {/* Interest Rate Input */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
                     variant="h6"
                     sx={{ fontWeight: 600, color: "#49326b" }}
                   >
-                    Expected Return Rate (%)
+                    Expected Return Rate
                   </Typography>
-                  <Chip
-                    label={`${interestRate}%`}
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                      value={interestRate}
+                      onChange={handleInterestRateChange}
+                      size="small"
+                      sx={{
+                        width: "120px",
+                        bgcolor: "#e4d4fa",
+                        "& .MuiInputBase-input": {
+                          color: "#49326b",
+                          fontWeight: 900,
+                          textAlign: "center",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <Typography sx={{ color: "#49326b", ml: 0.5 }}>
+                            %
+                          </Typography>
+                        ),
+                      }}
+                    />
+                    {interestRate === 0 && (
+                      <Tooltip title="Minimum value is 1">
+                        <WarningAmberIcon sx={{ color: "red", ml: 1 }} />
+                      </Tooltip>
+                    )}
+                  </Box>
                 </Box>
                 <Slider
                   value={interestRate}
                   onChange={(e, val) => setInterestRate(val)}
-                  min={1}
+                  min={0} // Adjusted to match first component
                   max={30}
                   step={0.1}
                   valueLabelDisplay="auto"
                 />
 
-                {/* Years Slider */}
+                {/* Years Input */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
                     variant="h6"
                     sx={{ fontWeight: 600, color: "#49326b" }}
                   >
-                    Withdrawal Period (Years)
+                    Withdrawal Period
                   </Typography>
-                  <Chip
-                    label={`${years} years`}
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                      value={years}
+                      onChange={handleYearsChange}
+                      size="small"
+                      sx={{
+                        width: "120px",
+                        bgcolor: "#e4d4fa",
+                        "& .MuiInputBase-input": {
+                          color: "#49326b",
+                          fontWeight: 900,
+                          textAlign: "center",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <Typography sx={{ color: "#49326b", ml: 0.5 }}>
+                            years
+                          </Typography>
+                        ),
+                      }}
+                    />
+                    {years === 0 && (
+                      <Tooltip title="Minimum value is 1">
+                        <WarningAmberIcon sx={{ color: "red", ml: 1 }} />
+                      </Tooltip>
+                    )}
+                  </Box>
                 </Box>
                 <Slider
                   value={years}
                   onChange={(e, val) => setYears(val)}
-                  min={1}
+                  min={0} // Adjusted to match first component
                   max={30}
                   step={1}
                   valueLabelDisplay="auto"
@@ -306,7 +444,9 @@ const SWPCalculator = () => {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
@@ -315,29 +455,27 @@ const SWPCalculator = () => {
                   >
                     Withdrawal Frequency
                   </Typography>
-                  <Chip
-                    label={
-                      frequency.charAt(0).toUpperCase() + frequency.slice(1)
-                    }
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <FormControl sx={{ width: "120px" }}>
+                    <Select
+                      value={frequency}
+                      onChange={(e) => setFrequency(e.target.value)}
+                      variant="standard"
+                      sx={{
+                        bgcolor: "#e4d4fa",
+                        color: "#49326b",
+                        fontWeight: 900,
+                        "& .MuiSelect-select": {
+                          textAlign: "center",
+                          py: 0.5,
+                        },
+                      }}
+                    >
+                      <MenuItem value="monthly">Monthly</MenuItem>
+                      <MenuItem value="quarterly">Quarterly</MenuItem>
+                      <MenuItem value="annually">Annually</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Box>
-                <FormControl fullWidth sx={{ mt: 2 }}>
-                  <InputLabel>Frequency</InputLabel>
-                  <Select
-                    value={frequency}
-                    onChange={(e) => setFrequency(e.target.value)}
-                    label="Frequency"
-                  >
-                    <MenuItem value="monthly">Monthly</MenuItem>
-                    <MenuItem value="quarterly">Quarterly</MenuItem>
-                    <MenuItem value="annually">Annually</MenuItem>
-                  </Select>
-                </FormControl>
               </CardContent>
             </Grid>
 
@@ -354,9 +492,9 @@ const SWPCalculator = () => {
             >
               <Box
                 sx={{
-                  width: { xs: "100%", sm: "100%", md: "600px" },
-                  height: { xs: "250px", sm: "300px", md: "300px" },
-                  maxWidth: "400px",
+                  width: { xs: "100%", sm: "80%", md: "400px" }, // Adjusted to match first component
+                  height: { xs: "250px", sm: "300px", md: "300px" }, // Adjusted to match first component
+                  maxWidth: "400px", // Adjusted to match first component
                 }}
               >
                 <Pie data={chartData} options={chartOptions} />
@@ -366,7 +504,7 @@ const SWPCalculator = () => {
             {/* Summary Cards */}
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4}> {/* Adjusted to match first component */}
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(204, 8, 8)",
@@ -388,7 +526,11 @@ const SWPCalculator = () => {
                         align="center"
                         sx={{ fontWeight: 700, color: "#49326b" }}
                       >
-                        ₹{Math.round(withdrawalAmount).toLocaleString()}
+                        ₹
+                        {Number(withdrawalAmount).toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -414,7 +556,11 @@ const SWPCalculator = () => {
                         align="center"
                         sx={{ fontWeight: 700, color: "#49326b" }}
                       >
-                        ₹{Math.round(totalWithdrawn).toLocaleString()}
+                        ₹
+                        {Number(totalWithdrawn).toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -440,7 +586,11 @@ const SWPCalculator = () => {
                         align="center"
                         sx={{ fontWeight: 700, color: "#49326b" }}
                       >
-                        ₹{Math.round(remainingBalance).toLocaleString()}
+                        ₹
+                        {Number(remainingBalance).toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -450,7 +600,7 @@ const SWPCalculator = () => {
           </Grid>
         </Box>
       </Container>
-    </Box>
+    </Main2Box>
   );
 };
 

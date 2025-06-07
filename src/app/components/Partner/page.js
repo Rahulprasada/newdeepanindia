@@ -1,17 +1,17 @@
 "use client";
 
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
 import Image from "next/image";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
@@ -54,8 +54,12 @@ const Partner = () => {
   ];
 
   return (
-    <div id="partner" className={styles.mainBox} style={{ backgroundImage: `url(${Handshake1.src})` }}>
-      <Container maxWidth="lg" >
+    <div
+      id="partner"
+      className={styles.mainBox}
+      style={{ backgroundImage: `url(${Handshake1.src})` }}
+    >
+      <Container maxWidth="lg">
         <Typography
           sx={{
             padding: { xs: "20px 0", sm: "30px 0" },
@@ -78,76 +82,99 @@ const Partner = () => {
           }}
         >
           Are you looking for an{" "}
-          <span className={styles.highlightSpan}>Independent income opportunities</span> in the
-          financial sector?
+          <span className={styles.highlightSpan}>
+            Independent income opportunities
+          </span>{" "}
+          in the financial sector?
         </Typography>
 
         <div className={styles.qualificationBox}>
-          <Box sx={{ width: '100%',display:'flex' }}>
-            <Grid
-              container
-              spacing={{ xs: 2, sm: 4 }}
-              direction={{ xs: 'column', sm: 'row' }}
-              alignItems="center"
-              justifyContent="center"
-            >
-              {/* Left Column - Text Content */}
-              <Grid item xs={12} sm={6}>
-                <List sx={{ padding: { xs: 1, sm: 2 } }}>
-                  {[
-                    "Do you have a strong network?",
-                    "Do you want to help others grow their wealth?",
-                    "Are you an Insurance Agent, Mutual Fund Advisor, Real Estate Agent, or Sub-Broker?",
-                    "Do you want to earn passive income?",
-                  ].map((item, index) => (
-                    <ListItem key={index} sx={{ py: { xs: 0.5, sm: 1 } }}>
-                      <ListItemIcon sx={{ minWidth: { xs: "30px", sm: "40px" } }}>
-                        <CheckCircleIcon sx={{ color: "#e4d4fa", fontSize: { xs: "20px", sm: "24px" } }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={item}
-                        primaryTypographyProps={{
-                          sx: {
-                            color: "#f9f3fe",
-                            fontSize: { xs: "14px", sm: "16px", md: "18px" },
-                            fontWeight: 600,
-                          },
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: { xs: 4, sm: 6 },
+              px: { xs: 2, sm: 4 },
+              py: { xs: 4, sm: 6 },
+            }}
+          >
+            {/* Left Column - Text Content */}
+            <Box sx={{ flex: 1 }}>
+              <List sx={{ padding: { xs: 1, sm: 2 } }}>
+                {[
+                  "Do you have a strong network?",
+                  "Do you want to help others grow their wealth?",
+                  "Are you an Insurance Agent, Mutual Fund Advisor, Real Estate Agent, or Sub-Broker?",
+                  "Do you want to earn passive income?",
+                ].map((item, index) => (
+                  <ListItem key={index} sx={{ py: { xs: 0.5, sm: 1 } }}>
+                    <ListItemIcon sx={{ minWidth: { xs: "30px", sm: "40px" } }}>
+                      <CheckCircleIcon
+                        sx={{
+                          color: "#e4d4fa",
+                          fontSize: { xs: "20px", sm: "24px" },
                         }}
                       />
-                    </ListItem>
-                  ))}
-                </List>
-              </Grid>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item}
+                      primaryTypographyProps={{
+                        sx: {
+                          color: "#f9f3fe",
+                          fontSize: { xs: "14px", sm: "16px", md: "18px" },
+                          fontWeight: 600,
+                        },
+                      }}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
 
-              {/* Right Column - Image */}
-              <Grid item xs={12} sm={6}>
-                <Box sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'center',
-                  padding: { xs: 1, sm: 2 },
-                }}>
-                  <Image
-                    src={Handshake}
-                    alt="handshake"
-                    width={400}
-                    height={400}
-                    style={{
-                      maxWidth: '100%',
-                      height: 'auto',
-                      animation: 'zoominout 3s ease-in-out infinite',
-                      '@keyframes zoominout': {
-                        '0%': { transform: 'scale(1)' },
-                        '50%': { transform: 'scale(1.05)' },
-                        '100%': { transform: 'scale(1)' },
-                      },
-                    }}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
+            {/* Right Column - Image */}
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "center",
+                padding: { xs: 1, sm: 2 },
+              }}
+            >
+              <Image
+                src={Handshake}
+                alt="handshake"
+                width={400}
+                height={400}
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  animation: "zoominout 3s ease-in-out infinite",
+                }}
+              />
+            </Box>
+
+            {/* Global Keyframes (you can move this to global CSS or emotion Theme) */}
+            <style>
+              {`
+      @keyframes zoominout {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+    `}
+            </style>
           </Box>
 
-          <Box sx={{ padding: { xs: "8px 0", sm: "10px 0" }, backgroundColor: "#f9f3fe", borderRadius: "10px" }}>
+          <Box
+            sx={{
+              padding: { xs: "8px 0", sm: "10px 0" },
+              backgroundColor: "#f9f3fe",
+              borderRadius: "10px",
+            }}
+          >
             <Typography
               sx={{
                 textAlign: "center",
@@ -162,8 +189,14 @@ const Partner = () => {
               <a href="#contact">
                 <span className={styles.highlightSpan}>
                   partner with
-                  <span style={{ fontWeight: 900, color: "#f20707" }}> Deepan</span>{" "}
-                  <span style={{ fontWeight: 900, color: "rgb(5, 4, 59)" }}> India</span>{" "}
+                  <span style={{ fontWeight: 900, color: "#f20707" }}>
+                    {" "}
+                    Deepan
+                  </span>{" "}
+                  <span style={{ fontWeight: 900, color: "rgb(5, 4, 59)" }}>
+                    {" "}
+                    India
+                  </span>{" "}
                   today!
                 </span>
               </a>

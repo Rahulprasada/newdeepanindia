@@ -1,5 +1,4 @@
-.headerContainer {
-  }
+
   
   .headerContainer .mobileMenus {
     display: none;
@@ -61,7 +60,7 @@
     padding: 6px 15px;
     border-radius: 5px;
     border: 1px solid #49326b;
-    background-color: #fff;
+
     color: #49326b;
     font-size: 14px;
   }
@@ -164,10 +163,12 @@
   }
   
   .algoTradingLink {
+    height: 40px;
+    width: 120px;
     color: #49326b;
     transition: color 0.3s ease;
     background-color: #ffffff;
-    padding: 8px 12px;
+    padding: 14px 15px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
@@ -177,6 +178,7 @@
     text-decoration: none;
     margin-left: 10px;
     margin-right: 10px;
+    align-content: center;
   }
   
   .algoTradingLink:hover {
@@ -341,10 +343,3 @@
     color: #013396;
   }
   
-  .customNavbarLinks {
-    /* Additional styles for mobile navbar links if needed */
-  }
-  
-  .navDropdown {
-    /* Additional styles for dropdown items if needed */
-  }

@@ -58,7 +58,7 @@ export const About = ({ data }) => {
         overflow: "hidden",
         display: "flex",
         alignItems: "center",
-        padding: { xs: "20px 0", md: "20px 0" },
+        py: { xs: 8, md: 10 }, // Add vertical padding
         "&::before": {
           content: '""',
           position: "absolute",
@@ -70,111 +70,109 @@ export const About = ({ data }) => {
         },
       }}
     >
-      <Container maxWidth={'lg'}
-        sx={{
-          position: "relative",
-          zIndex: 2,
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        {/* Title */}
-        <Typography
+      <Container maxWidth={"lg"} sx={{ position: "relative", zIndex: 2 }}>
+        {/* STEP 1: Center the main title above the grid */}
+        <Fade in={true} timeout={1000}>
+          {/* Title */}
+          <Typography
+            sx={{
+              fontSize: { xs: "32px", sm: "40px", md: "48px" },
+              fontWeight: 900,
+              color: "white",
+              textAlign: "center",
+              mb: { xs: 4, md: 6 },
+              animation: "fadeInUp 1s ease-out",
+              "@keyframes fadeInUp": fadeInUp,
+            }}
+          >
+            About Us
+          </Typography>
+        </Fade>
+        {/* Grid for Text and Image */}
+        <Box
           sx={{
-            fontSize: { xs: "32px", sm: "40px", md: "48px" },
-            fontWeight: 900,
-            color: "white",
-            textAlign: "left",
-            mb: { xs: 4, md: 6 },
-            animation: "fadeInUp 1s ease-out",
-            "@keyframes fadeInUp": fadeInUp,
+            width: "100%",
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: { xs: 4, md: 6 },
+            px: { xs: 2, md: 4 },
+            py: { xs: 4, md: 6 },
           }}
         >
-          About Us
-        </Typography>
+          {/* Text Section */}
+          <Box sx={{ flex: 1 }}>
+            <Fade in={true} timeout={1200}>
+              <Typography
+                sx={{
+                  fontSize: { xs: "18px", sm: "20px", md: "24px" },
+                  fontWeight: 700,
+                  color: "white",
+                  textAlign: "left",
+                  lineHeight: 1.6,
+                  mb: 3,
+                  animation: "fadeInUp 1.4s ease-out",
+                  "@keyframes fadeInUp": fadeInUp,
+                }}
+              >
+                {title ||
+                  "Deepan India, we believe that wealth creation should be accessible to everyone. Our mission is to empower investors with financial education, strategic investment guidance, and risk management solutions."}
+              </Typography>
+            </Fade>
 
-        {/* Grid for Text and Image */}
-        <Box sx={{ width: "100%" }}>
-          <Grid container spacing={{ xs: 4, md: 6 }}>
-            {/* Text Column */}
-            <Grid item xs={12} md={6}>
-              <Box>
+            <Fade in={true} timeout={1400}>
+              <Box
+                sx={{
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  borderRadius: "16px",
+                  p: { xs: 3, md: 4 },
+                  backdropFilter: "blur(5px)",
+                }}
+              >
                 <Typography
                   sx={{
-                    fontSize: { xs: "18px", sm: "20px", md: "24px" },
-                    fontWeight: 700,
+                    fontSize: { xs: "14px", sm: "16px", md: "18px" },
+                    fontWeight: 500,
                     color: "white",
                     textAlign: "left",
-                    mt: { xs: 2, md: 3 },
-                    mb: { xs: 2, md: 3 },
-                    lineHeight: 1.6,
-                    animation: "fadeInUp 1.4s ease-out",
-                    "@keyframes fadeInUp": fadeInUp,
+                    lineHeight: 1.8,
                   }}
                 >
-                  {title ||
-                    "Deepan India, we believe that wealth creation should be accessible to everyone. Our mission is to empower investors with financial education, strategic investment guidance, and risk management solutions"}
+                  {description ||
+                    "We offer personalized investment and trading strategies tailored for individual financial goals and risk appetites. Whether you're a beginner or an experienced investor, our technology-driven approach ensures transparent, data-backed and result-oriented wealth management solutions with lifetime support."}
                 </Typography>
-
-                <Box
-                  sx={{
-                    border: "2px solid white",
-                    borderRadius: "15px",
-                    p: { xs: 2, md: 3 },
-                    animation: "fadeInUp 1.6s ease-out",
-                    "@keyframes fadeInUp": fadeInUp,
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "14px", sm: "16px", md: "18px" },
-                      fontWeight: 500,
-                      color: "white",
-                      textAlign: "left",
-                      lineHeight: 1.8,
-                    }}
-                  >
-                    {description ||
-                      "We offer personalized investment and trading strategies tailored for individual financial goals and risk appetites. Whether you're a beginner or an experienced investor, our technology-driven approach ensures transparent, data-backed and result-oriented wealth management solutions with lifetime support."}
-                  </Typography>
-                </Box>
               </Box>
-            </Grid>
+            </Fade>
+          </Box>
 
-            {/* Image Column */}
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{
-                mt: { xs: 4, md: 0 }, // Margin-top on mobile to separate from text
-                animation: "slideInRight 1.2s ease-out",
-                "@keyframes slideInRight": slideInRight,
-              }}
-            >
+          {/* Image Section */}
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Fade in={true} timeout={1200}>
               <Slide direction="right" in={isVisible} timeout={1200}>
                 <Box
                   sx={{
                     position: "relative",
-                    width: "50%",
-                    mx: "auto",
-                    display: "flex",
-                    justifyContent: "center",
+                    width: "100%",
+                    maxWidth: { xs: "350px", md: "500px" },
                   }}
                 >
                   <Image
                     src={aboutImg}
                     alt="About Us"
                     style={{
-                      width: {sm:"100%",md:'100%'},
+                      width: "100%",
                       height: "auto",
-                      borderRadius: "10px",
-                      transition: "transform 0.3s ease",
-                      "&:hover": {
-                        transform: "scale(1.05)",
-                      },
+                      borderRadius: "12px",
+                      boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
                     }}
                   />
                   <Box
@@ -197,8 +195,8 @@ export const About = ({ data }) => {
                   />
                 </Box>
               </Slide>
-            </Grid>
-          </Grid>
+            </Fade>
+          </Box>
         </Box>
       </Container>
     </Box>

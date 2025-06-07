@@ -13,37 +13,33 @@ import Instagram from "../../../assets/4-removebg-preview.png";
 import LinkedIn from "../../../assets/5-removebg-preview.png";
 import Youtube from "../../../assets/6-removebg-preview.png";
 import Mail from "../../../assets/7-removebg-preview.png";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import EmailIcon from "@mui/icons-material/Email";
 
 export default function Footer() {
   return (
     <footer className={styles.footerMain}>
       <Container maxWidth="xl">
-        <Grid container spacing={5} sx={{width:'100%'}}>
-          {/* Logo Section */}
-          <Grid item xs={12} sm={12} md={4}>
-            <Box className={styles.logoContainer}>
-              <Link href="/">
-                <Image
-                  src={Deepalogo}
-                  alt="Deepan India Logo"
-                  className={styles.logo}
-                  width={300}
-                  height={300}
-                />
-              </Link>
-            </Box>
-          </Grid>
-
-          {/* What We Serve */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" className={styles.footTitle}>
+        <Grid container spacing={5} sx={{ width: "100%"}}>
+          <Grid item xs={12} sm={6} md={4}>
+            <Typography
+              variant="h6"
+              className={styles.footTitle}
+              sx={{
+                fontSize: "15px",
+                padding: "5px 0",
+                fontWeight: "bold",
+                marginLeft:'5px'
+              }}
+            >
               What We Serve
             </Typography>
-            <Box className={styles.links}>
+            <Box className={styles.links} sx={{marginLeft:'5px'}}>
               <Typography
                 component={Link}
                 href="/WhatWeServe/investment-solution"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Investment Solutions
               </Typography>
@@ -51,6 +47,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeServe/retirement-planning"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Retirement Planning
               </Typography>
@@ -58,6 +55,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeServe/wealth-management"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Wealth Management
               </Typography>
@@ -65,6 +63,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeServe/educational-resource"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Educational Resources
               </Typography>
@@ -73,7 +72,16 @@ export default function Footer() {
 
           {/* What We Do */}
           <Grid item xs={12} sm={6} md={2}>
-            <Typography variant="h6" className={styles.footTitle}>
+            <Typography
+              variant="h6"
+              className={styles.footTitle}
+              sx={{
+                fontSize: "15px",
+                padding: "5px 0",
+                marginBottom: "10px",
+                fontWeight: "bold",
+              }}
+            >
               What We Do
             </Typography>
             <Box className={styles.links}>
@@ -81,6 +89,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/mutual-funds"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Mutual Funds
               </Typography>
@@ -88,6 +97,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/training-in-financial-markets"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Training in Financial Markets
               </Typography>
@@ -95,6 +105,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/algo-trading"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Algo Trading Solutions
               </Typography>
@@ -102,6 +113,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/advisory-services"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Advisory Services
               </Typography>
@@ -109,6 +121,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/fixed-deposits-&-bond"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Fixed Deposits & Bonds
               </Typography>
@@ -116,6 +129,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/alternate-investment-funds-(AIFS)"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Alternative Investment Funds
               </Typography>
@@ -123,6 +137,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/real-estate-funds"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Real Estate Funds
               </Typography>
@@ -130,6 +145,7 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeDo/insurances"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Insurances
               </Typography>
@@ -137,8 +153,17 @@ export default function Footer() {
           </Grid>
 
           {/* What We Think */}
-          <Grid item xs={12} sm={6} md={2}>
-            <Typography variant="h6" className={styles.footTitle}>
+          <Grid item xs={12} sm={6} md={8}>
+            <Typography
+              variant="h6"
+              className={styles.footTitle}
+              sx={{
+                fontSize: "15px",
+                padding: "5px 0",
+                marginBottom: "10px",
+                fontWeight: "bold",
+              }}
+            >
               What We Think
             </Typography>
             <Box className={styles.links}>
@@ -146,6 +171,7 @@ export default function Footer() {
                 component={Link}
                 href="/#card"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Blogs
               </Typography>
@@ -153,6 +179,7 @@ export default function Footer() {
                 component={Link}
                 href="/#media"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Videos
               </Typography>
@@ -160,6 +187,7 @@ export default function Footer() {
                 component={Link}
                 href="/#media"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Reports
               </Typography>
@@ -168,7 +196,16 @@ export default function Footer() {
 
           {/* Calculator */}
           <Grid item xs={12} sm={6} md={1}>
-            <Typography variant="h6" className={styles.footTitle}>
+            <Typography
+              variant="h6"
+              className={styles.footTitle}
+              sx={{
+                fontSize: "15px",
+                padding: "5px 0",
+                marginBottom: "10px",
+                fontWeight: "bold",
+              }}
+            >
               Calculator
             </Typography>
             <Box className={styles.links}>
@@ -176,6 +213,7 @@ export default function Footer() {
                 component={Link}
                 href="/calculators/sip-calculator"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Sip
               </Typography>
@@ -183,6 +221,7 @@ export default function Footer() {
                 component={Link}
                 href="/calculators/lumpsum-calculator"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Lumpsum
               </Typography>
@@ -190,6 +229,7 @@ export default function Footer() {
                 component={Link}
                 href="/calculators/swp-calculator"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
                 Sip combined with lumbsum
               </Typography>
@@ -197,23 +237,78 @@ export default function Footer() {
                 component={Link}
                 href="/calculators/swp-calculator"
                 className={styles.linkItem}
+                sx={{ fontSize: "15px" }}
               >
-                Swap
+                Swp
               </Typography>
             </Box>
           </Grid>
 
           {/* Address */}
           <Grid item xs={12} sm={12} md={2}>
-            <Typography variant="h6" className={styles.footTitle}>
+            <Typography
+              variant="h6"
+              className={styles.footTitle}
+              sx={{
+                fontSize: "15px",
+                padding: "5px 0",
+                marginBottom: "10px",
+                fontWeight: "bold",
+              }}
+            >
               Address
             </Typography>
             <Box className={styles.links}>
-              <Typography className={styles.addressText}>
+              <Typography
+                className={styles.addressText}
+                sx={{ fontSize: "15px" }}
+              >
                 No 145, 102, Gollavar Agraharam Rd, above ICICI bank,
                 Kanniyappan Colony, Sanjeevarayanpet, Washermanpet, Chennai,
                 Tamil Nadu 600021
               </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <Typography
+              variant="h6"
+              className={styles.footTitle}
+              sx={{
+                fontSize: "15px",
+                padding: "5px 0",
+                marginBottom: "10px",
+                fontWeight: "bold",
+              }}
+            >
+              Contact
+            </Typography>
+            <Box className={styles.links}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <PhoneAndroidIcon sx={{ fontSize: 20, color: "#49326b" }} />
+                <Typography
+                  className={styles.linkItem}
+                  sx={{ fontSize: "15px" }}
+                >
+                  +91-9884411611
+                </Typography>
+              </Box>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}
+              >
+                <EmailIcon sx={{ fontSize: 20, color: "#49326b" }} />
+                <Typography
+                  component="a"
+                  href="mailto:enquiry@deepanindia.com"
+                  className={styles.linkItem}
+                  sx={{
+                    textDecoration: "none",
+                    color: "49326b",
+                    fontSize: "15px",
+                  }}
+                >
+                  enquiry@deepanindia.com
+                </Typography>
+              </Box>
             </Box>
           </Grid>
         </Grid>
@@ -233,10 +328,10 @@ export default function Footer() {
         <Divider className={styles.styledDivider} />
 
         {/* Bottom Section */}
-        <Grid container spacing={2} alignItems="center">
+        <Grid container spacing={1} alignItems="center" display={'flex'} justifyContent={'space-between'}>
           {/* Social Icons */}
           <Grid item xs={12} md={4}>
-            <Box className={styles.bottomLink1}>
+            <Box className={styles.bottomLink1} sx={{backgroundColor:'#F9F3FE'}}>
               <a
                 href="https://www.instagram.com/deepanindia?igsh=MXNyNXh3a256NGNneg=="
                 target="_blank"
@@ -246,8 +341,8 @@ export default function Footer() {
                 <Image
                   src={Instagram}
                   alt="Instagram"
-                  width={50}
-                  height={32}
+                  width={70}
+                  height={70}
                   className={styles.iconImage}
                 />
               </a>
@@ -260,8 +355,8 @@ export default function Footer() {
                 <Image
                   src={Youtube}
                   alt="Youtube"
-                  width={50}
-                  height={32}
+                  width={60}
+                  height={60}
                   className={styles.iconImage}
                 />
               </a>
@@ -274,8 +369,8 @@ export default function Footer() {
                 <Image
                   src={LinkedIn}
                   alt="LinkedIn"
-                  width={50}
-                  height={32}
+                  width={60}
+                  height={60}
                   className={styles.iconImage}
                 />
               </a>
@@ -286,8 +381,8 @@ export default function Footer() {
                 <Image
                   src={Mail}
                   alt="Mail"
-                  width={50}
-                  height={32}
+                  width={60}
+                  height={60}
                   className={styles.iconImage}
                 />
               </a>
@@ -296,7 +391,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <Grid item xs={12} md={4}>
-            <Typography className={styles.copyrightText}>
+            <Typography className={styles.copyrightText} style={{fontWeight:'bold'}}>
               © {new Date().getFullYear()} Deepan India. All rights reserved.
             </Typography>
           </Grid>

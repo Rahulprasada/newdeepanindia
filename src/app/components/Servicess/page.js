@@ -128,7 +128,7 @@ const Services = () => {
             Our Offerings
           </Typography>
 
-          <Grid container spacing={-2} justifyContent="center" padding={"40px"}>
+          <Grid container spacing={-3} justifyContent="center" padding={"20px"} >
             {services.map((service, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
                 <Box

@@ -77,12 +77,12 @@ const TermsOfServices = () => {
 
           <h2 className="text-2xl font-semibold mt-6">Governing Law</h2>
           <p className="text-gray-700 mb-4">
-            These Terms are governed by and interpreted in accordance with the laws of [Your Country/State]. Any disputes arising under these Terms will be resolved in the applicable courts.
+            These Terms are governed by and interpreted in accordance with the laws of chennai. Any disputes arising under these Terms will be resolved in the applicable courts.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6">Contact Information</h2>
           <p className="text-gray-700 mb-4">
-            If you have any questions about these Terms, please contact us at support@example.com.
+            If you have any questions about these Terms, please contact us at info@DeepanIndia.com
           </p>
         </div>
       </div>

@@ -5,6 +5,8 @@ import "./globals.css";
 //    (Adjust the path if your components are located elsewhere)
 import Header from './components/Header/page';
 import Footer from './components/Footer/page';
+import FixedWhatsappButton from "./components/FixedWhatsappButton/page";
+import ScrollToTopButton from "./components/ScrollToTopButton/page";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +41,8 @@ export default function RootLayout({ children }) {
         <main>
           {children}
         </main>
-        
+        <FixedWhatsappButton />
+        <ScrollToTopButton /> 
         {/* Footer will appear at the bottom of every page */}
         <Footer />
       </body>

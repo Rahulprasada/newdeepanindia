@@ -7,22 +7,50 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
-import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField'; // Added for input fields
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip'; // Added for validation tooltips
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber"; // Added for validation icons
 import { useRouter, usePathname } from "next/navigation";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip as ChartTooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import styled from "styled-components"; // Added for styled components
+import { keyframes } from "@emotion/react";
+// Added for animations
 
 // Register Chart.js components
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, ChartTooltip, Legend);
+
+// Define keyframes for animation
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+// Styled components matching SWPCalculator
+const Main2Box = styled(Box)`
+  padding: 60px 0;
+  background-color: #f9f3fe;
+  position: relative;
+  overflow: hidden;
+
+  @media screen and (max-width: 600px) {
+    padding: 30px 0;
+  }
+`;
+
+const StyledDivider = styled(Divider)`
+  background-color: #49326b;
+  height: 6px;
+  width: 100%;
+`;
 
 const LumpsumCalculator = () => {
   const router = useRouter();
@@ -93,173 +121,253 @@ const LumpsumCalculator = () => {
       },
       tooltip: {
         callbacks: {
-          label: (context) =>
-            `${context.label}: ₹${context.raw.toLocaleString()}`,
+          label: (context) => {
+            const label = context.label || "";
+            const value = context.raw || 0;
+            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage =
+              total === 0 ? 0 : ((value / total) * 100).toFixed(0);
+            return `${label}: ₹${value.toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })} (${percentage}%)`;
+          },
         },
       },
     },
   };
 
+  // Handlers for TextField input changes
+  const handleInvestmentChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
+    setInvestment(value === "" ? 0 : Number(value));
+  };
+
+  const handleInterestRateChange = (e) => {
+    const value = e.target.value.replace(/[^0-9.]/g, ""); // Allow numbers and decimal
+    setInterestRate(value === "" ? 0 : Number(value));
+  };
+
+  const handleYearsChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
+    setYears(value === "" ? 0 : Number(value));
+  };
+
   return (
-    <Box
-      sx={{
-        padding: { xs: "30px 0", sm: "60px 0" },
-        backgroundColor: "#f9f3fe",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <Main2Box>
       <Container maxWidth="lg">
         <Box
           sx={{
-            padding: { xs: "20px 0", md: "10px 0 10px 0" },
+            padding: { xs: "20px 0", md: "10px 0 10px" },
             display: "flex",
             flexDirection: "row",
-            alignItems: "baseline",
-            justifyContent: "left",
+            alignItems: "center",
           }}
         >
           <ArrowBackIosIcon
-            sx={{ cursor: "pointer", marginRight: "15px" }}
+            sx={{ cursor: "pointer", marginRight: "20px", color: "#49326b" }} // Updated to match SWPCalculator
             onClick={() => handleNavigation("/#calculator")}
           />
           <Typography
             sx={{
               fontWeight: 400,
               color: "#49326b",
-              fontSize: { xs: "28px", sm: "36px", md: "48px" },
-              animation: "fadeIn 1s ease-in-out",
-              "@keyframes fadeIn": {
-                from: { opacity: 0 },
-                to: { opacity: 1 },
-              },
+              fontSize: { xs: "28px", sm: "36px", md: "48px" }, // Updated to match SWPCalculator
+              animation: `${fadeIn} 1s ease-in-out`,
               marginBottom: "20px",
             }}
           >
             Lumpsum Investment Calculator
           </Typography>
         </Box>
-        <Divider
-          sx={{
-            backgroundColor: "#49326b",
-            height: "6px",
-            width: "100%",
-          }}
-        />
+        <StyledDivider sx={{ marginBottom: "40px" }} /> {/* Updated to match SWPCalculator */}
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             border: "1px solid rgb(220, 218, 221)",
             borderRadius: "8px",
-            padding: "40px",
+            p: "40px",
           }}
         >
           <Grid container spacing={4}>
             {/* Inputs */}
-            <Grid item xs={12} md={6}>
-              <CardContent sx={{ backgroundColor: "#f9f3fe", padding: "20px" }}>
+            <Grid item xs={12} md={6} >
+              <CardContent sx={{ backgroundColor: "#f9f3fe", p: "20px" }}>
+                {/* Investment Amount Input */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginTop: "20px",
+                    alignItems: "center",
+                    mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
                     variant="h6"
-                    gutterBottom
                     sx={{ fontWeight: 600, color: "#49326b" }}
                   >
-                    One-time Investment (₹)
+                    One-time Investment
                   </Typography>
-                  <Chip
-                    label={`₹${investment.toLocaleString()}`}
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                      value={investment}
+                      onChange={handleInvestmentChange}
+                      size="small"
+                      sx={{
+                        width: "120px",
+                        bgcolor: "#e4d4fa",
+                        "& .MuiInputBase-input": {
+                          color: "#49326b",
+                          fontWeight: 900,
+                          textAlign: "center",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <Typography sx={{ color: "#49326b", mr: 0.5 }}>
+                            ₹
+                          </Typography>
+                        ),
+                      }}
+                    />
+                    {investment === 0 && (
+                      <Tooltip title="Minimum value is 10000">
+                        <WarningAmberIcon sx={{ color: "red", ml: 1 }} />
+                      </Tooltip>
+                    )}
+                  </Box>
                 </Box>
                 <Slider
                   value={investment}
                   onChange={(e, val) => setInvestment(val)}
-                  min={10000}
+                  min={0} // Updated to match SWPCalculator
                   max={10000000}
                   step={10000}
                   valueLabelDisplay="auto"
-                  valueLabelFormat={(value) => `₹${value.toLocaleString()}`}
+                  valueLabelFormat={(value) =>
+                    `₹${value.toLocaleString("en-IN")}`
+                  }
                 />
+
+                {/* Interest Rate Input */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginTop: "20px",
+                    alignItems: "center",
+                    mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
                     variant="h6"
-                    gutterBottom
                     sx={{ fontWeight: 600, color: "#49326b" }}
                   >
-                    Expected Return Rate (%)
+                    Expected Return Rate
                   </Typography>
-                  <Chip
-                    label={`${interestRate}%`}
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                      value={interestRate}
+                      onChange={handleInterestRateChange}
+                      size="small"
+                      sx={{
+                        width: "120px",
+                        bgcolor: "#e4d4fa",
+                        "& .MuiInputBase-input": {
+                          color: "#49326b",
+                          fontWeight: 900,
+                          textAlign: "center",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <Typography sx={{ color: "#49326b", ml: 0.5 }}>
+                            %
+                          </Typography>
+                        ),
+                      }}
+                    />
+                    {interestRate === 0 && (
+                      <Tooltip title="Minimum value is 1">
+                        <WarningAmberIcon sx={{ color: "red", ml: 1 }} />
+                      </Tooltip>
+                    )}
+                  </Box>
                 </Box>
                 <Slider
                   value={interestRate}
                   onChange={(e, val) => setInterestRate(val)}
-                  min={1}
+                  min={0} // Updated to match SWPCalculator
                   max={30}
                   step={0.1}
                   valueLabelDisplay="auto"
                 />
+
+                {/* Years Input */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginTop: "20px",
+                    alignItems: "center",
+                    mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
                     variant="h6"
-                    gutterBottom
                     sx={{ fontWeight: 600, color: "#49326b" }}
                   >
-                    Time Period (Years)
+                    Time Period
                   </Typography>
-                  <Chip
-                    label={`${years} years`}
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <TextField
+                      value={years}
+                      onChange={handleYearsChange}
+                      size="small"
+                      sx={{
+                        width: "120px",
+                        bgcolor: "#e4d4fa",
+                        "& .MuiInputBase-input": {
+                          color: "#49326b",
+                          fontWeight: 900,
+                          textAlign: "center",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <Typography sx={{ color: "#49326b", ml: 0.5 }}>
+                            years
+                          </Typography>
+                        ),
+                      }}
+                    />
+                    {years === 0 && (
+                      <Tooltip title="Minimum value is 1">
+                        <WarningAmberIcon sx={{ color: "red", ml: 1 }} />
+                      </Tooltip>
+                    )}
+                  </Box>
                 </Box>
                 <Slider
                   value={years}
                   onChange={(e, val) => setYears(val)}
-                  min={1}
+                  min={0} // Updated to match SWPCalculator
                   max={30}
                   step={1}
                   valueLabelDisplay="auto"
                   valueLabelFormat={(value) => `${value} years`}
                 />
-                {/* Frequency Selector (added for consistency, not used in calculations) */}
+
+                {/* Frequency Selector */}
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginTop: "20px",
+                    alignItems: "center",
+                    mt: "20px",
+                    mb: 2,
                   }}
                 >
                   <Typography
@@ -268,29 +376,27 @@ const LumpsumCalculator = () => {
                   >
                     Compounding Frequency
                   </Typography>
-                  <Chip
-                    label={
-                      frequency.charAt(0).toUpperCase() + frequency.slice(1)
-                    }
-                    sx={{
-                      bgcolor: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: 900,
-                    }}
-                  />
+                  <FormControl sx={{ width: "120px" }}>
+                    <Select
+                      value={frequency}
+                      onChange={(e) => setFrequency(e.target.value)}
+                      variant="standard"
+                      sx={{
+                        bgcolor: "#e4d4fa",
+                        color: "#49326b",
+                        fontWeight: 900,
+                        "& .MuiSelect-select": {
+                          textAlign: "center",
+                          py: 0.5,
+                        },
+                      }}
+                    >
+                      <MenuItem value="monthly">Monthly</MenuItem>
+                      <MenuItem value="quarterly">Quarterly</MenuItem>
+                      <MenuItem value="annually">Annually</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Box>
-                <FormControl fullWidth sx={{ mt: 2 }}>
-                  <InputLabel>Frequency</InputLabel>
-                  <Select
-                    value={frequency}
-                    onChange={(e) => setFrequency(e.target.value)}
-                    label="Frequency"
-                  >
-                    <MenuItem value="monthly">Monthly</MenuItem>
-                    <MenuItem value="quarterly">Quarterly</MenuItem>
-                    <MenuItem value="annually">Annually</MenuItem>
-                  </Select>
-                </FormControl>
               </CardContent>
             </Grid>
 
@@ -298,7 +404,7 @@ const LumpsumCalculator = () => {
             <Grid
               item
               xs={12}
-              md={6}
+              md={12}
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -307,9 +413,9 @@ const LumpsumCalculator = () => {
             >
               <Box
                 sx={{
-                  width: { xs: "100%", sm: "100%", md: "600px" },
-                  height: { xs: "250px", sm: "300px", md: "300px" },
-                  maxWidth: "400px",
+                  width: { xs: "100%", sm: "80%", md: "400px" }, // Updated to match SWPCalculator
+                  height: { xs: "250px", sm: "300px", md: "300px" }, // Updated to match SWPCalculator
+                  maxWidth: "400px", // Updated to match SWPCalculator
                 }}
               >
                 <Pie data={chartData} options={chartOptions} />
@@ -318,8 +424,8 @@ const LumpsumCalculator = () => {
 
             {/* Summary */}
             <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={4}>
+              <Grid container spacing={3} >
+                <Grid item xs={12} md={4} >
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(204, 8, 8)",
@@ -331,8 +437,7 @@ const LumpsumCalculator = () => {
                       <Typography
                         variant="h6"
                         align="center"
-                        gutterBottom
-                        sx={{ fontWeight: 600, color: "#49326b" }}
+                        sx={{ fontWeight: 600, color: "#49326b" }} // Removed gutterBottom
                       >
                         Invested Amount
                       </Typography>
@@ -341,7 +446,11 @@ const LumpsumCalculator = () => {
                         align="center"
                         sx={{ fontWeight: 700, color: "#49326b" }}
                       >
-                        ₹{Math.round(totalInvested).toLocaleString()}
+                        ₹
+                        {Number(totalInvested).toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -359,8 +468,7 @@ const LumpsumCalculator = () => {
                       <Typography
                         variant="h6"
                         align="center"
-                        gutterBottom
-                        sx={{ fontWeight: 600, color: "#49326b" }}
+                        sx={{ fontWeight: 600, color: "#49326b" }} // Removed gutterBottom
                       >
                         Est. Returns
                       </Typography>
@@ -369,7 +477,11 @@ const LumpsumCalculator = () => {
                         align="center"
                         sx={{ fontWeight: 700, color: "#49326b" }}
                       >
-                        ₹{Math.round(totalReturns).toLocaleString()}
+                        ₹
+                        {Number(totalReturns).toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -387,8 +499,7 @@ const LumpsumCalculator = () => {
                       <Typography
                         variant="h6"
                         align="center"
-                        gutterBottom
-                        sx={{ fontWeight: 600, color: "#49326b" }}
+                        sx={{ fontWeight: 600, color: "#49326b" }} // Removed gutterBottom
                       >
                         Total Value
                       </Typography>
@@ -397,7 +508,11 @@ const LumpsumCalculator = () => {
                         align="center"
                         sx={{ fontWeight: 700, color: "#49326b" }}
                       >
-                        ₹{Math.round(maturityAmount).toLocaleString()}
+                        ₹
+                        {Number(maturityAmount).toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -407,7 +522,7 @@ const LumpsumCalculator = () => {
           </Grid>
         </Box>
       </Container>
-    </Box>
+    </Main2Box>
   );
 };
 

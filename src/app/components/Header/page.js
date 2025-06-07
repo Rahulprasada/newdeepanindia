@@ -73,12 +73,11 @@ export default function Header() {
     <header className={styles.headerContainer}>
       <div className={styles.topHeader}>
         <Navbar expand="lg" className={styles.myTopHeader}>
-          <Container style={{display:'flex', justifyContent:'space-between',height:'60px',alignItems:'center'}}>
-            <h6 className={styles.topHeader}>#Deepan India</h6>
+          <Container style={{display:'flex', justifyContent:'center',height:'60px',alignItems:'center'}}>
             <div className={styles.topMenuItem}>
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me d-flex align-items-center" >
-                  <Link style={{marginLeft:'20px',fontWeight:'bold'}}
+                  <Link style={{marginLeft:'20px',fontWeight:'bold',color:'red'}}
                     href="/#ourstory"
                     className={styles.styledNavLink}
                     onClick={() => handleNavigation("/#ourstory")}
@@ -176,28 +175,28 @@ export default function Header() {
                   What We Do <FaAngleDown style={{marginTop:'5px'}} />
                   <div className={`${styles.dropdown} ${visibleDropdown === 1 ? styles.dropdownShow : ""}`}>
                     <ul>
-                      <li onClick={() => router.push("/WhatWeDo/mutual-funds")}>
+                      <li onClick={() => router.push("/service/mutual-funds")}>
                         Mutual Funds
                       </li>
-                      <li onClick={() => router.push("/WhatWeDo/training-in-financial-markets")}>
+                      <li onClick={() => router.push("/service/training-in-financial-markets")}>
                         Training in Financial Markets
                       </li>
-                      <li onClick={() => router.push("/WhatWeDo/algo-trading")}>
+                      <li onClick={() => router.push("/service/algo-trading")}>
                         Algo Trading Solutions
                       </li>
-                      <li onClick={() => router.push("/WhatWeDo/advisory-services")}>
+                      <li onClick={() => router.push("/service/advisory-services")}>
                         Advisory Services
                       </li>
-                      <li onClick={() => router.push("/WhatWeDo/fixed-deposits-&-bond")}>
+                      <li onClick={() => router.push("/service/fixed-deposits-&-bond")}>
                         Fixed Deposits & Bonds
                       </li>
-                      <li onClick={() => router.push("/WhatWeDo/alternate-investment-funds-(AIFS)")}>
+                      <li onClick={() => router.push("/service/alternate-investment-funds-(AIFS)")}>
                         Alternative Investment funds
                       </li>
-                      <li onClick={() => router.push("/WhatWeDo/real-estate-funds")}>
+                      <li onClick={() => router.push("/service/real-estate-funds")}>
                         Real Estate funds
                       </li>
-                      <li onClick={() => router.push("/WhatWeDo/insurances")}>
+                      <li onClick={() => router.push("/service/insurances")}>
                         Insurances
                       </li>
                     </ul>
@@ -212,7 +211,7 @@ export default function Header() {
                   What We Think <FaAngleDown style={{marginTop:'5px'}} />
                   <div className={`${styles.dropdown} ${visibleDropdown === 3 ? styles.dropdownShow : ""}`}>
                     <ul>
-                      <li onClick={() => handleNavigation("/#card")}>Blogs</li>
+                      <li onClick={() => handleNavigation("/Blog/blogs")}>Blogs</li>
                       <li onClick={() => handleNavigation("/#media")}>Videos</li>
                       <li onClick={() => handleNavigation("/#media")}>Reports</li>
                     </ul>
@@ -227,12 +226,9 @@ export default function Header() {
                   Calculator <FaAngleDown style={{marginTop:'5px'}}/>
                   <div className={`${styles.dropdown} ${visibleDropdown === 2 ? styles.dropdownShow : ""}`}>
                     <ul>
-                      <li onClick={() => router.push("../calculators/sip-calculator")}>SIP Calculator</li>
+                      <li onClick={() => router.push("../calculators/sip-calculator")}>SIP</li>
                       <li onClick={() => router.push("../calculators/lumpsum-calculator")}>Lumpsum</li>
-                      <li onClick={() => router.push("../calculators/swp-calculator")}>
-                        SIP combined with Lumpsum
-                      </li>
-                      <li onClick={() => router.push("/swp-calculator")}>SWP</li>
+                      <li onClick={() => router.push("calculators/swp-calculator")}>SWP</li>
                     </ul>
                   </div>
                 </li>
@@ -375,7 +371,7 @@ export default function Header() {
                       <NavDropdown.Item
                         className={styles.navDropdown}
                         onClick={() => {
-                          handleNavigation("/#card");
+                          handleNavigation("/Blog/blogs");
                           setExpanded(false);
                         }}
                       >

@@ -30,27 +30,26 @@ const Choose = ({ data }) => {
 
   const iconMap = {
     0: TrendingUpIcon,
-    1: CurrencyRupeeIcon,
-    2: SpeedIcon,
+    1: SpeedIcon,
+    2: CurrencyRupeeIcon,
     3: SecurityIcon,
     4: VisibilityIcon,
     5: SmartToyIcon,
   };
-
   const defaultData = [
     {
       title: "Right Asset allocation",
       subTitle:
-        "Deploying Right financial Solutions for each client after proper profiling.",
-    },
-    {
-      title: "Zero Management Fees",
-      subTitle: "No hidden charges, making our services cost-effective.",
+        "Deploying Right financial solutions for each client after proper profiling.",
     },
     {
       title: "Performance-Based Fees",
       subTitle:
         "Pay only when your portfolio crosses a predefined profit threshold.",
+    },
+    {
+      title: "Zero Management Fees",
+      subTitle: "No hidden charges, making our services cost-effective.",
     },
     {
       title: "Strong Track Record",
@@ -88,6 +87,9 @@ const Choose = ({ data }) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          '@media (max-width:600px)': {
+            marginLeft: '20px',
+          },
         }}
       >
         <Grid container spacing={{ xs: 4, md: 8 }}>
@@ -117,7 +119,7 @@ const Choose = ({ data }) => {
                   color: "#49326b",
                 }}
               >
-                Why Choose Us
+                Why Choose 
               </Typography>
 
               <Typography
@@ -248,8 +250,8 @@ const Choose = ({ data }) => {
                   <Grid item xs={12} key={index}>
                     <Card
                       sx={{
-                        width: "300px", // ✅ Add this line
-                        height: "200px",
+                        width: "350px", // ✅ Add this line
+                        height: "160px",
                         maxWidth: "100%", // You already have this
                         backgroundColor: "#ffffff",
                         borderRadius: "10px",

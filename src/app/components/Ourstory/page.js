@@ -1,13 +1,13 @@
 "use client";
 
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import Slide from '@mui/material/Slide';
-import Typography from '@mui/material/Typography';
+import { useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import Slide from "@mui/material/Slide";
+import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import aboutImage from "../../../assets/4066151-removebg-preview.png";
@@ -94,10 +94,10 @@ const OurStory = ({ data }) => {
                 was founded under the leadership of Mr. Raja Yogi, a veteran
                 with 24 years of experience in financial markets. Starting his
                 career as a Floor Assistant at the Madras Stock Exchange, he
-                later became an Authorized Partner for reputed NSE brokers.
-                Over the years, he witnessed the challenges investors are
-                facing lack of genuine trainers/advisors, high fees, and
-                one-size-fits-all strategies.
+                later became an Authorized he later became an Authorised Person
+                for reputed NSE brokers. Over the years, he witnessed the
+                challenges investors are facing lack of genuine trainers and
+                advisors, high fees and one-size-fits-all strategies.
               </Typography>
 
               <Typography
@@ -119,7 +119,7 @@ const OurStory = ({ data }) => {
                 />
                 {data && data[0]?.subTitle
                   ? data[0].subTitle
-                  : "Determined to bridge this gap, he established *Deepan India* with a vision to provide customized, performance-driven investment solutions that truly benefit clients. Today, he leads our research and trading desk, ensuring investors receive expert guidance, innovative strategies, and lifelong financial support."}
+                  : "Determined to bridge this gap, he established Deepan India with a vision to provide customized, performance-driven investment solutions that truly benefit clients. Today, he leads our research and trading desk, ensuring investors receive expert guidance, innovative strategies, and lifelong financial support."}
               </Typography>
             </Box>
           </Grid>
