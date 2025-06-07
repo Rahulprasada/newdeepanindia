@@ -87,9 +87,6 @@ const Choose = ({ data }) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          '@media (max-width:600px)': {
-            marginLeft: '20px',
-          },
         }}
       >
         <Grid container spacing={{ xs: 4, md: 8 }}>
