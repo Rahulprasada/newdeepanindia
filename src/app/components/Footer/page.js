@@ -186,7 +186,7 @@ export default function Footer() {
             <Box className={styles.links}>
               <Typography
                 component={Link}
-                href="/blogs-list" // Changed to blogs-list as per original
+                href="/Blog/blogs" // Changed to blogs-list as per original
                 className={styles.linkItem}
                 sx={{fontSize:'15px'}}
               >
