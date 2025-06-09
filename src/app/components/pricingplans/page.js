@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import PricingCard from "./PricingCard"; // Assuming PricingCard is a client component
-import Investor from "../../../assets/investor.png"; // Ensure these paths are correct
+import PricingCard from "./PricingCard"; 
+import Investor from "../../../assets/investor.png";
 import Trader from "../../../assets/trader.png";
 import Wealth from "../../../assets/wealth-management.png";
 
@@ -57,13 +57,13 @@ export default function PricingPlans() {
   return (
     <Box
       sx={{
-        padding: { xs: "30px 0", sm: "85px 0" }, // Responsive vertical padding
+        padding: { xs: "30px 0", sm: "85px 0" }, 
         backgroundColor: "#f9f3fe",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      <Container maxWidth="lg"> {/* Using maxWidth="lg" for consistent content width */}
+      <Container maxWidth="lg"> 
         <Typography
           sx={{
             padding: "10px",
@@ -81,7 +81,7 @@ export default function PricingPlans() {
             fontWeight: 600,
             color: "#49326b",
             fontSize: "18px",
-            mb: { xs: 2, sm: 3 }, // Margin bottom for spacing below subtitle
+            mb: { xs: 2, sm: 3 }, 
           }}
         >
           Unlock endless possibilities for your investments
@@ -90,26 +90,24 @@ export default function PricingPlans() {
         <Grid
           container
           maxWidth={'1500px'}
-          spacing={{ xs: 2, sm: 4, md: 6 }} // Responsive spacing between grid items
-          justifyContent="center" // Center cards when there aren't enough to fill a row
-          alignItems="stretch" // Crucial: Makes all cards in a row have the same height
+          spacing={{ xs: 2, sm: 4, md: 6 }} 
+          justifyContent="center" 
+          alignItems="stretch" 
           sx={{
-            // Remove conflicting margin/flexDirection here, rely on Grid's props
-            marginTop: { xs: '20px', sm: '40px' }, // Add top margin
-            marginBottom: { xs: '20px', sm: '40px' }, // Add bottom margin
+            marginTop: { xs: '20px', sm: '40px' }, 
+            marginBottom: { xs: '20px', sm: '40px' },
           }}
         >
           {plansData.map((plan, index) => (
             <Grid
               item
-              xs={12} // Full width on extra-small screens (1 column)
-              sm={6} // Half width on small screens (2 columns)
-              md={4} // One-third width on medium and larger screens (3 columns)
+              xs={12} 
+              sm={6} 
+              md={4} 
               key={index}
               sx={{maxWidth:'330px',width:'100%'}}
-              // Removed maxWidth on Grid item: Let the Grid system manage item widths
+
             >
-              {/* Ensure PricingCard itself is flexible (e.g., width: 100% inside) */}
               <PricingCard
                 index={index}
                 title={plan.title}
