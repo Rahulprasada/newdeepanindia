@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import PricingCard from "./PricingCard";
+import PricingCard from "./PricingCard"; // Assuming PricingCard is a client component
 import Investor from "../../../assets/investor.png"; // Ensure these paths are correct
 import Trader from "../../../assets/trader.png";
 import Wealth from "../../../assets/wealth-management.png";
@@ -31,8 +31,6 @@ const plansData = [
     description: "+ GST per quarter",
     icon: Trader,
     subtitle: "(For traders looking for second income)",
-    // These are summary features displayed on the card.
-    // The dialog will show the full list (WISE INVESTOR features + these two)
     features: [
       "All WISE INVESTOR features PLUS:",
       "Advisory Services for all segments",
@@ -57,14 +55,15 @@ const plansData = [
 
 export default function PricingPlans() {
   return (
-      <Box
-        sx={{
-          padding: { xs: "30px 0", sm: "85px 0" },
-          backgroundColor: "#f9f3fe",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
+    <Box
+      sx={{
+        padding: { xs: "30px 0", sm: "85px 0" }, // Responsive vertical padding
+        backgroundColor: "#f9f3fe",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <Container maxWidth="lg"> {/* Using maxWidth="lg" for consistent content width */}
         <Typography
           sx={{
             padding: "10px",
@@ -82,7 +81,7 @@ export default function PricingPlans() {
             fontWeight: 600,
             color: "#49326b",
             fontSize: "18px",
-            mb: { xs: 2, sm: 3 },
+            mb: { xs: 2, sm: 3 }, // Margin bottom for spacing below subtitle
           }}
         >
           Unlock endless possibilities for your investments
@@ -90,30 +89,27 @@ export default function PricingPlans() {
 
         <Grid
           container
-          spacing={{ xs: 2, sm: 4, md: 3 }}
+          maxWidth={'1500px'}
+          spacing={{ xs: 2, sm: 4, md: 6 }} // Responsive spacing between grid items
+          justifyContent="center" // Center cards when there aren't enough to fill a row
+          alignItems="stretch" // Crucial: Makes all cards in a row have the same height
           sx={{
-            marginBottom: "10px",
-            marginTop: "10px",
-            maxWidth: "100%",
-            display: "flex",
-            justifyContent: { sm: "center", md: "center" },
-            flexDirection: { sm: "column", md: "row", margin: "50px" },
-          }} // alignItems: "stretch" for Grid items to have same height
+            // Remove conflicting margin/flexDirection here, rely on Grid's props
+            marginTop: { xs: '20px', sm: '40px' }, // Add top margin
+            marginBottom: { xs: '20px', sm: '40px' }, // Add bottom margin
+          }}
         >
           {plansData.map((plan, index) => (
             <Grid
               item
-              xs={12}
-              sm={4}
-              md={4}
+              xs={12} // Full width on extra-small screens (1 column)
+              sm={6} // Half width on small screens (2 columns)
+              md={4} // One-third width on medium and larger screens (3 columns)
               key={index}
-              sx={{ maxWidth: { md: "20%", sm: "90%", xs: "90%" } }}
+              sx={{maxWidth:'330px',width:'100%'}}
+              // Removed maxWidth on Grid item: Let the Grid system manage item widths
             >
-              {" "}
-              {/* Changed sm to 6 for better intermediate step; keeping md={4} for 3 columns */}
-              {/* To strictly enforce 3 columns on small screens if space allows: sm={4} */}
-              {/* If you have exactly 3 plans, sm={4} md={4} is ideal: */}
-              {/* <Grid item xs={12} sm={4} md={4} key={index}> */}
+              {/* Ensure PricingCard itself is flexible (e.g., width: 100% inside) */}
               <PricingCard
                 index={index}
                 title={plan.title}
@@ -122,12 +118,12 @@ export default function PricingPlans() {
                 subtitle={plan.subtitle}
                 features={plan.features}
                 icon={plan.icon}
-                allPlansData={plansData} // Pass all plans data for reference (e.g., for SMART TRADER inheritance)
-                // buttonText, popular, colorClass are not in plansData or used by provided PricingCard
+                allPlansData={plansData}
               />
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
+    </Box>
   );
 }

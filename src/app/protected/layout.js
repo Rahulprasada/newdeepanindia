@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { isAuthenticatedClient, redirectToLogin } from "../../lib/auth";
+import { isAuthenticatedClient, redirectToLogin } from "../lib/auth";
 
 export default function ProtectedLayout({ children }) {
   useEffect(() => {

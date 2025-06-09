@@ -57,9 +57,9 @@ const PricingCard = ({
       sx={{
         // --- CORE LAYOUT ---
         height: "100%",
+        maxHeight:'600px',
         display: "flex",
         flexDirection: "column",
-        
         // --- STYLES TRANSLATED FROM STYLED-COMPONENTS ---
         padding: isCenterCard ? { xs: "40px 20px", md: "50px 25px" } : "40px 20px 20px",
         borderRadius: "20px",
