@@ -46,7 +46,7 @@ const TrainingInFinancialMarketing = ({ serviceName }) => {
 
   return (
     <Box sx={{ px: { xs: 1, sm: 2 }, py: { xs: 2, sm: 4 }, backgroundColor: '#fff' }}>
-      <Container maxWidth="slg">
+      <Container maxWidth="lg">
         <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} justifyContent="center">
           {courses.map((course, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>

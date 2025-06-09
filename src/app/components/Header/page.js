@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FaSearch, FaAngleDown } from "react-icons/fa";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 import styles from "./Header.module.css";
 import Deepalogo from "../../../assets/EditedLogo-removebg-preview.png";
 
@@ -18,15 +18,14 @@ export default function Header() {
   const [isMobile, setIsMobile] = useState(false);
   let hoverTimeout;
 
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 676);
     };
-  
+
     handleResize(); // run once on mount
     window.addEventListener("resize", handleResize);
-  
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -73,38 +72,54 @@ export default function Header() {
     <header className={styles.headerContainer}>
       <div className={styles.topHeader}>
         <Navbar expand="lg" className={styles.myTopHeader}>
-          <Container style={{display:'flex', justifyContent:'center',height:'60px',alignItems:'center'}}>
+          <Container
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              height: "60px",
+              alignItems: "center",
+            }}
+          >
             <div className={styles.topMenuItem}>
               <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me d-flex align-items-center" >
-                  <Link style={{marginLeft:'20px',fontWeight:'bold',color:'red'}}
+                <Nav className="me d-flex align-items-center">
+                  <Link
+                    style={{
+                      marginLeft: "20px",
+                      fontWeight: "bold",
+                      color: "red",
+                    }}
                     href="/#ourstory"
                     className={styles.styledNavLink}
                     onClick={() => handleNavigation("/#ourstory")}
                   >
                     Home
                   </Link>
-                  <Link style={{marginLeft:'20px',fontWeight:'bold'}}
+                  <Link
+                    style={{ marginLeft: "20px", fontWeight: "bold" }}
                     href="/#About"
                     className={styles.styledNavLink}
                     onClick={() => handleNavigation("/#About")}
                   >
                     Who We Are
                   </Link>
-                  <Nav.Link style={{marginLeft:'20px',fontWeight:'bold'}}
+                  <Nav.Link
+                    style={{ marginLeft: "20px", fontWeight: "bold" }}
                     onClick={() => handleNavigation("/")}
                     className={styles.algoTradingLink}
                   >
                     Algo Trading
                   </Nav.Link>
-                  <Link style={{marginLeft:'20px',fontWeight:'bold'}}
+                  <Link
+                    style={{ marginLeft: "20px", fontWeight: "bold" }}
                     href="/#partner"
                     className={styles.styledNavLink}
                     onClick={() => handleNavigation("/#partner")}
                   >
                     Partner with us
                   </Link>
-                  <Nav.Link style={{marginLeft:'20px', fontWeight:'bold'}}
+                  <Nav.Link
+                    style={{ marginLeft: "20px", fontWeight: "bold" }}
                     onClick={() => handleNavigation("/#contact")}
                     className={styles.btnTopHeader}
                   >
@@ -127,40 +142,76 @@ export default function Header() {
               <Image
                 src={Deepalogo}
                 alt="Logo"
-                width={100}
-                height={100}
-                className={styles.logo}
+                style={{
+                  width:"auto",
+                  height: "100px",
+                  cursor: "pointer",
+                }}
               />
             </div>
             <div
               className={`${styles.hamburger} sample`}
               onClick={() => setIsOpen(!isOpen)}
             >
-              <div className={isOpen ? styles.hamburgerLine1Open : styles.hamburgerLine}></div>
-              <div className={isOpen ? styles.hamburgerLine2Open : styles.hamburgerLine}></div>
-              <div className={isOpen ? styles.hamburgerLine3Open : styles.hamburgerLine}></div>
+              <div
+                className={
+                  isOpen ? styles.hamburgerLine1Open : styles.hamburgerLine
+                }
+              ></div>
+              <div
+                className={
+                  isOpen ? styles.hamburgerLine2Open : styles.hamburgerLine
+                }
+              ></div>
+              <div
+                className={
+                  isOpen ? styles.hamburgerLine3Open : styles.hamburgerLine
+                }
+              ></div>
             </div>
-            <div className={`${styles.navBtn} ${isOpen ? styles.navBtnOpen : ""}`}>
+            <div
+              className={`${styles.navBtn} ${isOpen ? styles.navBtnOpen : ""}`}
+            >
               <ul className={styles.navLinks}>
                 <li
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(0)}
                   onMouseLeave={handleMouseLeave}
-                  style={{display:'flex'}}
+                  style={{ display: "flex" }}
                 >
-                  What We Serve <FaAngleDown style={{marginTop:'5px'}} />
-                  <div className={`${styles.dropdown} ${visibleDropdown === 0 ? styles.dropdownShow : ""}`}>
+                  What We Serve <FaAngleDown style={{ marginTop: "5px" }} />
+                  <div
+                    className={`${styles.dropdown} ${
+                      visibleDropdown === 0 ? styles.dropdownShow : ""
+                    }`}
+                  >
                     <ul>
-                      <li onClick={() => router.push("/WhatWeServe/investment-solution")}>
+                      <li
+                        onClick={() =>
+                          router.push("/WhatWeServe/investment-solution")
+                        }
+                      >
                         Investment Solutions
                       </li>
-                      <li onClick={() => router.push("/WhatWeServe/retirement-planning")}>
+                      <li
+                        onClick={() =>
+                          router.push("/WhatWeServe/retirement-planning")
+                        }
+                      >
                         Retirement Planning
                       </li>
-                      <li onClick={() => router.push("/WhatWeServe/wealth-management")}>
+                      <li
+                        onClick={() =>
+                          router.push("/WhatWeServe/wealth-management")
+                        }
+                      >
                         Wealth Management
                       </li>
-                      <li onClick={() => router.push("/WhatWeServe/educational-resource")}>
+                      <li
+                        onClick={() =>
+                          router.push("/WhatWeServe/educational-resource")
+                        }
+                      >
                         Educational Resources
                       </li>
                     </ul>
@@ -170,30 +221,56 @@ export default function Header() {
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(1)}
                   onMouseLeave={handleMouseLeave}
-                  style={{display:'flex'}}
+                  style={{ display: "flex" }}
                 >
-                  What We Do <FaAngleDown style={{marginTop:'5px'}} />
-                  <div className={`${styles.dropdown} ${visibleDropdown === 1 ? styles.dropdownShow : ""}`}>
+                  What We Do <FaAngleDown style={{ marginTop: "5px" }} />
+                  <div
+                    className={`${styles.dropdown} ${
+                      visibleDropdown === 1 ? styles.dropdownShow : ""
+                    }`}
+                  >
                     <ul>
                       <li onClick={() => router.push("/service/mutual-funds")}>
                         Mutual Funds
                       </li>
-                      <li onClick={() => router.push("/service/training-in-financial-markets")}>
+                      <li
+                        onClick={() =>
+                          router.push("/service/training-in-financial-markets")
+                        }
+                      >
                         Training in Financial Markets
                       </li>
                       <li onClick={() => router.push("/service/algo-trading")}>
                         Algo Trading Solutions
                       </li>
-                      <li onClick={() => router.push("/service/advisory-services")}>
+                      <li
+                        onClick={() =>
+                          router.push("/service/advisory-services")
+                        }
+                      >
                         Advisory Services
                       </li>
-                      <li onClick={() => router.push("/service/fixed-deposits-&-bond")}>
+                      <li
+                        onClick={() =>
+                          router.push("/service/fixed-deposits-&-bond")
+                        }
+                      >
                         Fixed Deposits & Bonds
                       </li>
-                      <li onClick={() => router.push("/service/alternate-investment-funds-(AIFS)")}>
+                      <li
+                        onClick={() =>
+                          router.push(
+                            "/service/alternate-investment-funds-(AIFS)"
+                          )
+                        }
+                      >
                         Alternative Investment funds
                       </li>
-                      <li onClick={() => router.push("/service/real-estate-funds")}>
+                      <li
+                        onClick={() =>
+                          router.push("/service/real-estate-funds")
+                        }
+                      >
                         Real Estate funds
                       </li>
                       <li onClick={() => router.push("/service/insurances")}>
@@ -206,14 +283,24 @@ export default function Header() {
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(3)}
                   onMouseLeave={handleMouseLeave}
-                  style={{display:'flex'}}
+                  style={{ display: "flex" }}
                 >
-                  What We Think <FaAngleDown style={{marginTop:'5px'}} />
-                  <div className={`${styles.dropdown} ${visibleDropdown === 3 ? styles.dropdownShow : ""}`}>
+                  What We Think <FaAngleDown style={{ marginTop: "5px" }} />
+                  <div
+                    className={`${styles.dropdown} ${
+                      visibleDropdown === 3 ? styles.dropdownShow : ""
+                    }`}
+                  >
                     <ul>
-                      <li onClick={() => handleNavigation("/Blog/blogs")}>Blogs</li>
-                      <li onClick={() => handleNavigation("/#media")}>Videos</li>
-                      <li onClick={() => handleNavigation("/#media")}>Reports</li>
+                      <li onClick={() => handleNavigation("/Blog/blogs")}>
+                        Blogs
+                      </li>
+                      <li onClick={() => handleNavigation("/#media")}>
+                        Videos
+                      </li>
+                      <li onClick={() => handleNavigation("/#media")}>
+                        Reports
+                      </li>
                     </ul>
                   </div>
                 </li>
@@ -221,14 +308,36 @@ export default function Header() {
                   className={styles.navLink}
                   onMouseEnter={() => handleMouseEnter(2)}
                   onMouseLeave={handleMouseLeave}
-                  style={{display:'flex'}}
+                  style={{ display: "flex" }}
                 >
-                  Calculator <FaAngleDown style={{marginTop:'5px'}}/>
-                  <div className={`${styles.dropdown} ${visibleDropdown === 2 ? styles.dropdownShow : ""}`}>
+                  Calculator <FaAngleDown style={{ marginTop: "5px" }} />
+                  <div
+                    className={`${styles.dropdown} ${
+                      visibleDropdown === 2 ? styles.dropdownShow : ""
+                    }`}
+                  >
                     <ul>
-                      <li onClick={() => router.push("../calculators/sip-calculator")}>SIP</li>
-                      <li onClick={() => router.push("../calculators/lumpsum-calculator")}>Lumpsum</li>
-                      <li onClick={() => router.push("calculators/swp-calculator")}>SWP</li>
+                      <li
+                        onClick={() =>
+                          router.push("../calculators/sip-calculator")
+                        }
+                      >
+                        SIP
+                      </li>
+                      <li
+                        onClick={() =>
+                          router.push("../calculators/lumpsum-calculator")
+                        }
+                      >
+                        Lumpsum
+                      </li>
+                      <li
+                        onClick={() =>
+                          router.push("/calculators/swp-calculator")
+                        }
+                      >
+                        SWP
+                      </li>
                     </ul>
                   </div>
                 </li>
@@ -237,217 +346,223 @@ export default function Header() {
           </div>
 
           {!isMobile && (
-          <div className={styles.mobileMenus}>
-            <Navbar
-              expand="lg"
-              expanded={expanded}
-              onToggle={() => setExpanded(!expanded)}
-              className={styles.myTopHeader}
-            >
-              <Container>
-                <div className={styles.logoContainer}>
-                  <Image
-                    src={Deepalogo}
-                    alt="Logo"
-                    className={styles.logo}
+            <div className={styles.mobileMenus}>
+              <Navbar
+                expand="lg"
+                expanded={expanded}
+                onToggle={() => setExpanded(!expanded)}
+                className={styles.myTopHeader}
+              >
+                <Container>
+                  <div className={styles.logoContainer}>
+                    <Image src={Deepalogo} alt="Logo" className={styles.logo} />
+                  </div>
+                  <Navbar.Toggle
+                    aria-controls="basic-navbar-nav"
+                    className={styles.customNavbarToggle}
                   />
-                </div>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" className={styles.customNavbarToggle} />
-                <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className={styles.customNavbarLinks}>
-                    <NavDropdown title="Who We Are" id="basic-nav-dropdown">
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/investment-solution");
-                          setExpanded(false);
-                        }}
+                  <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className={styles.customNavbarLinks}>
+                      <NavDropdown title="Who We Are" id="basic-nav-dropdown">
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/investment-solution");
+                            setExpanded(false);
+                          }}
+                        >
+                          Investment Solutions
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/retirement-planning");
+                            setExpanded(false);
+                          }}
+                        >
+                          Retirement Planning
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/wealth-management");
+                            setExpanded(false);
+                          }}
+                        >
+                          Wealth Management
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/educational-resource");
+                            setExpanded(false);
+                          }}
+                        >
+                          Educational Resources
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                      <NavDropdown title="What We Do" id="basic-nav-dropdown">
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/service/mutual-funds");
+                            setExpanded(false);
+                          }}
+                        >
+                          Mutual Funds
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push(
+                              "/service/training-in-financial-markets"
+                            );
+                            setExpanded(false);
+                          }}
+                        >
+                          Training in Financial Markets
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/service/algo-trading");
+                            setExpanded(false);
+                          }}
+                        >
+                          Algo Trading
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/service/advisory-services");
+                            setExpanded(false);
+                          }}
+                        >
+                          Advisory Services
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/service/fixed-deposits-&-bond");
+                            setExpanded(false);
+                          }}
+                        >
+                          Fixed Deposits & Bonds
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push(
+                              "/service/alternate-investment-funds-(AIFS)"
+                            );
+                            setExpanded(false);
+                          }}
+                        >
+                          Alternative Investment funds
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/service/real-estate-funds");
+                            setExpanded(false);
+                          }}
+                        >
+                          Real Estate funds
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/service/insurances");
+                            setExpanded(false);
+                          }}
+                        >
+                          Insurances
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                      <NavDropdown
+                        title="What We Think"
+                        id="basic-nav-dropdown"
                       >
-                        Investment Solutions
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            handleNavigation("/Blog/blogs");
+                            setExpanded(false);
+                          }}
+                        >
+                          Blogs
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            handleNavigation("/#media");
+                            setExpanded(false);
+                          }}
+                        >
+                          Videos
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            handleNavigation("/#media");
+                            setExpanded(false);
+                          }}
+                        >
+                          Reports
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                      <NavDropdown title="Calculator" id="basic-nav-dropdown">
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/sip-calculator");
+                            setExpanded(false);
+                          }}
+                        >
+                          SIP Calculator
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/lumpsum-calculator");
+                            setExpanded(false);
+                          }}
+                        >
+                          Lumpsum
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/swp-calculator");
+                            setExpanded(false);
+                          }}
+                        >
+                          SIP combined with Lumpsum
+                        </NavDropdown.Item>
+                        <NavDropdown.Item
+                          className={styles.navDropdown}
+                          onClick={() => {
+                            router.push("/swp-calculator");
+                            setExpanded(false);
+                          }}
+                        >
+                          SWP
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                      <Nav.Link
                         onClick={() => {
-                          router.push("/retirement-planning");
+                          handleNavigation("/");
                           setExpanded(false);
                         }}
-                      >
-                        Retirement Planning
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/wealth-management");
-                          setExpanded(false);
-                        }}
-                      >
-                        Wealth Management
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/educational-resource");
-                          setExpanded(false);
-                        }}
-                      >
-                        Educational Resources
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                    <NavDropdown title="What We Do" id="basic-nav-dropdown">
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/mutual-funds");
-                          setExpanded(false);
-                        }}
-                      >
-                        Mutual Funds
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/training-in-financial-markets");
-                          setExpanded(false);
-                        }}
-                      >
-                        Training in Financial Markets
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/algo-trading");
-                          setExpanded(false);
-                        }}
+                        className={styles.algoTradingMobileLink}
                       >
                         Algo Trading
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/advisory-services");
-                          setExpanded(false);
-                        }}
-                      >
-                        Advisory Services
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/fixed-deposits-&-bond");
-                          setExpanded(false);
-                        }}
-                      >
-                        Fixed Deposits & Bonds
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/alternate-investment-funds-(AIFS)");
-                          setExpanded(false);
-                        }}
-                      >
-                        Alternative Investment funds
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/real-estate-funds");
-                          setExpanded(false);
-                        }}
-                      >
-                        Real Estate funds
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/service/insurances");
-                          setExpanded(false);
-                        }}
-                      >
-                        Insurances
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                    <NavDropdown title="What We Think" id="basic-nav-dropdown">
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          handleNavigation("/Blog/blogs");
-                          setExpanded(false);
-                        }}
-                      >
-                        Blogs
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          handleNavigation("/#media");
-                          setExpanded(false);
-                        }}
-                      >
-                        Videos
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          handleNavigation("/#media");
-                          setExpanded(false);
-                        }}
-                      >
-                        Reports
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                    <NavDropdown title="Calculator" id="basic-nav-dropdown">
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/sip-calculator");
-                          setExpanded(false);
-                        }}
-                      >
-                        SIP Calculator
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/lumpsum-calculator");
-                          setExpanded(false);
-                        }}
-                      >
-                        Lumpsum
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/swp-calculator");
-                          setExpanded(false);
-                        }}
-                      >
-                        SIP combined with Lumpsum
-                      </NavDropdown.Item>
-                      <NavDropdown.Item
-                        className={styles.navDropdown}
-                        onClick={() => {
-                          router.push("/swp-calculator");
-                          setExpanded(false);
-                        }}
-                      >
-                        SWP
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link
-                      onClick={() => {
-                        handleNavigation("/");
-                        setExpanded(false);
-                      }}
-                      className={styles.algoTradingMobileLink}
-                    >
-                      Algo Trading
-                    </Nav.Link>
-                  </Nav>
-                </Navbar.Collapse>
-              </Container>
-            </Navbar>
-          </div>
+                      </Nav.Link>
+                    </Nav>
+                  </Navbar.Collapse>
+                </Container>
+              </Navbar>
+            </div>
           )}
         </Container>
       </div>

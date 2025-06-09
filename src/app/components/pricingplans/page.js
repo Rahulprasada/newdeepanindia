@@ -57,77 +57,77 @@ const plansData = [
 
 export default function PricingPlans() {
   return (
-    <Box
-      sx={{
-        padding: { xs: "30px 0", sm: "85px 0" },
-        backgroundColor: "#f9f3fe",
-        position: "relative",
-        overflow: "hidden", // Changed to "visible" if float animation needs space outside Box, but hidden is usually fine.
-      }}
-    >
-      <Typography
+      <Box
         sx={{
-          padding: "10px",
-          textAlign: "center",
-          fontWeight: 900,
-          color: "#49326b",
-          fontSize: { xs: "26px", sm: "50px" },
+          padding: { xs: "30px 0", sm: "85px 0" },
+          backgroundColor: "#f9f3fe",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        Our Pricing Plans
-      </Typography>
-      <Typography
-        sx={{
-          textAlign: "center",
-          fontWeight: 600,
-          color: "#49326b",
-          fontSize: "18px",
-          mb: { xs: 2, sm: 3 },
-        }}
-      >
-        Unlock endless possibilities for your investments
-      </Typography>
+        <Typography
+          sx={{
+            padding: "10px",
+            textAlign: "center",
+            fontWeight: 900,
+            color: "#49326b",
+            fontSize: { xs: "26px", sm: "50px" },
+          }}
+        >
+          Our Pricing Plans
+        </Typography>
+        <Typography
+          sx={{
+            textAlign: "center",
+            fontWeight: 600,
+            color: "#49326b",
+            fontSize: "18px",
+            mb: { xs: 2, sm: 3 },
+          }}
+        >
+          Unlock endless possibilities for your investments
+        </Typography>
 
-      <Grid
-        container
-        spacing={{ xs: 2, sm: 4, md: 3 }}
-        sx={{
-          marginBottom: "10px",
-          marginTop: "10px",
-          maxWidth: "100%",
-          display: "flex",
-          justifyContent: { sm: "center", md: "center" },
-          flexDirection: { sm: "column", md: "row", margin: "50px" },
-        }} // alignItems: "stretch" for Grid items to have same height
-      >
-        {plansData.map((plan, index) => (
-          <Grid
-            item
-            xs={12}
-            sm={4}
-            md={4}
-            key={index}
-            sx={{ maxWidth: { md: "20%", sm: "90%", xs: "90%" } }}
-          >
-            {" "}
-            {/* Changed sm to 6 for better intermediate step; keeping md={4} for 3 columns */}
-            {/* To strictly enforce 3 columns on small screens if space allows: sm={4} */}
-            {/* If you have exactly 3 plans, sm={4} md={4} is ideal: */}
-            {/* <Grid item xs={12} sm={4} md={4} key={index}> */}
-            <PricingCard
-              index={index}
-              title={plan.title}
-              price={plan.price}
-              description={plan.description}
-              subtitle={plan.subtitle}
-              features={plan.features}
-              icon={plan.icon}
-              allPlansData={plansData} // Pass all plans data for reference (e.g., for SMART TRADER inheritance)
-              // buttonText, popular, colorClass are not in plansData or used by provided PricingCard
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+        <Grid
+          container
+          spacing={{ xs: 2, sm: 4, md: 3 }}
+          sx={{
+            marginBottom: "10px",
+            marginTop: "10px",
+            maxWidth: "100%",
+            display: "flex",
+            justifyContent: { sm: "center", md: "center" },
+            flexDirection: { sm: "column", md: "row", margin: "50px" },
+          }} // alignItems: "stretch" for Grid items to have same height
+        >
+          {plansData.map((plan, index) => (
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              md={4}
+              key={index}
+              sx={{ maxWidth: { md: "20%", sm: "90%", xs: "90%" } }}
+            >
+              {" "}
+              {/* Changed sm to 6 for better intermediate step; keeping md={4} for 3 columns */}
+              {/* To strictly enforce 3 columns on small screens if space allows: sm={4} */}
+              {/* If you have exactly 3 plans, sm={4} md={4} is ideal: */}
+              {/* <Grid item xs={12} sm={4} md={4} key={index}> */}
+              <PricingCard
+                index={index}
+                title={plan.title}
+                price={plan.price}
+                description={plan.description}
+                subtitle={plan.subtitle}
+                features={plan.features}
+                icon={plan.icon}
+                allPlansData={plansData} // Pass all plans data for reference (e.g., for SMART TRADER inheritance)
+                // buttonText, popular, colorClass are not in plansData or used by provided PricingCard
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
   );
 }

@@ -1,480 +1,316 @@
 "use client";
 
-import React from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import Image from "next/image";
-import InsuranceImage from "../../../assets/23-removebg-preview.png";
+import React, { useState } from "react";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Grid from "@mui/material/Grid"; // Import Grid for layout
+import { styled, keyframes } from "@mui/system"; // Correct import for styled and keyframes
+
+import Image from "next/image"; // Next.js Image component
+import { useRouter } from "next/navigation"; // For Next.js navigation
+
+// Material-UI Icons
+import StarIcon from "@mui/icons-material/Star";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import GavelIcon from "@mui/icons-material/Gavel";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
+
+// Image assets (ensure paths are correct)
+import Handshake from "../../../assets/9-removebg-preview.png"; // Using the correct image path for Wealth Management
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
 
-const MutualFundsSection = ({ serviceName }) => {
+// Keyframes animations using @mui/system keyframes
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+// List of steps for the wealth management section, including icons
+const steps = [
+  {
+    label: "Personalized financial planning across life stages.",
+    icon: <StarIcon />,
+  },
+  {
+    label: "Investment advisory and portfolio management.",
+    icon: <AccountBalanceWalletIcon />,
+  },
+  { label: "Tax optimization and legal structuring.", icon: <GavelIcon /> },
+  { label: "Estate and succession planning.", icon: <AccountBalanceIcon /> },
+  { label: "Insurance and risk management.", icon: <VerifiedUserIcon /> },
+  {
+    label: "Family office services for legacy building.",
+    icon: <FamilyRestroomIcon />,
+  },
+];
+
+// Styled component for the main container box
+const MainBox = styled(Box)(({ theme }) => ({
+  padding: '60px 0',
+  backgroundColor: '#f9f3fe',
+  position: 'relative',
+  overflow: 'hidden',
+
+  [theme.breakpoints.down('sm')]: { // @media screen and (max-width: 600px)
+    padding: '30px 0',
+  },
+}));
+
+// Styled component for the Qualification box with background image
+const QualificationBox = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  width: '100%',
+  backgroundImage: `linear-gradient(rgba(73, 50, 107, 0.7), rgba(73, 50, 107, 0.7)), url(${aboutImg1.src})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  padding: '40px 40px', // Default padding for larger screens
+  borderRadius: '16px',
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  boxShadow: '0 8px 24px rgba(73, 50, 107, 0.1)', // Added shadow for consistency
+
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'rgba(73, 50, 107, 0.3)',
+    zIndex: 1,
+  },
+
+  '& > *': {
+    position: 'relative',
+    zIndex: 2,
+  },
+
+  [theme.breakpoints.down('sm')]: { // @media (max-width: 600px)
+    padding: '20px 10px',
+  },
+}));
+
+// Styled component for the Highlight Span within Typography
+const HighlightSpan = styled('span')(({ theme }) => ({
+  color: 'white', // Default color
+  fontWeight: 700,
+  transition: 'color 0.3s ease',
+  '&:hover': {
+    color: '#e73ed1', // Hover color
+  },
+}));
+
+const WealthManagement = () => {
+  const router = useRouter(); // Initialize useRouter for navigation
+  const [imageError, setImageError] = useState({});
+
+  // Handler for image loading errors, showing a fallback text
+  const handleImageError = (key) => {
+    setImageError((prev) => ({ ...prev, [key]: true }));
+  };
+
   return (
-    <Box
-      sx={{
-        backgroundColor: "#f9f3fe",
-        padding: { xs: 2, sm: 4 },
-        borderRadius: "1px",
-      }}
-    >
+    <MainBox>
       <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          {/* Key Benefits */}
-          <Grid item xs={12} sm={6} md={6}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                flexDirection: "column",
-                alignItems: "left",
-                padding: "20px",
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" },
-                  fontWeight: 900,
-                  color: "#49326b",
-                }}
-              >
-                Key Benefits
-              </Typography>
-              <Box sx={{ p: 3, marginTop: "10px" }}>
-                <Typography
-                  sx={{
-                    color: "#49326b",
-                    marginBottom: "6px",
-                    fontSize: "1.5rem",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <RadioButtonCheckedIcon
-                    sx={{ paddingRight: "10px", fontSize: "35px" }}
-                  />
-                  Diversification across sectors/assets.
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#49326b",
-                    marginBottom: "6px",
-                    fontSize: "1.5rem",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <RadioButtonCheckedIcon
-                    sx={{ paddingRight: "10px", fontSize: "35px" }}
-                  />
-                  Professional fund management.
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#49326b",
-                    marginBottom: "6px",
-                    fontSize: "1.5rem",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <RadioButtonCheckedIcon
-                    sx={{ paddingRight: "10px", fontSize: "35px" }}
-                  />
-                  Suitable for every risk profile.
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#49326b",
-                    marginBottom: "6px",
-                    fontSize: "1.5rem",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <RadioButtonCheckedIcon
-                    sx={{ paddingRight: "10px", fontSize: "35px" }}
-                  />
-                  Liquidity and transparency.
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={6}
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Image
-                src={InsuranceImage}
-                alt="Mutual Funds Illustration"
-                width={400}
-                height={400}
-                style={{
-                  width: "100%",
-                  maxWidth: "400px",
-                  borderRadius: "12px",
-                  height: "auto",
-                }}
-              />
-            </Box>
-          </Grid>
-        </Grid>
-        {/* Divider */}
-        <Divider
+        {/* Main Title */}
+        <Typography
           sx={{
-            backgroundColor: "#25143f",
-            height: "6px",
-            width: "100%",
-            margin: "0px 50px 50px 0px",
+            padding: { xs: "20px 0 5px 0", sm: "30px 0" },
+            textAlign: "left",
+            fontWeight: 900,
+            color: "#49326b",
+            fontSize: { xs: "26px", sm: "50px" },
           }}
-        />
-        {/* Investment Options */}
-        <Grid container spacing={4}>
-          {/* SIP */}
-          <Grid item xs={12} sm={6} md={2}>
-            <Box
-              sx={{
-                position: "relative",
-                width: "100%",
-                height: "100%",
-                border: "10px solid #e4d4fa",
-                padding: "20px 20px",
-                borderRadius: "16px",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "left",
-                justifyContent: "center",
-                animation: "fadeIn 6s ease-in-out infinite alternate",
-                "@keyframes fadeIn": {
-                  "0%": {
-                    transform: "scale(1.02)",
-                  },
-                  "50%": {
-                    transform: "scale(1.03)",
-                  },
-                  "100%": {
-                    transform: "scale(1)",
-                  },
-                },
-                "&:hover": {
-                  transition: "all 0.55s ease-in",
-                  boxShadow: "0 20px 40px #49326b",
-                  background:
-                    "linear-gradient(135deg, #49326b 0%, rgba(210, 152, 228, 0.25) 100%)",
-                  "& .feature-icon": {
-                    transform: "scale(1.1)",
-                    background:
-                      "linear-gradient(45deg, #49326b, rgb(167, 103, 180))",
-                  },
-                },
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  zIndex: 1,
-                },
-                "& > *": {
-                  position: "relative",
-                  zIndex: 2,
-                },
-                padding: { xs: "20px 10px", sm: "20px 20px" },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: { xs: "1.5rem", sm: "1.3rem" },
-                  fontWeight: 900,
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  backgroundColor: "#f9f3fe",
-                  padding: "10px",
-                  borderRadius: "8px",
-                  color: "#49326b",
-                }}
-              >
-                SIP (Systematic Investment Plan)
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <Box sx={{ pl: 1 }}>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Small, regular investments (monthly/weekly).
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Builds discipline and long-term wealth.
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Rupee cost averaging benefit.
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Great for salaried individuals.
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </Grid>
+        >
+          Wealth Management
+        </Typography>
 
-          {/* Lumpsum */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                position: "relative",
-                width: "100%",
-                height: "100%",
-                border: "10px solid #e4d4fa",
-                padding: "20px 20px",
-                borderRadius: "16px",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "left",
-                justifyContent: "center",
-                animation: "fadeIn 6s ease-in-out infinite alternate",
-                "@keyframes fadeIn": {
-                  "0%": {
-                    transform: "scale(1.02)",
-                  },
-                  "50%": {
-                    transform: "scale(1.03)",
-                  },
-                  "100%": {
-                    transform: "scale(1)",
-                  },
-                },
-                "&:hover": {
-                  transition: "all 0.55s ease-in",
-                  boxShadow: "0 20px 40px #49326b",
-                  background:
-                    "linear-gradient(135deg, #49326b 0%, rgba(210, 152, 228, 0.25) 100%)",
-                  "& .feature-icon": {
-                    transform: "scale(1.1)",
-                    background:
-                      "linear-gradient(45deg, #49326b, rgb(167, 103, 180))",
-                  },
-                },
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  zIndex: 1,
-                },
-                "& > *": {
-                  position: "relative",
-                  zIndex: 2,
-                },
-                padding: { xs: "20px 10px", sm: "20px 20px" },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: { xs: "1.5rem", sm: "1.3rem" },
-                  fontWeight: 900,
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  backgroundColor: "#f9f3fe",
-                  padding: "10px",
-                  borderRadius: "8px",
-                  color: "#49326b",
-                }}
-              >
-                📌 Lumpsum Investment
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <Box sx={{ pl: 1 }}>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - One-time bulk investment (as & when you get surplus).
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Best suited during market dips or windfalls.
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Potential for higher returns in long-term bull phases.
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </Grid>
+        {/* Introductory Text */}
+        <Typography
+          sx={{
+            textAlign: "left",
+            color: "#49326b",
+            fontSize: { xs: "16px", sm: "22px" },
+            marginBottom: { xs: "30px", sm: "40px" },
+            fontWeight: 300,
+          }}
+        >
+          Our comprehensive wealth management solutions are tailored for
+          high-net-worth individuals and families. We offer:
+        </Typography>
 
-          {/* SWP */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              sx={{
-                position: "relative",
-                width: "100%",
-                height: "100%",
-                border: "10px solid #e4d4fa",
-                padding: "20px 20px",
-                borderRadius: "16px",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "left",
-                justifyContent: "center",
-                animation: "fadeIn 6s ease-in-out infinite alternate",
-                "@keyframes fadeIn": {
-                  "0%": {
-                    transform: "scale(1.02)",
-                  },
-                  "50%": {
-                    transform: "scale(1.03)",
-                  },
-                  "100%": {
-                    transform: "scale(1)",
-                  },
-                },
-                "&:hover": {
-                  transition: "all 0.55s ease-in",
-                  boxShadow: "0 20px 40px #49326b",
-                  background:
-                    "linear-gradient(135deg, #49326b 0%, rgba(210, 152, 228, 0.25) 100%)",
-                  "& .feature-icon": {
-                    transform: "scale(1.1)",
-                    background:
-                      "linear-gradient(45deg, #49326b, rgb(167, 103, 180))",
-                  },
-                },
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  zIndex: 1,
-                },
-                "& > *": {
-                  position: "relative",
-                  zIndex: 2,
-                },
-                padding: { xs: "20px 10px", sm: "20px 20px" },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: { xs: "1.5rem", sm: "1.3rem" },
-                  fontWeight: 900,
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  backgroundColor: "#f9f3fe",
-                  padding: "10px",
-                  borderRadius: "8px",
-                  color: "#49326b",
-                }}
-              >
-                📌 SWP (Systematic Withdrawal Plan)
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <Box sx={{ pl: 1 }}>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Regular income from invested funds.
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Ideal for retirees or passive income seekers.
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#49326b",
-                      marginBottom: "6px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    - Capital remains invested while income is generated.
-                  </Typography>
+        {/* Qualification Card Section */}
+        <QualificationBox>
+          <Card
+            sx={{
+              background: "rgba(255, 255, 255, 0.95)",
+              borderRadius: "16px",
+              border: "10px solid #e4d4fa",
+              boxShadow: "0 8px 24px rgba(73, 50, 107, 0.1)",
+              padding: { xs: "20px", md: "20px" },
+              animation: `${slideIn} 1s ease-in-out`,
+              width: "100%", // Take full width within QualificationBox
+              maxWidth: "1000px", // Increased max width for better layout on large screens
+            }}
+          >
+            <Grid container spacing={{ xs: 2, md: 6 }} alignItems="center"> {/* Grid for layout inside Card */}
+              {/* Points List */}
+              <Grid item xs={12} sm={6} md={6}>
+                <List sx={{ width: "100%" }}>
+                  {steps.map((step, index) => (
+                    <ListItem
+                      key={index}
+                      sx={{
+                        py: 1, // Adjusted vertical padding for list items
+                        transition: "transform 0.3s ease",
+                        "&:hover": {
+                          transform: { xs: "none", sm: "translateX(8px)" }, // Hover effect only on larger screens
+                          background: "#e4d4fa",
+                          borderRadius: "8px",
+                        },
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: "40px" }}>
+                        {/* Use the specific icon from the step object */}
+                        {React.cloneElement(step.icon, {
+                          sx: { color: "#49326b", fontSize: "22px" },
+                        })}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={step.label}
+                        primaryTypographyProps={{
+                          fontSize: "16px",
+                          fontWeight: 600,
+                          color: "#49326b",
+                        }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+
+              {/* Handshake Image */}
+              <Grid item xs={12} sm={6} md={6}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    mt: { xs: 2, sm: 0 }, // Margin top on mobile, none on larger screens
+                  }}
+                >
+                  {!imageError.handshake ? (
+                    <Image
+                      src={Handshake}
+                      alt="Wealth Management Handshake"
+                      width={400} // Base width for Next.js Image
+                      height={400} // Base height for Next.js Image
+                      style={{
+                        width: "100%",
+                        maxWidth: "400px",
+                        height: "auto",
+                        display: "block", // Ensure image is a block element for sizing
+                        animation: `${slideIn} 1.2s ease-in-out`,
+                      }}
+                      priority // Optimizes image loading
+                      onError={() => handleImageError("handshake")}
+                    />
+                  ) : (
+                    <Box
+                      sx={{
+                        width: { xs: "100%", sm: "400px" }, // Fallback width
+                        height: { xs: "200px", sm: "400px" }, // Fallback height
+                        bgcolor: "#e4d4fa",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderRadius: "12px",
+                      }}
+                    >
+                      <Typography color="error" variant="body2">
+                        Image not available
+                      </Typography>
+                    </Box>
+                  )}
                 </Box>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
+              </Grid>
+            </Grid>
+          </Card>
+
+          {/* Call to action text */}
+          <Typography
+            sx={{
+              textAlign: "center",
+              fontSize: { xs: "18px", sm: "28px" },
+              fontWeight: "900",
+              color: "white",
+              marginTop: "20px",
+              padding: "10px",
+            }}
+          >
+            <HighlightSpan>
+              With a strategic and holistic approach, we protect and grow your
+              wealth over generations.
+            </HighlightSpan>
+          </Typography>
+
+          {/* Get More Button */}
+          <Box sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mt: 4, // Margin top for spacing
+          }}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#49326b",
+                color: "#ffffff",
+                fontWeight: 600,
+                padding: '12px 32px',
+                borderRadius: '8px',
+                textTransform: 'none',
+                fontSize: '18px',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: '#e4d4fa',
+                  color: '#49326b',
+                  transform: 'scale(1.05)',
+                },
+                "@media (max-width: 600px)": {
+                  padding: '10px 24px',
+                  fontSize: '16px',
+                },
+              }}
+              onClick={() => router.push("/#contact")} // Link to contact section
+              aria-label="Get more information about wealth management"
+            >
+              Get More Info
+            </Button>
+          </Box>
+        </QualificationBox>
       </Container>
-    </Box>
+    </MainBox>
   );
 };
 
-export default MutualFundsSection;
+export default WealthManagement;

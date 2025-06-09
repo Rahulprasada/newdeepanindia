@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
 
     if (!data) {
       return {
-        title: "Blog Not Found | Deepan India",
+        title: `${String(id)}`| "Deepan India",
         description: "The requested blog post could not be found.",
       };
     }

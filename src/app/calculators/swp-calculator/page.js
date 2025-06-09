@@ -211,7 +211,7 @@ const SWPCalculator = () => {
             p: "40px",
           }}
         >
-          <Grid container spacing={4}>
+          <Grid container spacing={4} sx={{width:'100%'}}>
             {/* Controls */}
             <Grid item xs={12} md={6}> {/* Adjusted to match first component */}
               <CardContent sx={{ backgroundColor: "#f9f3fe", p: "20px" }}>
@@ -492,9 +492,9 @@ const SWPCalculator = () => {
             >
               <Box
                 sx={{
-                  width: { xs: "100%", sm: "80%", md: "400px" }, // Adjusted to match first component
+                  width: { xs: "100%", sm: "80%", md: "600px" }, // Adjusted to match first component
                   height: { xs: "250px", sm: "300px", md: "300px" }, // Adjusted to match first component
-                  maxWidth: "400px", // Adjusted to match first component
+                  maxWidth: "1000px", // Adjusted to match first component
                 }}
               >
                 <Pie data={chartData} options={chartOptions} />
@@ -502,9 +502,9 @@ const SWPCalculator = () => {
             </Grid>
 
             {/* Summary Cards */}
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={4}> {/* Adjusted to match first component */}
+            <Grid item xs={12} sx={{maxWidth:'1000px',width:'100%'}}>
+              <Grid container spacing={5}>
+                <Grid item xs={12} md={4} sx={{maxWidth:'300px',width:'100%'}}> {/* Adjusted to match first component */}
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(204, 8, 8)",
@@ -535,7 +535,7 @@ const SWPCalculator = () => {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} sx={{maxWidth:'300px',width:'100%'}}>
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(19, 20, 119)",
@@ -565,7 +565,7 @@ const SWPCalculator = () => {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} sx={{maxWidth:'300px',width:'100%'}}>
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(40, 128, 40)",

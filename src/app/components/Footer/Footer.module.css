@@ -1,3 +1,4 @@
+/* Footer Container */
 .footerMain {
   padding: 70px 0 30px 0;
   border-top: 5px solid #49326b;
@@ -7,136 +8,164 @@
 
 @media screen and (max-width: 600px) {
   .footerMain {
-    padding: 40px 0 ;
+    padding: 40px 0;
   }
 }
 
+/* Section Titles (e.g., What We Serve) */
 .footTitle {
-  font-size: 10px;
+  font-size: 16px; /* Adjusted to be slightly larger */
   padding: 5px 0;
   color: #49326b;
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-bottom: 10px; /* Space below title */
   font-weight: bold;
+  text-transform: capitalize; /* Matches original styled-components */
 }
 
+/* Links within each section */
 .links {
   display: flex;
   flex-direction: column;
-  list-style-type: none;
-  gap: 10px;
-  margin: 10px 0px;
+  list-style-type: none; /* Remove bullet points */
+  gap: 1px; /* Space between links */
+  margin: 5px 0;
   padding: 0;
 }
 
 .linkItem {
-  padding: 5px 0;
   font-size: 15px;
   color: #49326b;
-  text-decoration: none;
+  text-decoration: none; /* Remove underline */
   transition: color 0.3s ease-in-out;
+  padding: 5px 0; /* Add padding for clickability */
+  display: block; /* Ensure full clickable area */
 }
 
 .linkItem:hover {
-  color: #e91313;
+  color: #e91313; /* Hover color for links */
 }
 
+/* Address Text */
 .addressText {
-  font-size: 14px;
+  font-size: 15px; /* Consistent with link items */
   color: #49326b;
   line-height: 1.5;
-  width: 260px;
+  /* Removed fixed width to allow responsiveness */
 }
 
+/* Google Maps Iframe Container */
 .mapContainer {
   margin-top: 30px;
   width: 100%;
-  height: 250px;
+  height: 250px; /* Default height */
 }
 
 .mapIframe {
   width: 100%;
   height: 100%;
   border: 0;
+  border-radius: 8px; /* Added slight border radius for map */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for map */
 }
 
 @media screen and (max-width: 900px) {
   .mapContainer {
-    height: 200px;
+    height: 200px; /* Shorter on tablets */
   }
 }
 
 @media screen and (max-width: 600px) {
   .mapContainer {
-    height: 150px;
+    height: 150px; /* Even shorter on mobile */
   }
 }
 
+/* Footer Divider */
 .styledDivider {
   background-color: #49326b;
   height: 6px;
-  margin: 40px 0;
+  margin: 50px 0; /* Adjusted margin to match original more closely */
+  width: 100%;
 }
 
-.logoContainer {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.logo {
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-}
-
-.logo:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-
+/* Social Icons Section (Bottomlink1) */
 .bottomLink1 {
   display: flex;
+  justify-content: flex-start; /* Align to start by default */
+  gap: 20px; /* Space between icons */
+  margin: 10px 0 0 0;
   padding: 0;
+  list-style-type: none; /* Ensure no list styling */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-.socialLink {
-  display: inline-block;
-  color: #df1414;
-}
-
-.iconImage {
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-}
-
-.iconImage:hover {
-  transform: scale(1.2);
-  filter: brightness(0.8);
+@media screen and (max-width: 900px) {
+  .bottomLink1 {
+    justify-content: center; /* Center icons on tablets */
+    margin-bottom: 20px; /* Add some space below on tablets */
+  }
 }
 
 @media screen and (max-width: 600px) {
   .bottomLink1 {
-    gap: 15px;
-  }
-
-  .iconImage {
-    width: 40px !important;
-    height: 25px !important;
+    justify-content: center; /* Center icons on mobile */
+    gap: 15px; /* Smaller gap on mobile */
+    margin-bottom: 15px; /* Adjust margin for mobile */
   }
 }
 
+.socialLink {
+  display: flex; /* Make the link a flex container for centering icon */
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Fixed width for circular background */
+  height: 40px; /* Fixed height for circular background */
+  background-color: #49326b; /* Background color for the circle */
+  border-radius: 50%; /* Make it a circle */
+  color: white; /* Icon color */
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
+  text-decoration: none; /* Remove underline from social link */
+}
+
+.socialLink:hover {
+  transform: scale(1.1); /* Slightly larger on hover */
+  filter: brightness(0.9); /* Subtle dimming on hover */
+  background-color: #33197a; /* Darker background on hover */
+}
+
+.iconImage {
+  font-size: 20px !important; /* Force font size for MUI icons */
+  color: white; /* Ensure icon color is white */
+  /* Remove image-specific width/height as MUI icons handle their size */
+}
+
+/* Copyright Text */
 .copyrightText {
   font-size: 16px;
   font-weight: 600;
   color: #49326b;
-  text-align: center;
+  text-align: center; /* Center by default */
   margin: 20px 0;
 }
 
+/* Privacy Policy and Terms of Service (Bottomlink) */
 .bottomLink {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: center; /* Center on small screens by default */
+  gap: 20px; /* Space between links */
   margin: 20px 0;
   padding: 0;
+  list-style-type: none; /* Remove list styling */
+  flex-wrap: wrap; /* Allow wrapping */
+}
+
+@media screen and (max-width: 600px) {
+  .bottomLink {
+    flex-direction: column; /* Stack vertically on very small screens */
+    align-items: center; /* Center items when stacked */
+    gap: 10px;
+    margin-bottom: 10px; /* Adjust margin */
+  }
 }
 
 .bottomLinkItem {
@@ -147,26 +176,15 @@
 }
 
 .bottomLinkItem:hover {
-  color: #df1414;
+  color: #df1414; /* Hover color */
 }
 
-@media screen and (max-width: 900px) {
-  .bottomLink {
-    justify-content: center;
-  }
-}
-
+/* Responsive adjustments for text and link sizes */
 @media screen and (max-width: 600px) {
-  .bottomLink {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
   .copyrightText {
     font-size: 14px;
+    margin: 15px 0;
   }
-
   .bottomLinkItem {
     font-size: 13px;
   }

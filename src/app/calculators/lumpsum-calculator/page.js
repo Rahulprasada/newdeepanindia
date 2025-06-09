@@ -1,25 +1,30 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Slider from '@mui/material/Slider';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField'; // Added for input fields
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Tooltip from '@mui/material/Tooltip'; // Added for validation tooltips
+import { useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Slider from "@mui/material/Slider";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField"; // Added for input fields
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Divider from "@mui/material/Divider";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip"; // Added for validation tooltips
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber"; // Added for validation icons
 import { useRouter, usePathname } from "next/navigation";
-import { Chart as ChartJS, ArcElement, Tooltip as ChartTooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip as ChartTooltip,
+  Legend,
+} from "chart.js";
 import { Pie } from "react-chartjs-2";
 import styled from "styled-components"; // Added for styled components
 import { keyframes } from "@emotion/react";
@@ -95,10 +100,7 @@ const LumpsumCalculator = () => {
       labels: ["Invested", "Returns"],
       datasets: [
         {
-          data: [
-            totalInvested,
-            totalReturns > 0 ? totalReturns : 0,
-          ],
+          data: [totalInvested, totalReturns > 0 ? totalReturns : 0],
           backgroundColor: ["#d32f2f", "#17307a"],
           borderColor: ["#ffffff", "#ffffff"],
           borderWidth: 2,
@@ -180,7 +182,8 @@ const LumpsumCalculator = () => {
             Lumpsum Investment Calculator
           </Typography>
         </Box>
-        <StyledDivider sx={{ marginBottom: "40px" }} /> {/* Updated to match SWPCalculator */}
+        <StyledDivider sx={{ marginBottom: "40px" }} />{" "}
+        {/* Updated to match SWPCalculator */}
         <Box
           sx={{
             display: "flex",
@@ -190,10 +193,14 @@ const LumpsumCalculator = () => {
             p: "40px",
           }}
         >
-          <Grid container spacing={4}>
+          <Grid
+            container
+            spacing={4}
+            sx={{ maxWidth: "1300px", width: "100%" }}
+          >
             {/* Inputs */}
-            <Grid item xs={12} md={6} >
-              <CardContent sx={{ backgroundColor: "#f9f3fe", p: "20px" }}>
+            <Grid item xs={12} md={6}>
+              <CardContent sx={{ backgroundColor: "#f9f3fe", p: "50px" }}>
                 {/* Investment Amount Input */}
                 <Box
                   sx={{
@@ -415,7 +422,7 @@ const LumpsumCalculator = () => {
                 sx={{
                   width: { xs: "100%", sm: "80%", md: "400px" }, // Updated to match SWPCalculator
                   height: { xs: "250px", sm: "300px", md: "300px" }, // Updated to match SWPCalculator
-                  maxWidth: "400px", // Updated to match SWPCalculator
+                  maxWidth: "800px", // Updated to match SWPCalculator
                 }}
               >
                 <Pie data={chartData} options={chartOptions} />
@@ -423,9 +430,13 @@ const LumpsumCalculator = () => {
             </Grid>
 
             {/* Summary */}
-            <Grid item xs={12}>
-              <Grid container spacing={3} >
-                <Grid item xs={12} md={4} >
+            <Grid item xs={12} width={'100%'}>
+              <Grid
+                container
+                spacing={4}
+                sx={{ maxWidth: "1900px", width: "100%" }}
+              >
+                <Grid item xs={12} md={4} maxWidth="300px" width="100%">
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(204, 8, 8)",
@@ -456,7 +467,7 @@ const LumpsumCalculator = () => {
                   </Card>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} maxWidth="300px" width="100%">
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(19, 20, 119)",
@@ -487,7 +498,7 @@ const LumpsumCalculator = () => {
                   </Card>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} maxWidth="300px" width="100%">
                   <Card
                     sx={{
                       borderTop: "10px solid rgb(40, 128, 40)",

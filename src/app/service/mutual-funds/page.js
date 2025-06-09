@@ -5,30 +5,26 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+
+// CORRECTED: keyframes should be imported from @emotion/react
 import { keyframes } from "@emotion/react";
-import { styled } from "@mui/system";
+import { border, styled } from "@mui/system";
+
+// UPDATED: Using Next.js's optimized Image component
 import Image from "next/image";
+
+// Your Asset Imports (cleaned up unused imports)
 import InsuranceImage from "../../../assets/23-removebg-preview.png";
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
-import sip from "../../../assets/about-sip.png";
-import lumpsum from "../../../assets/lumpsum-removebg-preview.png";
-import swp from "../../../assets/swp-removebg-preview.png";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import GetMoreButton from "../../components/Button/page";
+import GetMoreButton from "../../components/Button/page"; // Assuming this is the correct path
+
+// --- STYLED COMPONENTS ---
 
 const fadeIn = keyframes`
-  0% {
-    transform: scale(1.02);
-    /* opacity: 0.7; */
-  }
-  50% {
-    transform: scale(1.03);
-    /* opacity: 0.9; */
-  }
-  100% {
-    transform: scale(1);
-    /* opacity: 1; */
-  }
+  0% { transform: scale(1.02); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
 `;
 
 const SectionWrapper = styled(Box)(({ theme }) => ({
@@ -39,9 +35,9 @@ const SectionWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Styled card
 const InfoCard = styled(Box)(({ image }) => ({
   position: "relative",
+  maxWidth:'300px',
   width: "100%",
   height: "100%",
   border: "10px solid #e4d4fa",
@@ -56,7 +52,8 @@ const InfoCard = styled(Box)(({ image }) => ({
   "&:hover": {
     transition: "all 0.55s ease-in",
     boxShadow: `0 20px 40px #49326b`,
-    background: `linear-gradient(135deg, #49326b 0%, #rgba(210, 152, 228, 0.25)00%)`,
+    // CORRECTED: Fixed the background gradient syntax
+    border: `linear-gradient(135deg, #49326b 0%, rgba(210, 152, 228, 0.25) 100%)`,
     "& .feature-icon": {
       transform: "scale(1.1)",
       background: `linear-gradient(45deg, #49326b,rgb(167, 103, 180))`,
@@ -87,10 +84,8 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     fontSize: "1.75rem",
   },
-  [theme.breakpoints.down("xs")]: {
-    fontSize: "1.5rem",
-  },
 }));
+
 const SectionTitle1 = styled(Typography)(({ theme }) => ({
   fontSize: "1.3rem",
   fontWeight: 900,
@@ -100,28 +95,27 @@ const SectionTitle1 = styled(Typography)(({ theme }) => ({
   padding: "10px",
   borderRadius: "8px",
   color: "#49326b",
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "1.5rem",
-  },
-  [theme.breakpoints.down("xs")]: {
-    fontSize: "1.5rem",
-  },
 }));
+
 const Point = styled(Typography)({
   color: "#49326b",
   marginBottom: "6px",
   fontSize: "1.5rem",
+  display: "flex",
+  alignItems: "center",
 });
+
 const Point1 = styled(Typography)({
   color: "#49326b",
   marginBottom: "6px",
   fontSize: "1rem",
 });
+
 const StyledDivider = styled(Divider)`
   background-color: #e4d4fa;
   height: 6px;
   width: 100%;
-  margin: 0px 50px 50px 0px;
+  margin: 50px 0;
 `;
 
 const MutualFundsSection = ({ serviceName }) => {
@@ -139,48 +133,47 @@ const MutualFundsSection = ({ serviceName }) => {
             height: "250px",
           }}
         />
-
         {/* Text on Image */}
         <Typography
           variant="h5"
           sx={{
             position: "absolute",
             top: "50%",
-            left: "30%",
-            transform: "translate(-50%, -50%)",
+            left: 0,
+            transform: "translateY(-50%)", // Only vertical centering
             color: "white",
             fontWeight: "bold",
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
-            textAlign: "center",
+            textAlign: "left",
             fontSize: {
-              xs: "30px", // mobile
-              sm: "38px", // small tablets
-              md: "40px", // medium devices
-              lg: "50px", // desktop
+              xs: "20px", // mobile
+              sm: "28px",
+              md: "40px",
+              lg: "50px",
             },
             px: 2,
+            pl: { xs: 2, sm: 4, md: 6 }, // Responsive left padding
           }}
         >
           MUTUAL FUNDS
         </Typography>
       </Box>
-
       <SectionWrapper>
         <Container maxWidth="lg">
-          <Grid container spacing={4}>
+          <Grid container spacing={4} justifyContent={'space-between'}>
             {/* Key Benefits */}
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={12} md={6}>
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "flex-start",
                   flexDirection: "column",
-                  alignItems: "left",
+                  alignItems: "flex-start",
                   padding: "20px",
+                  justifyContent:'center'
                 }}
               >
                 <SectionTitle>Key Benefits</SectionTitle>
-                <Box sx={{ p: 3, marginTop: "10px" }}>
+                <Box sx={{ mt: 2 }}>
                   <Point>
                     <RadioButtonCheckedIcon
                       style={{ paddingRight: "10px", fontSize: "35px" }}
@@ -208,111 +201,74 @@ const MutualFundsSection = ({ serviceName }) => {
                 </Box>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              sx={{ display: "flex", justifyContent: "center" }}
-            >
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={12} md={6}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {/* UPDATED: Using the <Image> component */}
                 <Image
                   src={InsuranceImage}
                   alt="Mutual Funds Illustration"
                   width={400}
                   height={400}
                   style={{
+                    maxWidth: "100%",
+                    height: "auto",
                     borderRadius: "12px",
                   }}
                 />
               </Box>
             </Grid>
           </Grid>
-          {/* SIP */}
+
           <StyledDivider />
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={6} md={2}>
-              <InfoCard sx={{width:'350px'}}>
+
+          <Grid container spacing={6} justifyContent={"center"}>
+            {/* SIP */}
+            <Grid item xs={12} sm={6} md={4}>
+              <InfoCard>
                 <SectionTitle1>SIP (Systematic Investment Plan)</SectionTitle1>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box sx={{ pl: 1 }}>
-                    <Point1>
-                      - Small, regular investments (monthly/weekly).
-                    </Point1>
-                    <Point1>- Builds discipline and long-term wealth.</Point1>
-                    <Point1>- Rupee cost averaging benefit.</Point1>
-                    <Point1>- Great for salaried individuals.</Point1>
-                  </Box>
-                </Box>
+                <Point1>- Small, regular investments (monthly/weekly).</Point1>
+                <Point1>- Builds discipline and long-term wealth.</Point1>
+                <Point1>- Rupee cost averaging benefit.</Point1>
+                <Point1>- Great for salaried individuals.</Point1>
               </InfoCard>
             </Grid>
 
             {/* Lumpsum */}
-            <Grid item xs={12} sm={6} md={2}>
-              <InfoCard sx={{width:'350px'}}>
+            <Grid item xs={12} sm={6} md={4}>
+              <InfoCard>
                 <SectionTitle1>Lumpsum Investment</SectionTitle1>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box sx={{ pl: 1 }}>
-                    <Point1>
-                      - One-time bulk investment (as & when you get surplus).
-                    </Point1>
-                    <Point1>
-                      - Best suited during market dips or windfalls.
-                    </Point1>
-                    <Point1>
-                      - Potential for higher returns in long-term bull phases.
-                    </Point1>
-                  </Box>
-                </Box>
+                <Point1>
+                  - One-time bulk investment (as & when you get surplus).
+                </Point1>
+                <Point1>- Best suited during market dips or windfalls.</Point1>
+                <Point1>
+                  - Potential for higher returns in long-term bull phases.
+                </Point1>
               </InfoCard>
             </Grid>
 
             {/* SWP */}
-            <Grid item xs={12} sm={6} md={2}>
-              <InfoCard image={aboutImg1} sx={{width:'350px'}}>
+            <Grid item xs={12} sm={12} md={4}>
+              {" "}
+              {/* Stacks cleanly on small screens */}
+              <InfoCard image={aboutImg1}>
                 <SectionTitle1>SWP (Systematic Withdrawal Plan)</SectionTitle1>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box sx={{ pl: 1 }}>
-                    <Point1>- Regular income from invested funds.</Point1>
-                    <Point1>
-                      - Ideal for retirees or passive income seekers.
-                    </Point1>
-                    <Point1>
-                      - Capital remains invested while income is generated.
-                    </Point1>
-                  </Box>
-                </Box>
+                <Point1>- Regular income from invested funds.</Point1>
+                <Point1>- Ideal for retirees or passive income seekers.</Point1>
+                <Point1>
+                  - Capital remains invested while income is generated.
+                </Point1>
               </InfoCard>
             </Grid>
           </Grid>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+
+          <Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}>
             <GetMoreButton />
           </Box>
         </Container>

@@ -1,202 +1,96 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { IoArrowBackSharp, IoArrowForwardSharp } from "react-icons/io5";
+import { IoArrowForwardSharp } from "react-icons/io5";
 import { styled } from "@mui/material/styles";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Link from "next/link"; // Use Next.js Link instead of MUI Link
-import Image from "next/image"; // Use Next.js Image component
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Link from "next/link";
+import Image from "next/image";
 import BackGroundImage1 from "../../../assets/tree-grows-coin-glass-jar-with-copy-space.jpg";
-import BackGroundImage2 from "../../../assets/home pg option 2.jpg";
+import BackGroundImage2 from "../../../assets/still-life-green-grapes-vineyard.jpg";
 
 const backgroundImages = [BackGroundImage1, BackGroundImage2];
 
 const SlideShowBar = ({ data = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [showButton, setShowButton] = useState(false);
-  const [direction, setDirection] = useState("next");
-  const [animationType, setAnimationType] = useState("typewriter"); // "typewriter" or "fade"
-  const isManualNavigation = useRef(false);
-  const [hover, setIsHover] = useState(false); // Consistent naming
-  const typewriterTimeouts = useRef([]); // Track timeouts for cleanup
+  const [isManualNavigation, setIsManualNavigation] = useState(false);
+  const [hover, setIsHover] = useState(false);
 
   const currentSlide = data.length > 0 ? data[currentIndex] : {};
   const {
     subTitle = "Your Trusted Wealth Creation Partner",
-    title = "Dream Big, Achieve More!",
+    title = "Dream Rich, Dare to Reach!",
     description = "Empower your future with smart investments.",
     button_name = "Get Started",
   } = currentSlide;
 
   useEffect(() => {
-    // Clear any existing timeouts
-    typewriterTimeouts.current.forEach(timeout => clearTimeout(timeout));
-    typewriterTimeouts.current = [];
-
-    if (animationType === "typewriter") {
-      // Typewriter animation (for auto-slide or initial load)
-      setDisplayText("");
-      setShowButton(false);
-
-      const buttonTimer = setTimeout(() => {
-        setShowButton(true);
-      }, 300);
-      typewriterTimeouts.current.push(buttonTimer);
-
-      const chars = title.split("");
-      chars.forEach((char, index) => {
-        const timeout = setTimeout(() => {
-          setDisplayText((prev) => prev + char);
-        }, index * 100);
-        typewriterTimeouts.current.push(timeout);
-      });
-    } else {
-      // Fade animation (for manual navigation)
-      setDisplayText(title);
-      setShowButton(true);
-    }
-
-    // Cleanup function
-    return () => {
-      typewriterTimeouts.current.forEach(timeout => clearTimeout(timeout));
-      typewriterTimeouts.current = [];
-    };
-  }, [currentIndex, title, animationType]);
-
-  // Auto-slide interval
-  useEffect(() => {
     const interval = setInterval(() => {
-      if (!isManualNavigation.current) {
-        setAnimationType("typewriter");
-        setDirection("next");
+      if (!isManualNavigation) {
         setCurrentIndex((prev) => (prev + 1) % backgroundImages.length);
       }
-      isManualNavigation.current = false; // Reset flag
+      setIsManualNavigation(false);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isManualNavigation]);
 
-  const handlePrev = () => {
-    isManualNavigation.current = true;
-    setAnimationType("fade");
-    setDirection("prev");
-    setCurrentIndex((prev) =>
-      prev === 0 ? backgroundImages.length - 1 : prev - 1
-    );
-  };
-
-  const handleNext = () => {
-    isManualNavigation.current = true;
-    setAnimationType("fade");
-    setDirection("next");
-    setCurrentIndex((prev) => (prev + 1) % backgroundImages.length);
+  const handleDotClick = (index) => {
+    setIsManualNavigation(true);
+    setCurrentIndex(index);
   };
 
   return (
     <MainBox
-      onMouseEnter={() => setIsHover(true)} // Consistent naming
-      onMouseLeave={() => setIsHover(false)} // Consistent naming
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
-      <BackgroundImage direction={direction}>
-        <Image
-          src={backgroundImages[currentIndex]}
-          alt={`Slide ${currentIndex + 1}`}
-          fill
-          style={{
-            objectFit: "cover",
-            animation:
-              direction === "next"
-                ? "slideInFromRight 0.6s ease-in-out forwards"
-                : "slideInFromLeft 0.6s ease-in-out forwards",
-          }}
-          priority={currentIndex === 0} // Priority for the first image
-        />
-      </BackgroundImage>
+      <Image
+        src={backgroundImages[currentIndex]}
+        alt="Background image"
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          objectFit: "cover",
+        }}
+        priority={true}
+      />
       <Overlay />
-      {hover && (
-        <NavigationBox>
-          <IconButton
-            onClick={handlePrev}
-            sx={{
-              borderRadius: "50px",
-              padding: "30px",
-              color: "white",
-              marginLeft: "50px",
-              backgroundColor: "rgba(249, 243, 252, 0.5)",
-              "&:hover": {
-                backgroundColor: "rgba(241, 229, 243, 0.7)",
-              },
-            }}
-          >
-            <IoArrowBackSharp />
-          </IconButton>
-          <IconButton
-            onClick={handleNext}
-            sx={{
-              borderRadius: "50px",
-              padding: "30px",
-              color: "white",
-              marginRight: "100px",
-              backgroundColor: "rgba(249, 243, 252, 0.5)",
-              "&:hover": {
-                backgroundColor: "rgba(241, 229, 243, 0.7)",
-              },
-            }}
-          >
-            <IoArrowForwardSharp />
-          </IconButton>
-        </NavigationBox>
-      )}
+      <NavigationDots>
+        {backgroundImages.map((_, index) => (
+          <Dot
+            key={index}
+            $active={index === currentIndex} // Use $active to avoid passing to DOM
+            onClick={() => handleDotClick(index)}
+          />
+        ))}
+      </NavigationDots>
       <ContentBox>
         <Typography variant="h6" className="subTitle">
           {subTitle}
         </Typography>
         <Typography className="title" component="h1">
-          {displayText}
+          {title}
         </Typography>
         <Typography className="description">{description}</Typography>
-        {showButton && (
-          <Link href="#contact"  >
-            <Button
-              variant="contained"
-              className="ctaButton"
-              endIcon={<IoArrowForwardSharp className="arrowIcon" />}
-            >
-              {button_name}
-            </Button>
-          </Link>
-        )}
+        <Link href="#contact" passHref>
+          <Button
+            variant="contained"
+            className="ctaButton"
+            endIcon={<IoArrowForwardSharp className="arrowIcon" />}
+          >
+            {button_name}
+          </Button>
+        </Link>
       </ContentBox>
     </MainBox>
   );
 };
-
-const slideIn = `
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0.8;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  @keyframes slideInFromLeft {
-    from {
-      transform: translateX(-100%);
-      opacity: 0.8;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-`;
 
 const MainBox = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -211,21 +105,14 @@ const MainBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     height: "450px",
     paddingLeft: theme.spacing(2),
+    justifyContent: "center", // Center content on smaller screens
   },
   [theme.breakpoints.down("sm")]: {
     height: "350px",
     paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
 }));
-
-const BackgroundImage = styled(Box)({
-  width: "100%",
-  height: "100%",
-  position: "absolute",
-  top: 0,
-  left: 0,
-  zIndex: 1,
-});
 
 const Overlay = styled(Box)(({ theme }) => ({
   position: "absolute",
@@ -241,10 +128,15 @@ const Overlay = styled(Box)(({ theme }) => ({
 const ContentBox = styled(Box)(({ theme }) => ({
   position: "relative",
   zIndex: 4,
-  textAlign: "center",
+  textAlign: "left",
   color: "#fff",
   padding: theme.spacing(4),
   boxSizing: "border-box",
+  // maxWidth: "600px", // Limit content width for readability
+  [theme.breakpoints.down("sm")]: {
+    textAlign: "center", // Center text on mobile
+    padding: theme.spacing(2),
+  },
   "& .title": {
     fontSize: "3.5rem",
     fontWeight: 700,
@@ -315,16 +207,35 @@ const ContentBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const NavigationBox = styled(Box)({
-  display: "flex",
+const NavigationDots = styled(Box)(({ theme }) => ({
   position: "absolute",
-  justifyContent: "space-between",
-  width: "100%",
-  top: "50%",
-  transform: "translateY(-50%)",
-  alignItems: "center",
-  padding: "0 20px",
+  bottom: theme.spacing(2),
+  left: "50%",
+  transform: "translateX(-50%)",
+  display: "flex",
+  gap: theme.spacing(1),
   zIndex: 5,
-});
+  [theme.breakpoints.down("sm")]: {
+    bottom: theme.spacing(1),
+    gap: theme.spacing(0.5),
+  },
+}));
+
+const Dot = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "$active", // Prevent $active from being passed to DOM
+})(({ theme, $active }) => ({
+  width: "40px",
+  height: "4px",
+  backgroundColor: $active ? "white" : "rgba(255, 255, 255, 0.5)",
+  cursor: "pointer",
+  transition: "all 0.3s ease",
+  "&:hover": {
+    backgroundColor: $active ? "#e63946" : "rgba(255, 255, 255, 0.8)",
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "20px", // Smaller dots on mobile
+    height: "3px",
+  },
+}));
 
 export default SlideShowBar;

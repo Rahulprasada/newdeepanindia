@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Box from "@mui/material/Box";
@@ -7,39 +7,77 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import styles from "./Footer.module.css";
-import Deepalogo from "../../../assets/EditedLogo-removebg-preview copy.png";
-import Instagram from "../../../assets/4-removebg-preview.png";
-import LinkedIn from "../../../assets/5-removebg-preview.png";
-import Youtube from "../../../assets/6-removebg-preview.png";
-import Mail from "../../../assets/7-removebg-preview.png";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import { useRouter, usePathname } from "next/navigation"; // Import for Next.js navigation
+
+// Icon imports (using MUI icons as per your initial React component)
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+
+// Import your CSS Module styles
+import styles from "./Footer.module.css";
+
+// Image imports
+import Deepalogo from "../../../assets/EditedLogo-removebg-preview.png"; // Assuming this is your main logo
+// Note: Original code used separate images for social icons like Instagram, LinkedIn etc.
+// For consistency with MUI icons, I've used MUI icons where possible in the social section.
+// If you prefer the image assets, you can revert the social icon section to use Image components.
+// For now, I'm assuming the icon images are placeholder or less preferred than MUI icons.
 
 export default function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Replicating the handleNavigation logic for anchor links in Next.js
+  const handleNavigation = (href) => {
+    if (href.startsWith("#")) {
+      // Handle anchor links on the same page
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (href.startsWith("/#")) {
+      // Handle anchor links from other pages
+      if (pathname === "/") {
+        // Already on home page, just scroll to the section
+        const anchorId = href.substring(2);
+        const element = document.querySelector(`#${anchorId}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // Navigate to home page and then scroll to section
+        router.push("/");
+        setTimeout(() => {
+          const anchorId = href.substring(2);
+          const element = document.querySelector(`#${anchorId}`);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    } else {
+      // Handle regular page navigation
+      router.push(href);
+    }
+  };
+
   return (
-    <footer className={styles.footerMain}>
+    <footer className={styles.footerMain} >
       <Container maxWidth="xl">
-        <Grid container spacing={5} sx={{ width: "100%"}}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Typography
-              variant="h6"
-              className={styles.footTitle}
-              sx={{
-                fontSize: "15px",
-                padding: "5px 0",
-                fontWeight: "bold",
-                marginLeft:'5px'
-              }}
-            >
+        <Grid container spacing={{ xs: 3, md: 10 }} sx={{ width: "100%", margin: 0 }}>
+          {/* What We Serve */}
+          <Grid item xs={12} sm={6} md={2}>
+            <Typography variant="h6" className={styles.footTitle}sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               What We Serve
             </Typography>
-            <Box className={styles.links} sx={{marginLeft:'5px'}}>
+            <Box className={styles.links}>
               <Typography
                 component={Link}
                 href="/WhatWeServe/investment-solution"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
               >
                 Investment Solutions
               </Typography>
@@ -47,7 +85,6 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeServe/retirement-planning"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
               >
                 Retirement Planning
               </Typography>
@@ -55,7 +92,6 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeServe/wealth-management"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
               >
                 Wealth Management
               </Typography>
@@ -63,7 +99,6 @@ export default function Footer() {
                 component={Link}
                 href="/WhatWeServe/educational-resource"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
               >
                 Educational Resources
               </Typography>
@@ -72,80 +107,71 @@ export default function Footer() {
 
           {/* What We Do */}
           <Grid item xs={12} sm={6} md={2}>
-            <Typography
-              variant="h6"
-              className={styles.footTitle}
-              sx={{
-                fontSize: "15px",
-                padding: "5px 0",
-                marginBottom: "10px",
-                fontWeight: "bold",
-              }}
-            >
+            <Typography variant="h6" className={styles.footTitle}sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               What We Do
             </Typography>
             <Box className={styles.links}>
               <Typography
                 component={Link}
-                href="/WhatWeDo/mutual-funds"
+                href="/service/mutual-funds"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Mutual Funds
               </Typography>
               <Typography
                 component={Link}
-                href="/WhatWeDo/training-in-financial-markets"
+                href="/service/training-in-financial-markets"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Training in Financial Markets
               </Typography>
               <Typography
                 component={Link}
-                href="/WhatWeDo/algo-trading"
+                href="/service/algo-trading"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Algo Trading Solutions
               </Typography>
               <Typography
                 component={Link}
-                href="/WhatWeDo/advisory-services"
+                href="/service/advisory-services"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Advisory Services
               </Typography>
               <Typography
                 component={Link}
-                href="/WhatWeDo/fixed-deposits-&-bond"
+                href="/service/fixed-deposits-&-bond"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Fixed Deposits & Bonds
               </Typography>
               <Typography
                 component={Link}
-                href="/WhatWeDo/alternate-investment-funds-(AIFS)"
+                href="/service/alternate-investment-funds-(AIFS)"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Alternative Investment Funds
               </Typography>
               <Typography
                 component={Link}
-                href="/WhatWeDo/real-estate-funds"
+                href="/service/real-estate-funds"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Real Estate Funds
               </Typography>
               <Typography
                 component={Link}
-                href="/WhatWeDo/insurances"
+                href="/service/insurances"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Insurances
               </Typography>
@@ -153,41 +179,32 @@ export default function Footer() {
           </Grid>
 
           {/* What We Think */}
-          <Grid item xs={12} sm={6} md={8}>
-            <Typography
-              variant="h6"
-              className={styles.footTitle}
-              sx={{
-                fontSize: "15px",
-                padding: "5px 0",
-                marginBottom: "10px",
-                fontWeight: "bold",
-              }}
-            >
+          <Grid item xs={12} sm={6} md={2}>
+            <Typography variant="h6" className={styles.footTitle}sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               What We Think
             </Typography>
             <Box className={styles.links}>
               <Typography
                 component={Link}
-                href="/#card"
+                href="/blogs-list" // Changed to blogs-list as per original
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Blogs
               </Typography>
               <Typography
-                component={Link}
-                href="/#media"
+                component="a" // Use 'a' tag for external/anchor links
+                onClick={() => handleNavigation("/#media")} // Use handleNavigation for anchor
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Videos
               </Typography>
               <Typography
-                component={Link}
-                href="/#media"
+                component="a" // Use 'a' tag for external/anchor links
+                onClick={() => handleNavigation("/#media")} // Use handleNavigation for anchor
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Reports
               </Typography>
@@ -195,17 +212,8 @@ export default function Footer() {
           </Grid>
 
           {/* Calculator */}
-          <Grid item xs={12} sm={6} md={1}>
-            <Typography
-              variant="h6"
-              className={styles.footTitle}
-              sx={{
-                fontSize: "15px",
-                padding: "5px 0",
-                marginBottom: "10px",
-                fontWeight: "bold",
-              }}
-            >
+          <Grid item xs={12} sm={6} md={2}>
+            <Typography variant="h6" className={styles.footTitle}sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               Calculator
             </Typography>
             <Box className={styles.links}>
@@ -213,15 +221,15 @@ export default function Footer() {
                 component={Link}
                 href="/calculators/sip-calculator"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
-                Sip
+                SIP
               </Typography>
               <Typography
                 component={Link}
                 href="/calculators/lumpsum-calculator"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
                 Lumpsum
               </Typography>
@@ -229,82 +237,46 @@ export default function Footer() {
                 component={Link}
                 href="/calculators/swp-calculator"
                 className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
+                sx={{fontSize:'15px'}}
               >
-                Sip combined with lumbsum
-              </Typography>
-              <Typography
-                component={Link}
-                href="/calculators/swp-calculator"
-                className={styles.linkItem}
-                sx={{ fontSize: "15px" }}
-              >
-                Swp
+                SWP
               </Typography>
             </Box>
           </Grid>
 
           {/* Address */}
-          <Grid item xs={12} sm={12} md={2}>
-            <Typography
-              variant="h6"
-              className={styles.footTitle}
-              sx={{
-                fontSize: "15px",
-                padding: "5px 0",
-                marginBottom: "10px",
-                fontWeight: "bold",
-              }}
-            >
+          <Grid item xs={12} sm={6} md={2}>
+            <Typography variant="h6" className={styles.footTitle} sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               Address
             </Typography>
-            <Box className={styles.links}>
-              <Typography
-                className={styles.addressText}
-                sx={{ fontSize: "15px" }}
-              >
-                No 145, 102, Gollavar Agraharam Rd, above ICICI bank,
-                Kanniyappan Colony, Sanjeevarayanpet, Washermanpet, Chennai,
-                Tamil Nadu 600021
+            <Box className={styles.links} sx={{fontSize:'15px'}}>
+              <Typography className={styles.addressText}sx={{fontSize:'15px'}}>
+                145/102, G.A.Road 1st floor 
+                <br />
+                Old Washermenpet, Chennai 600021.
               </Typography>
             </Box>
           </Grid>
+
+          {/* Contact */}
           <Grid item xs={12} sm={6} md={2}>
-            <Typography
-              variant="h6"
-              className={styles.footTitle}
-              sx={{
-                fontSize: "15px",
-                padding: "5px 0",
-                marginBottom: "10px",
-                fontWeight: "bold",
-              }}
-            >
+            <Typography variant="h6" className={styles.footTitle} sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               Contact
             </Typography>
             <Box className={styles.links}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <PhoneAndroidIcon sx={{ fontSize: 20, color: "#49326b" }} />
-                <Typography
-                  className={styles.linkItem}
-                  sx={{ fontSize: "15px" }}
-                >
+                <LocalPhoneIcon sx={{ fontSize: 20, color: "#49326b" }} />
+                <Typography className={styles.linkItem}>
                   +91-9884411611
                 </Typography>
               </Box>
-              <Box
-                sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
                 <EmailIcon sx={{ fontSize: 20, color: "#49326b" }} />
                 <Typography
                   component="a"
                   href="mailto:enquiry@deepanindia.com"
                   className={styles.linkItem}
-                  sx={{
-                    textDecoration: "none",
-                    color: "49326b",
-                    fontSize: "15px",
-                  }}
+                  sx={{ textDecoration: "none", color: "#49326b" }}
                 >
                   enquiry@deepanindia.com
                 </Typography>
@@ -328,23 +300,23 @@ export default function Footer() {
         <Divider className={styles.styledDivider} />
 
         {/* Bottom Section */}
-        <Grid container spacing={1} alignItems="center" display={'flex'} justifyContent={'space-between'}>
+        <Grid
+          container
+          spacing={1}
+          alignItems="center"
+          justifyContent={{ xs: "center", md: "space-between" }} // Center on small, space-between on medium+
+          sx={{ textAlign: { xs: "center", md: "left" } }} // Center text on small, left align on medium+
+        >
           {/* Social Icons */}
           <Grid item xs={12} md={4}>
-            <Box className={styles.bottomLink1} sx={{backgroundColor:'#F9F3FE'}}>
+            <Box className={styles.bottomLink1}>
               <a
                 href="https://www.instagram.com/deepanindia?igsh=MXNyNXh3a256NGNneg=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
               >
-                <Image
-                  src={Instagram}
-                  alt="Instagram"
-                  width={70}
-                  height={70}
-                  className={styles.iconImage}
-                />
+                <InstagramIcon className={styles.iconImage} />
               </a>
               <a
                 href="http://www.youtube.com/@deepanindiafinancialservices"
@@ -352,13 +324,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className={styles.socialLink}
               >
-                <Image
-                  src={Youtube}
-                  alt="Youtube"
-                  width={60}
-                  height={60}
-                  className={styles.iconImage}
-                />
+                <YouTubeIcon className={styles.iconImage} />
               </a>
               <a
                 href="https://www.linkedin.com/company/deepan-india-financial-services-private-limited/"
@@ -366,39 +332,27 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className={styles.socialLink}
               >
-                <Image
-                  src={LinkedIn}
-                  alt="LinkedIn"
-                  width={60}
-                  height={60}
-                  className={styles.iconImage}
-                />
+                <LinkedInIcon className={styles.iconImage} />
               </a>
               <a
                 href="mailto:Deepanindiafinancialservices@gmail.com"
                 className={styles.socialLink}
               >
-                <Image
-                  src={Mail}
-                  alt="Mail"
-                  width={60}
-                  height={60}
-                  className={styles.iconImage}
-                />
+                <EmailIcon className={styles.iconImage} />
               </a>
             </Box>
           </Grid>
 
           {/* Copyright */}
           <Grid item xs={12} md={4}>
-            <Typography className={styles.copyrightText} style={{fontWeight:'bold'}}>
+            <Typography className={styles.copyrightText} sx={{ fontWeight: 'bold' }}>
               © {new Date().getFullYear()} Deepan India. All rights reserved.
             </Typography>
           </Grid>
 
           {/* Privacy and Terms */}
           <Grid item xs={12} md={4}>
-            <Box className={styles.bottomLink}>
+            <Box className={styles.bottomLink} sx={{ justifyContent: { xs: "center", md: "flex-end" } }}>
               <Typography
                 component={Link}
                 href="/persionalservice/privacy-policy"

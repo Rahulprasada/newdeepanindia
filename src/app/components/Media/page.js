@@ -9,7 +9,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import styles from "./MediaContent.module.css";
-
+import Container from '@mui/material/Container';
 const fallbackData = [
   {
     subTitle: "Case Study 1",
@@ -86,6 +86,7 @@ const MediaContent = ({ data }) => {
 
   return (
     <section className={styles.styledSection}>
+      <Container maxWidth={'lg'}>
       <div className={styles.container}>
         <div className={styles.headerSection}>
           <h1 className={styles.mainTitle}>Finance Leaders Trust Us</h1>
@@ -157,6 +158,7 @@ const MediaContent = ({ data }) => {
           </button>
         </div>
       </div>
+      </Container>
     </section>
   );
 };

@@ -1,144 +1,297 @@
 "use client";
 
+import { useState } from "react";
+import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import { keyframes } from "@emotion/react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
-import { styled } from "@mui/system";
-import financial1 from "../../../assets/18-removebg-preview.png";
-import financial2 from "../../../assets/19-removebg-preview.png";
+import { styled, keyframes } from "@mui/material/styles"; // Correct import for styled and keyframes
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"; // Added for Key Benefits
 import GetMoreButton from "../../components/Button/page";
-import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
+import Image from "next/image";
 
-import Image from "next/image"; // Add next/image
+// Static assets
+import heroImage from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
+import financialImage1 from "../../../assets/18-removebg-preview.png"; // Stock SIP image
+import financialImage2 from "../../../assets/19-removebg-preview.png"; // Stock Bags and Algo Trading image
+import financialImage3 from "../../../assets/22-removebg-preview.png";
 
-const AlgoTrading = ({ serviceName }) => {
-  const algos = [
-    {
-      title: "Stock SIP",
-      subtitle: "Automated SIP into handpicked stocks & ETFs.",
-      description: "Custom frequency & amount.",
-      audience: "Eliminates emotional bias.",
-      desc: "Minimum as low as Rs.1000 p.m.",
-      img: financial1,
-      alt: "Robot hand placing coins regularly into stocks.",
-    },
-    {
-      title: "Stock Bags",
-      subtitle: "Algorithmically selected portfolios.",
-      description: "Can be averaged on Dips and traded as a basket.",
-      audience: "Auto rebalancing and exit.",
-      desc: "Starts from Rs.10000 to any amount.",
-      img: financial2,
-      alt: "Portfolio dashboard UI with smallcase-style stock groups.",
-    },
-    {
-      title: "Day Trading and Positional",
-      subtitle: "Fully automated trading in stocks, options and commodities.",
-      description: "Medium to high risk with moderate to higher rewards.",
-      audience: "Uses delta-neutral, trend-following, and hybrid strategies.",
-      desc: "Build your own or deploy our ready-made strategies.",
-      img: financial2,
-      alt: "Portfolio dashboard UI with smallcase-style stock groups.",
-    },
-  ];
+// Define algo data - combined points for cleaner rendering
+const ALGOS = [
+  {
+    title: "Stock SIP",
+    img: financialImage1,
+    alt: "Robot hand placing coins regularly into stocks.",
+    points: [
+      "Automated SIP into handpicked stocks & ETFs.",
+      "Custom frequency & amount.",
+      "Eliminates emotional bias.",
+      "Minimum as low as Rs.1000 p.m.",
+    ],
+  },
+  {
+    title: "Stock Bags",
+    img: financialImage2, // Using financialImage2 as per original code for this card
+    alt: "Portfolio dashboard UI with smallcase-style stock groups.",
+    points: [
+      "Algorithmically selected portfolios.",
+      "Can be averaged on Dips and traded as a basket.",
+      "Auto rebalancing and exit.",
+      "Starts from Rs.10000 to any amount.",
+    ],
+  },
+  {
+    title: "Day Trading and Positional",
+    img: financialImage3, // Using financialImage3 for the third card
+    alt: "Portfolio dashboard UI with smallcase-style stock groups.",
+    points: [
+      "Fully automated trading in stocks, options and commodities.",
+      "Medium to high risk with moderate to higher rewards.",
+      "Uses delta-neutral, trend-following, and hybrid strategies.",
+      "Build your own or deploy our ready-made strategies.",
+    ],
+  },
+];
+
+// Keyframe animations
+const fadeIn = keyframes`
+  0% {
+    transform: scale(1.02);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+// Styled components
+const SectionTitle = styled(Typography)(({ theme }) => ({
+  fontSize: "2rem", // Replicated from original
+  fontWeight: 900,
+  color: "#49326b",
+  marginBottom: theme.spacing(2), // Added margin for consistency
+  [theme.breakpoints.down("sm")]: { // max-width: 600px
+    fontSize: "1.75rem", // Replicated from original
+  },
+  // Original had "xs" breakpoint, using theme for consistency.
+  [theme.breakpoints.down("xs")]: {
+    fontSize: "1.5rem",
+  },
+}));
+
+// Replicated Point styled component from original for Key Benefits
+const Point = styled(Typography)({
+  color: "#49326b",
+  marginBottom: "6px",
+  fontSize: "1rem", // Replicated from original
+  display: "flex", // To align icon and text
+  alignItems: "center", // To align icon and text
+});
+
+const InfoCard = styled(Box)(({ theme }) => ({
+  position: "relative",
+  maxWidth:'300px',
+  width: "100%",
+  height: "100%", // Allow height to adjust based on content
+  minHeight: "400px",
+  maxHeight: "450px", // Ensured consistent height for cards on larger screens // Replicated from original
+  border: "10px solid #e4d4fa", // Replicated from original
+  padding: "20px", // Replicated from original
+  borderRadius: "16px", // Replicated from original
+  overflow: "hidden",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start", // Changed to flex-start for text alignment
+  justifyContent: "flex-start", // Aligns content to top
+  animation: `${fadeIn} 6s ease-in-out infinite alternate`, // Replicated animation
+  transition: "all 0.55s ease-in", // Replicated transition
+  backgroundColor: '#F9F3FE', // Background matching the main section
+
+  "&:hover": {
+    boxShadow: `0 20px 40px #49326b`, // Replicated shadow
+    // Replicated gradient background on hover
+  },
+  "&::before": { // Replicated pseudo-element
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: 1,
+  },
+  "& > *": { // Replicated direct child z-index
+    position: "relative",
+    zIndex: 2,
+  },
+  [theme.breakpoints.down("sm")]: { // max-width: 600px
+    padding: "20px 10px", // Replicated padding for mobile
+    minHeight: "350px", // Adjust for smaller screens
+    marginTop: "20px", // Reduce margin top on mobile
+  },
+}));
+
+const StyledDivider = styled(Divider)(({ theme }) => ({ // Replicated StyledDivider
+  background: "#e4d4fa",
+  height: "6px",
+  width: "100%",
+  margin: '50px 0', // Replicated margin
+  [theme.breakpoints.down("sm")]: { // max-width: 600px
+    margin: '30px 0', // Smaller margin on mobile
+  },
+}));
+
+// Reusable component for list items inside cards, with icon and text
+const CardListItem = ({ text }) => (
+  <Box sx={{ display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-start", mt: 1 }}>
+    <FiberManualRecordIcon
+      sx={{
+        pr: "10px", // paddingRight
+        color: "#49326b",
+        mt: "10px", // marginTop
+        fontSize: "12px", // Smaller icon
+        flexShrink: 0, // Prevent icon from shrinking
+      }}
+    />
+    <Typography
+      sx={{
+        mt: 1, // marginTop
+        color: "#49326b", // Original text color
+        fontSize: "1rem", // Replicated font size
+        textAlign: "left",
+        lineHeight: 1.5, // Added for readability
+      }}
+    >
+      {text}
+    </Typography>
+  </Box>
+);
+
+const AlgoTrading = ({ serviceName = "ALGO TRADING" }) => { // Default serviceName for consistency
+  const [imageError, setImageError] = useState({});
+
+  // Handle image loading errors
+  const handleImageError = (key) => {
+    setImageError((prev) => ({ ...prev, [key]: true }));
+  };
 
   return (
     <>
-      <Box sx={{ position: "relative", width: "100%" }}>
-        {/* Image */}
+      {/* Hero Section - Replicated from other service components for consistency */}
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          height: { xs: "180px", sm: "220px", md: "250px" },
+        }}
+      >
         <Image
-          src={aboutImg1}
-          alt="SWP Illustration"
-          style={{
-            borderRadius: "8px",
-            objectFit: "cover",
-            width: "100%",
-            height: "250px",
-          }}
+          src={heroImage} // Using general hero image
+          alt="Algo Trading Banner"
+          fill // Use 'fill' to cover the container
+          style={{ objectFit: "cover" }}
+          priority
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAErgJ9aB4zYgAAAABJRU5ErkJggg=="
+          onError={() => handleImageError("hero")}
         />
-
-        {/* Text on Image */}
-        <Typography
-          variant="h5"
+        {imageError.hero && (
+          <Box
+            sx={{
+              bgcolor: "#e4d4fa",
+              width: "100%",
+              height: "100%",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography color="error">Failed to load image</Typography>
+          </Box>
+        )}
+        <Box // This Box wraps the Typography for correct absolute positioning
           sx={{
             position: "absolute",
             top: "50%",
-            left: "30%",
-            transform: "translate(-50%, -50%)",
+            left: 0,
+            transform: "translateY(-50%)",
             color: "white",
             fontWeight: "bold",
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
-            textAlign: "center",
+            textAlign: "left", // Keep left align for banner text
             fontSize: {
-              xs: "30px", // mobile
-              sm: "38px", // small tablets
-              md: "40px", // medium devices
-              lg: "50px", // desktop
+              xs: "20px",
+              sm: "28px",
+              md: "40px",
+              lg: "50px",
             },
             px: 2,
+            pl: { xs: 2, sm: 4, md: 6 }, // Responsive left padding
           }}
         >
-          ALGO TRADING
-        </Typography>
+          <Typography
+            variant="h4" // Suitable variant for a main banner title
+            component="h1" // Semantic HTML
+            sx={{
+              color: "white",
+              fontWeight: 900,
+              textAlign: "left", // Override outer Box's text-align if needed
+              fontSize: { xs: "24px", sm: "32px", md: "48px", lg: "60px" }, // Adjusted font sizes for banner
+            }}
+          >
+            {serviceName.toUpperCase()}
+          </Typography>
+        </Box>
       </Box>
-      <Box sx={{ px: 2, py: 4,backgroundColor:'#F9F3FE'  }}>
+
+      {/* Main Content Section */}
+      <Box sx={{ backgroundColor: "#f9f3fe", py: { xs: 4, md: 6 } }}>
         <Container maxWidth="lg">
-          <Grid container spacing={1}>
-            {/* Key Benefits */}
-            <Grid item xs={12} sm={8} md={8}>
+          {/* Key Benefits Section */}
+          <Grid container spacing={3} alignItems="center"> {/* Adjusted spacing */}
+            {/* Key Benefits Text and Points */}
+            <Grid item xs={12} sm={8} md={8}> {/* Replicated column sizes */}
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "flex-start",
                   flexDirection: "column",
-                  alignItems: "left",
+                  alignItems: "flex-start", // Align to left
+                  padding: "20px",
                 }}
               >
                 <SectionTitle>Key Benefits</SectionTitle>
-                <Box sx={{ p: 3, marginTop: "10px" }}>
+                <Box sx={{ p: 0, marginTop: "10px" }}> {/* Removed padding from box around points, added mt */}
                   <Point>
-                    <RadioButtonCheckedIcon
-                      style={{ paddingRight: "10px", fontSize: "35px" }}
-                    />
-                    Speed & Efficiency: Executes trades in milliseconds, faster
-                    than any human.
+                    <RadioButtonCheckedIcon style={{ paddingRight: "10px", fontSize: "35px" }} />
+                    Speed & Efficiency: Executes trades in milliseconds, faster than any human.
                   </Point>
                   <Point>
-                    <RadioButtonCheckedIcon
-                      style={{ paddingRight: "10px", fontSize: "35px" }}
-                    />
-                    Accuracy: Reduces human errors by following set rules and
-                    strategies.
+                    <RadioButtonCheckedIcon style={{ paddingRight: "10px", fontSize: "35px" }} />
+                    Accuracy: Reduces human errors by following set rules and strategies.
                   </Point>
                   <Point>
-                    <RadioButtonCheckedIcon
-                      style={{ paddingRight: "10px", fontSize: "35px" }}
-                    />
-                    Back testing: Allows testing strategies on historical data
-                    before going live.
+                    <RadioButtonCheckedIcon style={{ paddingRight: "10px", fontSize: "35px" }} />
+                    Back testing: Allows testing strategies on historical data before going live.
                   </Point>
                   <Point>
-                    <RadioButtonCheckedIcon
-                      style={{ paddingRight: "10px", fontSize: "35px" }}
-                    />
-                    Emotion-Free Trading: Eliminates decisions driven by fear or
-                    greed.
+                    <RadioButtonCheckedIcon style={{ paddingRight: "10px", fontSize: "35px" }} />
+                    Emotion-Free Trading: Eliminates decisions driven by fear or greed.
                   </Point>
                   <Point>
-                    <RadioButtonCheckedIcon
-                      style={{ paddingRight: "10px", fontSize: "35px" }}
-                    />
-                    Multiple Markets: Can trade in multiple instruments and
-                    segments
+                    <RadioButtonCheckedIcon style={{ paddingRight: "10px", fontSize: "35px" }} />
+                    Multiple Markets: Can trade in multiple instruments and segments.
                   </Point>
                 </Box>
               </Box>
             </Grid>
+            {/* Key Benefits Image */}
             <Grid
               item
               xs={12}
@@ -148,157 +301,87 @@ const AlgoTrading = ({ serviceName }) => {
             >
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Image
-                  src={financial2}
-                  alt="algo trading"
-                  width={500}
-                  height={500} // Add height to match maxWidth for proper aspect ratio
+                  src={financialImage2} // Original used financialImage2
+                  alt="Algo Trading Illustration"
+                  width={500} // Increased base width for better quality
+                  height={500} // Increased base height
                   style={{
                     width: "100%",
-                    maxWidth: "500px",
+                    maxWidth: "500px", // Max width for image
+                    height: "auto",
                     borderRadius: "12px",
                   }}
+                  priority
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSCAAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAErgJ9aB4zYgAAAABJRU5ErkJggg=="
+                  onError={() => handleImageError("keyBenefitsImage")}
                 />
+                {imageError.keyBenefitsImage && (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      bgcolor: "#e4d4fa",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "12px",
+                    }}
+                  >
+                    <Typography color="error" variant="body2">
+                      Image not available
+                    </Typography>
+                  </Box>
+                )}
               </Box>
             </Grid>
           </Grid>
-          {/* SIP */}
-          <StyledDivider />
-          <Grid container spacing={3}>
-            {algos.map((course, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <InfoCard sx={{width:'350px'}}>
+
+          <StyledDivider /> {/* Custom styled divider */}
+
+          {/* Algo Info Cards */}
+          <Grid container spacing={4} justifyContent="center" alignItems="stretch"> {/* Adjusted spacing and alignment */}
+            {ALGOS.map((algo, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}> {/* Changed sm to 6 for 2 columns on small screens, md to 4 for 3 columns on medium */}
+                <InfoCard>
                   <Typography
                     fontWeight="bold"
                     color="#49326b"
                     sx={{
-                      mt: 2,
                       borderRadius: "10px",
-                      fontSize: "1.2rem",
+                      fontSize: "1.0rem", // Replicated font size
                       textAlign: "center",
                     }}
                   >
-                    {course.title}
+                    {algo.title}
                   </Typography>
 
                   <Box
                     sx={{
-                      flex: 1,
+                      flex: 1, // Allow content to take available space
                       display: "flex",
                       flexDirection: "column",
-                      alignItems: "left",
+                      alignItems: "flex-start", // Align list items to left
                       justifyContent: "center",
+                      width: "100%", // Ensure it takes full width for left alignment
+                      mt: 2, // Space between title and points
                     }}
                   >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "self-start",
-                        justifyContent: "left",
-                      }}
-                    >
-                      <FiberManualRecordIcon
-                        style={{
-                          paddingRight: "10px",
-                          color: "#49326b",
-                          marginTop: "10px",
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          mt: 1,
-                          color: "#49326b",
-                        }}
-                      >
-                        {course.subtitle}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "self-start",
-                        justifyContent: "left",
-                      }}
-                    >
-                      <FiberManualRecordIcon
-                        style={{
-                          paddingRight: "10px",
-                          color: "#49326b",
-                          marginTop: "10px",
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          mt: 1,
-                          color: "#49326b",
-                        }}
-                      >
-                        {course.description}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "self-start",
-                        justifyContent: "left",
-                      }}
-                    >
-                      <FiberManualRecordIcon
-                        style={{
-                          paddingRight: "10px",
-                          color: "#49326b",
-                          marginTop: "10px",
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          mt: 1,
-                          color: "#49326b",
-                        }}
-                      >
-                        {course.audience}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "self-start",
-                        justifyContent: "left",
-                      }}
-                    >
-                      <FiberManualRecordIcon
-                        style={{
-                          paddingRight: "10px",
-                          color: "#49326b",
-                          marginTop: "10px",
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          mt: 1,
-                          color: "#49326b",
-                        }}
-                      >
-                        {course.desc}
-                      </Typography>
-                    </Box>
+                    {algo.points.map((point, i) => (
+                      <CardListItem key={i} text={point} />
+                    ))}
                   </Box>
                 </InfoCard>
               </Grid>
             ))}
           </Grid>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "30px",
-            }}
-          >
-            <GetMoreButton />
+
+          {/* Get More Button */}
+          <Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}> {/* Increased margin top */}
+            <GetMoreButton aria-label="Learn more about algo trading services" />
           </Box>
         </Container>
       </Box>
@@ -306,98 +389,12 @@ const AlgoTrading = ({ serviceName }) => {
   );
 };
 
+AlgoTrading.propTypes = {
+  serviceName: PropTypes.string,
+};
+
+AlgoTrading.defaultProps = {
+  serviceName: "ALGO TRADING",
+};
+
 export default AlgoTrading;
-
-const imageFloat = keyframes`
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-`;
-const fadeIn = keyframes`
-  0% {
-    transform: scale(1.02);
-    /* opacity: 0.7; */
-  }
-  50% {
-    transform: scale(1.03);
-    /* opacity: 0.9; */
-  }
-  100% {
-    transform: scale(1);
-    /* opacity: 1; */
-  }
-`;
-const SectionTitle = styled(Typography)(({ theme }) => ({
-  fontSize: "2rem",
-  fontWeight: 900,
-  color: "#49326b",
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "1.75rem",
-  },
-  [theme.breakpoints.down("xs")]: {
-    fontSize: "1.5rem",
-  },
-}));
-const Point = styled(Typography)({
-  color: "#49326b",
-  marginBottom: "6px",
-  fontSize: "1rem",
-});
-const InfoCard = styled(Box)(({ image }) => ({
-  position: "relative",
-  width: "100%",
-  height: "100%",
-  marginTop: "40px",
-  border: "10px solid #e4d4fa",
-  padding: "20px",
-  borderRadius: "16px",
-  overflow: "hidden",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  animation: `${fadeIn} 6s ease-in-out infinite alternate`,
-  "&:hover": {
-    transition: "all 0.55s ease-in",
-    boxShadow: `0 20px 40px #49326b`,
-    background: `linear-gradient(135deg, #49326b 0%, #rgba(210, 152, 228, 0.25)00%)`,
-    "& .feature-icon": {
-      transform: "scale(1.1)",
-      background: `linear-gradient(45deg, #49326b,rgb(167, 103, 180))`,
-    },
-  },
-  "&::before": {
-    content: '""',
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: 1,
-  },
-  "& > *": {
-    position: "relative",
-    zIndex: 2,
-  },
-  "@media (max-width: 600px)": {
-    padding: "20px 10px",
-  },
-}));
-
-const ImageWrapper = styled(Box)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledDivider = styled(Divider)`
-  background-color: #e4d4fa;
-  height: 6px;
-  /* margin: 50px; */
-  width: 100%;
-`;

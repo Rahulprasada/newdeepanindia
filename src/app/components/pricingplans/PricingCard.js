@@ -1,15 +1,26 @@
 "use client";
 
-import Box from "@mui/material/Box";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions"; // For better dialog button placement
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button";
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { keyframes } from "@emotion/react";
 import React, { useState } from "react";
-import Image from "next/image"; // Assuming next/image setup is correct
+import Image from "next/image";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import Typography from "@mui/material/Typography";
+
+// --- ANIMATION KEYFRAMES (Moved from styled-components to MUI) ---
+const float = keyframes`
+  0%, 100% {
+    transform: translateY(0px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.08);
+  }
+`;
+
 const PricingCard = ({
   index,
   title,
@@ -18,269 +29,141 @@ const PricingCard = ({
   icon,
   subtitle,
   features,
-  allPlansData, // Passed from PricingPlans for feature inheritance
+  allPlansData, // Kept for the SMART TRADER logic
 }) => {
   const isCenterCard = index === 1;
-  // Determine how many features to show on the card initially
-  const visibleFeaturesCountOnCard = index === 0 ? 2 : 3;
   const [open, setOpen] = useState(false);
 
-  // Features to display directly on the card
-  const initiallyDisplayedFeatures = features.slice(
-    0,
-    visibleFeaturesCountOnCard
-  );
+  // Determine how many features to show initially on the card
+  const visibleFeaturesCountOnCard = index === 0 ? 2 : 3;
+  const initiallyDisplayedFeatures = features.slice(0, visibleFeaturesCountOnCard);
 
-  // Determine the full list of features for the "Read More" dialog
+  // Determine which features to show in the "Read More" dialog
   let featuresForDialog = [];
-  if (
-    index === 1 &&
-    features[0]?.toLowerCase().includes("all wise investor features")
-  ) {
-    // For SMART TRADER, combine WISE INVESTOR features with its own specific additions
+  if (index === 1 && features[0]?.toLowerCase().includes("all wise investor features")) {
     const wiseInvestorFeatures = allPlansData?.[0]?.features || [];
-    // Take features from SMART TRADER list, skipping the "All WISE..." summary line
     const smartTraderSpecificFeatures = features.slice(1);
-    featuresForDialog = [
-      ...wiseInvestorFeatures,
-      ...smartTraderSpecificFeatures,
-    ];
+    featuresForDialog = [...wiseInvestorFeatures, ...smartTraderSpecificFeatures];
   } else {
-    // For other cards, the dialog shows features not initially displayed on the card
+    // For other cards, show the remaining features
     featuresForDialog = features.slice(visibleFeaturesCountOnCard);
   }
 
-  // Show "Read More" button if the dialog will have content to display
-  // or if it's the SMART TRADER card (as per image showing its button)
-  const showReadMoreButton =
-    index === 1 &&
-    features[0]?.toLowerCase().includes("all wise investor features")
-      ? featuresForDialog.length > 0 // Smart trader shows button if inherited features exist
-      : features.length > visibleFeaturesCountOnCard;
+  // Determine if the "Read More" button should be shown
+  const showReadMoreButton = featuresForDialog.length > 0;
 
   return (
     <Box
       sx={{
+        // --- CORE LAYOUT ---
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        padding: isCenterCard
-          ? { xs: "35px 20px 20px", md: "45px 25px 25px" }
-          : "30px 20px 20px",
+        
+        // --- STYLES TRANSLATED FROM STYLED-COMPONENTS ---
+        padding: isCenterCard ? { xs: "40px 20px", md: "50px 25px" } : "40px 20px 20px",
         borderRadius: "20px",
-        background: "#F9F3FE",
-        boxShadow: isCenterCard
-          ? "0 12px 28px rgba(0,0,0,0.25)"
-          : "0 8px 16px rgba(0,0,0,0.15)",
-        border: "1px solid #e0e0e0",
-        color: "#49326b",
+        background: "rgba(243, 241, 241, 0.34)", // Semi-transparent background for the glass effect
+        backdropFilter: "blur(10px)", // The glass effect
+        boxShadow: isCenterCard ? "0 8px 20px rgba(0, 0, 0, 0.3)" : "0 4px 10px rgba(0, 0, 0, 0.2)",
+        border: "2px solid white",
         textAlign: "left",
-        transform: isCenterCard ? "scale(1.08)" : "scale(1)",
-        transition: "none",
-        position: "relative",
-        zIndex: isCenterCard ? 1 : 0,
+        transform: isCenterCard ? "scale(1.05)" : "scale(1)",
+        zIndex: isCenterCard ? 2 : 1,
 
+        // --- ANIMATION ---
+        animation: isCenterCard ? `${float} 6s ease-in-out infinite` : 'none',
+
+        // --- HOVER EFFECT ---
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        "&:hover": {
+          transform: isCenterCard ? "scale(1.1)" : "scale(1.05)",
+          boxShadow: "0 12px 24px rgba(0, 0, 0, 0.3)",
+        },
+
+        // --- RESPONSIVE ADJUSTMENTS ---
         "@media (max-width: 900px)": {
-          transform: "scale(1)", // Prevent shifting on small screens
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-          padding: "30px 20px 20px",
+          transform: "scale(1)", // Reset scale on mobile
+          animation: "none", // Disable floating animation on mobile
         },
       }}
     >
-      <Image
-        src={icon}
-        alt={`${title} icon`}
-        width={50}
-        height={50}
-        style={{ marginBottom: "10px" }}
-      />
-      <Box
-        component="h2"
-        sx={{
-          fontSize: "18px",
-          fontWeight: 900,
-          color: "#49326b",
-          padding: "10px 0px 0px 0px",
-          textAlign: "left",
-        }}
-      >
+      <Image src={icon} alt={`${title} icon`} width={50} height={50} />
+      
+      <Typography component="h2" sx={{ fontSize: "18px", fontWeight: 900, color: "#49326b", pt: 2.5 }}>
         {title}
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "baseline",
-          margin: "10px 0",
-        }}
-      >
-        <Box
-          component="h1"
-          sx={{
-            fontSize: "30px",
-            fontWeight: 900,
-            color: "#49326b",
-            textAlign: "left",
-          }}
-        >
+      </Typography>
+
+      <Box sx={{ display: "flex", alignItems: "baseline", my: 1 }}>
+        <Typography component="h1" sx={{ fontSize: "30px", fontWeight: 900, color: "#49326b" }}>
           {price}
-        </Box>
-        <Box
-          component="p"
-          sx={{
-            color: "#49326b",
-            fontWeight: 600,
-            textAlign: "left",
-            fontSize: "14px",
-            ml: 0.5,
-          }}
-        >
+        </Typography>
+        <Typography component="p" sx={{ color: "#49326b", fontWeight: 600, fontSize: "14px", ml: 0.5 }}>
           /{description}
-        </Box>
+        </Typography>
       </Box>
-      <Box
-        component="p"
-        sx={{ color: "#49326b", fontWeight: 600, textAlign: "left", mb: 2 }}
-      >
+
+      <Typography component="p" sx={{ color: "#49326b", fontWeight: 600, mb: 2 }}>
         {subtitle}
-      </Box>
-      <Box
-        sx={{ backgroundColor: "red", width: "100%", height: "3px", mb: 2 }}
-      />{" "}
-      {/* Adjusted height & margin */}
-      <Box
-        component="ul"
-        sx={{
-          listStyle: "none",
-          padding: 0,
-          margin: "0 0 20px 0", // Adjusted margin
-          flexGrow: 1, // This makes the feature list expand, pushing button to bottom
-        }}
-      >
+      </Typography>
+
+      <Box sx={{ backgroundColor: "red", width: "100%", height: "4px", mb: 2 }} />
+
+      {/* Feature List */}
+      <Box component="ul" sx={{ listStyle: "none", padding: 0, m: 0, flexGrow: 1 }}>
         {initiallyDisplayedFeatures.map((feature, i) => (
-          <Box
-            component="li"
-            key={i}
-            sx={{ display: "flex", alignItems: "flex-start", margin: "10px 0" }} // alignItems: "flex-start" for multi-line features
-          >
-            <VerifiedIcon
-              sx={{ color: "#65749e", fontSize: 20, mr: 1, mt: "3px" }}
-            />{" "}
-            {/* Added margin top for better alignment with text */}
-            <Box
-              component="span"
-              sx={{ color: "#49326b", fontWeight: 600, textAlign: "left" }}
-            >
+          <Box component="li" key={i} sx={{ display: 'flex', alignItems: 'flex-start', my: 1 }}>
+            <VerifiedIcon sx={{ color: "#65749e", fontSize: 20, mr: 1, mt: "3px" }} />
+            <Typography component="span" sx={{ color: "#49326b", fontWeight: 600, textAlign: "left" }}>
               {feature}
-            </Box>
+            </Typography>
           </Box>
         ))}
       </Box>
+
+      {/* Read More Button */}
       {showReadMoreButton && (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            width: "100%",
-            marginTop: "auto",
-            pt: 1,
-          }}
-        >
-          {" "}
-          {/* marginTop: "auto" pushes this Box to the bottom */}
+        <Box sx={{ width: "100%", mt: 'auto', pt: 2 }}>
           <Button
             variant="outlined"
+            onClick={() => setOpen(true)}
             sx={{
               width: "100%",
-              border: "2px solid red", // Made border thicker
+              border: "1px solid red",
               color: "#49326b",
               fontWeight: "bold",
-              padding: "10px 20px",
+              py: 1.25,
               borderRadius: "10px",
-              cursor: "pointer",
-              textDecoration: "none",
-              transition: "all 0.3s ease",
               "&:hover": {
                 color: "white",
                 backgroundColor: "red",
-                border: "2px solid red",
+                border: "1px solid red",
               },
             }}
-            onClick={() => setOpen(true)}
           >
             Read More
           </Button>
         </Box>
       )}
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle
-          sx={{ color: "#49326b", fontWeight: "bold", textAlign: "center" }}
-        >
+
+      {/* Dialog for More Features */}
+      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+        <DialogTitle sx={{ color: "#49326b", fontWeight: "bold" }}>
           {title} - All Features
         </DialogTitle>
         <DialogContent dividers>
-          {" "}
-          {/* 'dividers' adds top/bottom borders */}
-          <Box component="ul" sx={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {featuresForDialog.length > 0 ? (
-              featuresForDialog.map((feature, i) => (
-                <Box
-                  component="li"
-                  key={i}
-                  sx={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    margin: "12px 0",
-                    padding: "5px 0",
-                  }}
-                >
-                  <VerifiedIcon
-                    sx={{ color: "#49326b", fontSize: 20, mr: 1.5, mt: "3px" }}
-                  />
-                  <Box
-                    component="span"
-                    sx={{
-                      color: "#49326b",
-                      fontWeight: 500,
-                      textAlign: "left",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    {feature}
-                  </Box>
-                </Box>
-              ))
-            ) : (
-              <Typography sx={{ textAlign: "center", my: 2 }}>
-                No additional features to display.
-              </Typography>
-            )}
+          <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
+            {featuresForDialog.map((feature, i) => (
+              <Box component="li" key={i} sx={{ display: "flex", alignItems: "flex-start", py: 1 }}>
+                <VerifiedIcon sx={{ color: "#49326b", fontSize: 20, mr: 1.5, mt: "3px" }} />
+                <Typography component="span" sx={{ color: "#49326b", fontWeight: 500, fontSize: "1rem" }}>
+                  {feature}
+                </Typography>
+              </Box>
+            ))}
           </Box>
         </DialogContent>
-        <DialogActions sx={{ padding: "16px 24px" }}>
-          <Button
-            variant="outlined"
-            onClick={() => setOpen(false)}
-            sx={{
-              color: "red",
-              borderColor: "red",
-              "&:hover": {
-                borderColor: "darkred",
-                backgroundColor: "rgba(255,0,0,0.04)",
-              },
-            }}
-          >
-            Close
-          </Button>
-        </DialogActions>
+        <Button onClick={() => setOpen(false)} sx={{ m: 2 }}>Close</Button>
       </Dialog>
     </Box>
   );

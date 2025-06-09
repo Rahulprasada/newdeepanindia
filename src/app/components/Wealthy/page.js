@@ -51,19 +51,25 @@ const Wealthy = ({ data }) => {
       <Container sx={{ minWidth: "100%" }}>
         <Box className={styles.contentWrapper}>
           <Box className={styles.textBox}>
-            <Typography className={styles.title}>
-              How{" "}
-              <span
-                style={{ color: "#f33d25", fontSize: "42px", fontWeight: 900 }}
-              >
-                Deepan
-              </span>{" "}
-              <span
-                style={{ color: "#e4d4fa", fontSize: "42px", fontWeight: 900 }}
-              >
-                India
-              </span>{" "}
-              Helps You Build Wealth?
+          <Typography
+              sx={{
+                fontSize: { xs: 24, md: 32 },
+                color: "white",
+                fontWeight: 900,
+                "& .deepan": {
+                  color: "#f33d25",
+                  fontSize: { xs: 28, md: 42 },
+                  fontWeight: 900,
+                },
+                "& .india": {
+                  color: "#e4d4fa",
+                  fontSize: { xs: 28, md: 42 },
+                  fontWeight: 900,
+                },
+              }}
+            >
+              How <span className="deepan">Deepan</span>{" "}
+              <span className="india">India</span> Helps You Build Wealth?
             </Typography>
           </Box>
 

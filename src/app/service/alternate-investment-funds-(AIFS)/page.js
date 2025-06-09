@@ -31,23 +31,24 @@ const AlternativeInvestMentFunt = ({ serviceName }) => {
 
         {/* Text on Image */}
         <Typography
-          variant="h5"
+          variant="h6"
           sx={{
             position: "absolute",
             top: "50%",
-            left: "30%",
-            transform: "translate(-50%, -50%)",
+            left: 0,
+            transform: "translateY(-50%)", // Only vertical centering
             color: "white",
             fontWeight: "bold",
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
-            textAlign: "center",
+            textAlign: "left",
             fontSize: {
               xs: "20px", // mobile
-              sm: "28px", // small tablets
-              md: "40px", // medium devices
-              lg: "50px", // desktop
+              sm: "28px",
+              md: "40px",
+              lg: "50px",
             },
             px: 2,
+            pl: { xs: 2, sm: 4, md: 6 }, // Responsive left padding
           }}
         >
          ALTERNATE-INVESTMENT-FUNDS-(AIFS)
