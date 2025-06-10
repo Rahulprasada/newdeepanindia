@@ -156,8 +156,8 @@ const CardDetailsClient = () => {
         <Container maxWidth="lg">
           <Content1Box>
             <ImageBox><StyledImage src={imageSrc} alt={data.title} loading="lazy" /></ImageBox>
-            <Typography variant="body1" className="metaDescription">{data.metaDescription}</Typography>
-            <Typography component="div" dangerouslySetInnerHTML={{ __html: data.content }} color="#49326b" />
+            <Typography variant="body1" className="metaDescription"dangerouslySetInnerHTML={{ __html: data.metaDescription}}/>
+            <Typography component="div" className="Content" dangerouslySetInnerHTML={{ __html: data.content }} color="#49326b" />
             <AuthorBox image={aboutImg1.src}>
               <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, width: '100%', gap: { xs: 2, sm: 0 } }}>
                 <Box sx={{ textAlign: 'left' }}>
@@ -231,6 +231,29 @@ const ContentBox = styled(Box)`
     @media (max-width: 600px) {
       font-size: 1.8rem;
     }
+    a {
+      color: #e4d4fa;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ffffff;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .Content{
+    a {
+      color: #e4d4fa;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ffffff;
+        text-decoration: none;
+      }
+    }
   }
 
   .subtitle {
@@ -241,6 +264,16 @@ const ContentBox = styled(Box)`
 
     @media (max-width: 600px) {
       font-size: 1rem;
+    }
+    a {
+      color: #e4d4fa;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ffffff;
+        text-decoration: none;
+      }
     }
   }
 `;
@@ -260,6 +293,16 @@ const Content1Box = styled(Box)`
     color: #49326b;
     line-height: 1.6;
   }
+  a {
+      color: #e4d4fa;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ffffff;
+        text-decoration: none;
+      }
+    }
 
   @media (max-width: 600px) {
     padding: 20px;
