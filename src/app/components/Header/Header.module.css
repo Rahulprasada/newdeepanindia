@@ -1,427 +1,366 @@
+.headerContainer .mobileMenus {
+  display: none;
+}
 
-  
-  .headerContainer .mobileMenus {
+@media screen and (max-width: 600px) {
+  .headerContainer .sample {
     display: none;
   }
-  
-  @media screen and (max-width: 600px) {
-    .headerContainer .sample {
-      display: none;
-    }
-    .headerContainer .mobileMenus {
-      display: block;
-      transition: all 0.5s ease-in-out;
-    }
-    .headerContainer .mobileMenus .navbar-toggler,
-    .headerContainer .mobileMenus .dropdown-menu {
-      border: none;
-    }
-    .headerContainer .mobileMenus .navbar-toggler {
-      color: #013396;
-    }
+  .headerContainer .mobileMenus {
+    display: block;
+    transition: all 0.5s ease-in-out;
   }
-  
-  .topHeader {
-    background-color: #49326b;
-    border-bottom: 1px solid #16151553;
+  .headerContainer .mobileMenus .navbar-toggler,
+  .headerContainer .mobileMenus .dropdown-menu {
+    border: none;
   }
-  
-  .topHeader h6 {
-    font-weight: 800;
-    margin: 0;
-    color: #ffffff;
+  .headerContainer .mobileMenus .navbar-toggler {
+    color: #013396;
   }
-  
-  .topHeader a {
-    font-size: 14px;
-    padding: 0;
-  }
-  
-  .topHeader .dropdown-menu {
-    padding: 10px 15px;
-  }
-  
-  @media screen and (max-width: 600px) {
-    .topHeader {
-      display: none;
-    }
-  }
-  
-  .myTopHeader {
-    display: flex;
-    justify-content:space-evenly;
-  }
-  
-  .topMenuItem {
-    padding: 50px;
-  }
-  
-  .btnTopHeader {
-    padding: 6px 15px;
-    border-radius: 5px;
-    border: 1px solid #49326b;
+}
 
-    color: #49326b;
-    font-size: 14px;
+.topHeader {
+  background-color: #49326b;
+  border-bottom: 1px solid #16151553;
+}
+
+.topHeader h6 {
+  font-weight: 800;
+  margin: 0;
+  color: #ffffff;
+}
+
+.topHeader a {
+  font-size: 14px;
+  padding: 0;
+}
+
+.topHeader .dropdown-menu {
+  padding: 10px 15px;
+}
+
+@media screen and (max-width: 920px) {
+  .topHeader {
+    display: none;
   }
-  
-  .btnTopHeader:hover {
-    background-color: #33197a;
-    color: #fff;
-    border: 1px solid #33197a;
+}
+
+.myTopHeader {
+  display: flex;
+  justify-content:space-evenly;
+}
+
+.topMenuItem {
+  padding: 50px;
+}
+
+.btnTopHeader {
+  padding: 6px 15px;
+  border-radius: 5px;
+  border: 1px solid #49326b;
+  color: #49326b;
+  font-size: 14px;
+}
+
+.btnTopHeader:hover {
+  background-color: #33197a;
+  color: #fff;
+  border: 1px solid #33197a;
+}
+
+.styledDivider {
+  background-color: #e9e3e3;
+  width: 100%;
+}
+
+.headerBottom {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  /* Ensure headerBottom has a defined height for positioning context */
+  height: 6rem; /* approx 96px, adjust to match logo and padding */
+  display: flex;
+  align-items: center;
+}
+
+.myContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  width: 100%;
+}
+
+@media screen and (max-width: 920px) {
+  .myContainer .sample {
+    display: none;
   }
-  
-  .styledDivider {
-    background-color: #e9e3e3;
-    width: 100%;
-  }
-  
-  .headerBottom {
-    position: sticky;
-    top: 0;
-    z-index: 500;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
-  }
-  
+}
+
+.logoContainer {
+  min-width: 50%;
+  display: flex;
+  justify-content:space-evenly;
+}
+
+.logo {
+  width: 150px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.hamburger {
+  display: none;
+}
+
+.hamburgerLine {
+  width: 100%;
+  height: 3px;
+  background-color: #07319f;
+  transition: all 0.3s;
+}
+
+.hamburgerLine1Open {
+  width: 100%;
+  height: 3px;
+  background-color: #07319f;
+  transform: rotate(45deg) translateY(8px);
+}
+
+.hamburgerLine2Open {
+  width: 100%;
+  height: 3px;
+  background-color: #07319f;
+  opacity: 0;
+}
+
+.hamburgerLine3Open {
+  width: 100%;
+  height: 3px;
+  background-color: #07319f;
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+.styledNavLink {
+  color: white !important;
+  transition: color 0.3s ease;
+}
+
+.styledNavLink:hover {
+  color: red !important;
+}
+
+.algoTradingLink {
+  height: 40px;
+  width: 120px;
+  color: #49326b;
+  transition: color 0.3s ease;
+  background-color: #ffffff;
+  padding: 14px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  animation: blink 1s infinite;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-content: center;
+}
+
+.algoTradingLink:hover {
+  color: #16155e;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.navBtn {
+  display: flex;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  position: relative;
+  color: #49326b;
+  padding: 10px 0.8rem;
+  letter-spacing: 1px;
+  font-size: 16px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  transform: scale(1);
+  background-color: #d3d0d0;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 15rem;
+  background-color: #fff;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.5s, transform 0.5s;
+  z-index: 9999;
+  visibility: hidden;
+}
+
+.navLink:hover .dropdown, .dropdownShow {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown ul li {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #49326b;
+  background: #f0f0f5;
+  transition: 0.3s;
+  border-bottom: 1px solid white;
+}
+
+.dropdown ul li:hover {
+  background: #49326b;
+  color: white;
+  border-top: 5px solid #ffffff;
+}
+
+/* =========================================== */
+/* === MOBILE & RESPONSIVE STYLES (UPDATED) === */
+/* =========================================== */
+
+@media screen and (max-width: 920px) {
   .myContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    position: relative;
+      justify-content: space-between; /* Better alignment for mobile */
+      padding: 0 1rem; /* Add some horizontal padding */
+      padding-top: 10px;
   }
-  
-  @media screen and (max-width: 600px) {
-    .myContainer .sample {
-      display: none;
-    }
-  }
-  
-  .logoContainer {
-    min-width: 50%;
-    display: flex;
-    justify-content:space-evenly;
-  }
-  
-  .logo {
-    width: 150px;
-    height: 100px;
-    cursor: pointer;
+
+  .logoContainer.sample {
+      min-width: unset; /* Allow logo to shrink */
+      justify-content: flex-start;
   }
   
   .hamburger {
-    display: none;
-    position: fixed; /* Keep it fixed relative to viewport */
-    top: 30px; /* Adjust based on your header's height to place it correctly */
-    right: 20px; /* Adjust as needed */
-    z-index: 10000; 
-  }
-  
-  @media (max-width: 920px) {
-    .hamburger {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       width: 25px;
       height: 15px;
       cursor: pointer;
-    }
+      z-index: 10001; /* Must be higher than the menu */
   }
-  
-  .hamburgerLine {
-    width: 100%;
-    height: 3px;
-    background-color: #07319f;
-    transition: all 0.3s;
-  }
-  
-  .hamburgerLine1Open {
-    width: 100%;
-    height: 3px;
-    background-color: #07319f;
-    transform: rotate(45deg) translateY(8px);
-  }
-  
-  .hamburgerLine2Open {
-    width: 100%;
-    height: 3px;
-    background-color: #07319f;
-    opacity: 0;
-  }
-  
-  .hamburgerLine3Open {
-    width: 100%;
-    height: 3px;
-    background-color: #07319f;
-    transform: rotate(-45deg) translateY(-8px);
-  }
-  
-  .styledNavLink {
-    color: white !important;
-    transition: color 0.3s ease;
-  }
-  
-  .styledNavLink:hover {
-    color: red !important;
-  }
-  
-  .algoTradingLink {
-    height: 40px;
-    width: 120px;
-    color: #49326b;
-    transition: color 0.3s ease;
-    background-color: #ffffff;
-    padding: 14px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    animation: blink 1s infinite;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
-    margin-left: 10px;
-    margin-right: 10px;
-    align-content: center;
-  }
-  
-  .algoTradingLink:hover {
-    color: #16155e;
-  }
-  
-  @keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.3; }
-    100% { opacity: 1; }
-  }
-  
-  .algoTradingMobileLink {
-    color: white;
-    transition: color 0.3s ease;
-    background-color: #260b57;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    animation: blink 1s infinite;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
-  }
-  
-  .algoTradingMobileLink:hover {
-    color: #16155e;
-  }
-  
+
+  /* --- THIS IS THE UPDATED SLIDE-DOWN ANIMATION --- */
   .navBtn {
-    display: flex;
-  }
-  
-  @media (max-width: 920px) {
-    .navBtn {
       position: fixed;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: calc(100vh - 3rem);
-      top: 7rem;
+      /* Position menu below the header (header is 6rem tall) */
+      top: 6rem; 
       left: 0;
       width: 100%;
+      height: calc(100vh - 6rem); /* Full screen height minus header */
       background-color: #fff;
-      transform: translateX(100%);
-      transition: transform 0.5s ease-in-out;
-      z-index: 9999;
-    }
-    .navBtnOpen {
-      transform: translateX(0);
-    }
+
+      /* Menu Content Layout */
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem 0;
+
+      /* Animation Properties */
+      overflow-y: auto;
+      transform: translateY(-120%); /* Start completely off-screen above */
+      transition: transform 0.4s ease-in-out;
+      z-index: 10000;
   }
 
-  @media screen and (max-width: 600px) {
-    .hamburger {
-      top: 20px; /* Adjust top position for smaller screens */
-      right: 15px; /* Adjust right position for smaller screens */
-    }
+  .navBtnOpen {
+      transform: translateY(5); /* Animate to its final position */
   }
-  
-  
-  @media screen and (max-width: 600px) {
-    .navBtn {
-      top: 4rem;
-      height: calc(75vh - 3rem);
-    }
-  }
-  
+
   .navLinks {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
   }
-  
-  @media (max-width: 920px) {
-    .navLinks {
-      flex-direction: column;
-      align-items: center;
-      z-index: 900;
-      position: relative;
-    }
-  }
-  
+
   .navLink {
-    position: relative;
-    color: #49326b;
-    padding: 0 0.8rem;
-    letter-spacing: 1px;
-    font-size: 16px;
-    transition: 0.5s;
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  .navLink:hover {
-    transform: scale(1);
-    background-color: #d3d0d0;
-  }
-  
-  @media screen and (max-width: 600px) {
-    .navLink {
-      padding: 10px 0.8rem;
-    }
-  }
-  
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 15rem;
-    background-color: #fff;
-    opacity: 0;
-    transform: translateY(10px);
-    pointer-events: none;
-    transition: opacity 0.5s, transform 0.5s;
-    z-index: 9999;
-    visibility: hidden;
-  }
-  
-  .navLink:hover .dropdown {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    visibility: visible;
-  }
-  
-  .dropdownShow {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    visibility: visible;
-    display: block;
-  }
-  
-  .dropdown ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .dropdown ul li {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #49326b;
-    background: #f0f0f5;
-    transition: 0.3s;
-    border-bottom: 1px solid white;
-  }
-  
-  .dropdown ul li:hover {
-    background: #49326b;
-    color: white;
-    border-top: 5px solid #ffffff;
-  }
-  
-  @media screen and (max-width: 920px) { /* Changed to 920px to match hamburger breakpoint */
-    .dropdown {
-      position: static; /* Key change */
-      opacity: 1; /* Ensure visible */
-      transform: none; /* No transform */
-      pointer-events: auto; /* Interactive */
-      visibility: visible; /* Ensure visible */
-      width: 100%; /* Take full width of parent */
-      margin-top: 5px; /* Optional: adds space below the parent navLink */
-      display: none; /* Hide by default, will be shown by dropdownShow */
-      border: 1px solid #e9e3e3;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-    .dropdownShow {
-      display: block; /* Only show when this class is active */
-    }
-  
-    .dropdown ul {
-      border: 1px solid #e9e3e3;
-      border-radius: 5px;
-    }
-  
-    .dropdown ul li {
-      padding: 12px 20px; /* Adjust padding for mobile dropdown items */
-      text-align: center; /* Optional: centers the text */
-      border-bottom: 1px solid #f8f8f8;
-    }
-  
-    /* Remove hover styles that might interfere on mobile */
-    .navLink:hover .dropdown {
-      opacity: 1; /* Keep it visible for touch-based interactions if 'dropdownShow' is applied */
-      transform: translateY(0);
-      pointer-events: auto;
-      visibility: visible;
-    }
-  }
-  
-  /* Original 600px media query for .dropdown, keep if specific mobile styles apply */
-  @media screen and (max-width: 600px) {
-    /* You can keep or adjust specific styles here if needed for smaller screens */
-    .dropdown {
-      /* If you want different behavior than 920px, specify here */
-      left: 0; /* Align left again if needed, but static position should handle it */
-      width: 100%; /* Ensure full width on very small screens */
-    }
-  }
-
-
-  @media (max-width: 920px) {
-    .navBtn {
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start; /* Align content to the top */
-      /* Remove height calc(100vh - 3rem) here if you want it to push down */
-      height: 0; /* Start with height 0 to make it open from top *//* Position it below the headerBottom (adjust if headerBottom height changes) */
-      left: 0;
+    max-width: 300px;
       width: 100%;
-      background-color: #fff;
-      /* CHANGE THIS FROM translateX TO translateY */
-      transform: translateY(-100%); /* Start completely above its 'top' position */
-      transition: all 0.5s ease-in-out; /* Smooth transition for height and transform */
-      z-index: 9999;
-      overflow-y: hidden; /* Hide overflow initially */
- /* Add some padding to the top of the menu */
-    }
-  
-    .navBtnOpen {
-      transform: translateY(0); /* Slide down to its 'top' position */
-      height: calc(100vh - 7rem); /* Expand to full height minus header height */
-      overflow-y: auto; /* Allow scrolling if content overflows */
-    }
-  }
-  
-  @media screen and (max-width: 600px) {
-    .navBtn {
-      top: 4rem; /* Adjust top position for smaller mobile screens */
-      height: 0; /* Reset height for this breakpoint too */
-    }
-    .navBtnOpen {
-      height: calc(100vh - 4rem); /* Adjust expanded height for smaller screens */
-    }
-  }
-  
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0;
+      border-bottom: 1px solid #f0f0f0;
 
+  }
+
+  /* Make dropdowns static and collapsible for mobile */
+  .dropdown {
+    position: static;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    width: 100%;/* Hide by default */
+    border: none;
+    box-shadow: none;
+    background-color: #f9f9f9;
+    max-height: 0;
+  }
+
+  .dropdownShow {
+    padding: 20px;
+    display: flex;
+    flex-direction: row; /* Show when active */
+    max-height: 300px; /* Allow it to expand */
+  }
+
+  .dropdown ul li {
+      padding: 0.75rem 2rem;
+      background: transparent;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+  }
+
+  .dropdown ul li:last-child {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .headerBottom {
+      height: 5rem; /* Make header smaller on mobile */
+  }
+  .hamburger {
+    right: 1.5rem;
+  }
+  .navBtn {
+      top: 5rem; /* Adjust menu position for smaller header */
+      height: calc(100vh - 5rem);
+  }
+}

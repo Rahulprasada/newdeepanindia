@@ -67,7 +67,7 @@ export default function Footer() {
   return (
     <footer className={styles.footerMain} >
       <Container maxWidth="xl">
-        <Grid container spacing={{ xs: 3, md: 10 }} sx={{ width: "100%", margin: 0 }}>
+        <Grid container spacing={{ xs: 3, md: 8 }} sx={{ width: "100%", margin: 0 }}>
           {/* What We Serve */}
           <Grid item xs={12} sm={6} md={2}>
             <Typography variant="h6" className={styles.footTitle}sx={{fontSize:'16px' ,fontWeight:'bold'}}>

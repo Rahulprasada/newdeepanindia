@@ -6,6 +6,7 @@ import Header from './components/Header/page';
 import Footer from './components/Footer/page';
 import FixedWhatsappButton from "./components/FixedWhatsappButton/page";
 import ScrollToTopButton from "./components/ScrollToTopButton/page";
+import StyledComponentsRegistry from "./lib/registry";
 // import Loginform from "./LoginPage/page"; // This component is not used in the layout
 
 const geistSans = Geist({
@@ -46,21 +47,20 @@ export const metadata = {
   creator: "Deepan India Financial Services",
   publisher: "Deepan India Financial Services",
 
-  // Open Graph (for social media sharing like Facebook, LinkedIn)
   openGraph: {
     title: "Deepan India Financial Services - Grow Your Wealth Smartly",
     description: "Deepan India offers comprehensive financial solutions: mutual funds, retirement planning, algo trading, wealth management, and financial education.",
-    url: "https://www.deepanindia.com", // Replace with your actual domain
+    url: "https://www.deepanindia.com", 
     siteName: "Deepan India Financial Services",
     images: [
       {
-        url: "https://www.deepanindia.com/og-image.jpg", // Replace with your actual OG image URL (1200x630px recommended)
+        url: "https://www.deepanindia.com/og-image.jpg", 
         width: 1200,
         height: 630,
         alt: "Deepan India Financial Services - Building Wealth",
       },
       {
-        url: "https://www.deepanindia.com/og-image-alt.jpg", // Optional: another image for Open Graph
+        url: "https://www.deepanindia.com/og-image-alt.jpg", 
         width: 800,
         height: 600,
         alt: "Deepan India Financial Services - Financial Planning",
@@ -121,9 +121,9 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         {/* The <main> tag wraps your page-specific content */}
-        <main>
-          {children}
-        </main>
+
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+
         <FixedWhatsappButton />
         <ScrollToTopButton />
         {/* Footer will appear at the bottom of every page */}

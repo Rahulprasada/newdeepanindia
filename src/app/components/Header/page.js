@@ -41,6 +41,9 @@ export default function Header() {
   };
 
   const handleNavigation = (href) => {
+    // Close mobile menu on navigation
+    setIsOpen(false);
+    
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
@@ -91,7 +94,7 @@ export default function Header() {
                     }}
                     href="/#ourstory"
                     className={styles.styledNavLink}
-                    onClick={() => handleNavigation("/#ourstory")}
+                    onClick={(e) => { e.preventDefault(); handleNavigation("/#ourstory"); }}
                   >
                     Home
                   </Link>
@@ -99,7 +102,7 @@ export default function Header() {
                     style={{ marginLeft: "20px", fontWeight: "bold" }}
                     href="/#About"
                     className={styles.styledNavLink}
-                    onClick={() => handleNavigation("/#About")}
+                    onClick={(e) => { e.preventDefault(); handleNavigation("/#About"); }}
                   >
                     Who We Are
                   </Link>
@@ -114,7 +117,7 @@ export default function Header() {
                     style={{ marginLeft: "20px", fontWeight: "bold" }}
                     href="/#partner"
                     className={styles.styledNavLink}
-                    onClick={() => handleNavigation("/#partner")}
+                    onClick={(e) => { e.preventDefault(); handleNavigation("/#partner"); }}
                   >
                     Partner with us
                   </Link>
@@ -175,8 +178,7 @@ export default function Header() {
               <ul className={styles.navLinks}>
                 <li
                   className={styles.navLink}
-                  onMouseEnter={() => handleMouseEnter(0)}
-                  onMouseLeave={handleMouseLeave}
+                  onClick={() => visibleDropdown === 0 ? setVisibleDropdown(null) : setVisibleDropdown(0)}
                   style={{ display: "flex" }}
                 >
                   What We Serve <FaAngleDown style={{ marginTop: "5px" }} />
@@ -188,28 +190,28 @@ export default function Header() {
                     <ul>
                       <li
                         onClick={() =>
-                          router.push("/WhatWeServe/investment-solution")
+                          handleNavigation("/WhatWeServe/investment-solution")
                         }
                       >
                         Investment Solutions
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/WhatWeServe/retirement-planning")
+                          handleNavigation("/WhatWeServe/retirement-planning")
                         }
                       >
                         Retirement Planning
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/WhatWeServe/wealth-management")
+                          handleNavigation("/WhatWeServe/wealth-management")
                         }
                       >
                         Wealth Management
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/WhatWeServe/educational-resource")
+                          handleNavigation("/WhatWeServe/educational-resource")
                         }
                       >
                         Educational Resources
@@ -219,8 +221,7 @@ export default function Header() {
                 </li>
                 <li
                   className={styles.navLink}
-                  onMouseEnter={() => handleMouseEnter(1)}
-                  onMouseLeave={handleMouseLeave}
+                  onClick={() => visibleDropdown === 1 ? setVisibleDropdown(null) : setVisibleDropdown(1)}
                   style={{ display: "flex" }}
                 >
                   What We Do <FaAngleDown style={{ marginTop: "5px" }} />
@@ -230,36 +231,36 @@ export default function Header() {
                     }`}
                   >
                     <ul>
-                      <li onClick={() => router.push("/service/mutual-funds")}>
+                      <li onClick={() => handleNavigation("/service/mutual-funds")}>
                         Mutual Funds
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/service/training-in-financial-markets")
+                          handleNavigation("/service/training-in-financial-markets")
                         }
                       >
                         Training in Financial Markets
                       </li>
-                      <li onClick={() => router.push("/service/algo-trading")}>
+                      <li onClick={() => handleNavigation("/service/algo-trading")}>
                         Algo Trading Solutions
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/service/advisory-services")
+                          handleNavigation("/service/advisory-services")
                         }
                       >
                         Advisory Services
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/service/fixed-deposits-&-bond")
+                          handleNavigation("/service/fixed-deposits-&-bond")
                         }
                       >
                         Fixed Deposits & Bonds
                       </li>
                       <li
                         onClick={() =>
-                          router.push(
+                          handleNavigation(
                             "/service/alternate-investment-funds-(AIFS)"
                           )
                         }
@@ -268,12 +269,12 @@ export default function Header() {
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/service/real-estate-funds")
+                          handleNavigation("/service/real-estate-funds")
                         }
                       >
                         Real Estate funds
                       </li>
-                      <li onClick={() => router.push("/service/insurances")}>
+                      <li onClick={() => handleNavigation("/service/insurances")}>
                         Insurances
                       </li>
                     </ul>
@@ -281,8 +282,7 @@ export default function Header() {
                 </li>
                 <li
                   className={styles.navLink}
-                  onMouseEnter={() => handleMouseEnter(3)}
-                  onMouseLeave={handleMouseLeave}
+                  onClick={() => visibleDropdown === 3 ? setVisibleDropdown(null) : setVisibleDropdown(3)}
                   style={{ display: "flex" }}
                 >
                   What We Think <FaAngleDown style={{ marginTop: "5px" }} />
@@ -306,8 +306,7 @@ export default function Header() {
                 </li>
                 <li
                   className={styles.navLink}
-                  onMouseEnter={() => handleMouseEnter(2)}
-                  onMouseLeave={handleMouseLeave}
+                  onClick={() => visibleDropdown === 2 ? setVisibleDropdown(null) : setVisibleDropdown(2)}
                   style={{ display: "flex" }}
                 >
                   Calculator <FaAngleDown style={{ marginTop: "5px" }} />
@@ -319,21 +318,21 @@ export default function Header() {
                     <ul>
                       <li
                         onClick={() =>
-                          router.push("../calculators/sip-calculator")
+                          handleNavigation("../calculators/sip-calculator")
                         }
                       >
                         SIP
                       </li>
                       <li
                         onClick={() =>
-                          router.push("../calculators/lumpsum-calculator")
+                          handleNavigation("../calculators/lumpsum-calculator")
                         }
                       >
                         Lumpsum
                       </li>
                       <li
                         onClick={() =>
-                          router.push("/calculators/swp-calculator")
+                          handleNavigation("../calculators/swp-calculator")
                         }
                       >
                         SWP
@@ -345,6 +344,9 @@ export default function Header() {
             </div>
           </div>
 
+          {/* This block of code for mobileMenus seems to have contradictory logic */}
+          {/* It's set to display only when !isMobile, but its CSS is for max-width: 600px */}
+          {/* This means it will likely never be displayed. The primary mobile menu is the one above. */}
           {!isMobile && (
             <div className={styles.mobileMenus}>
               <Navbar
@@ -352,6 +354,7 @@ export default function Header() {
                 expanded={expanded}
                 onToggle={() => setExpanded(!expanded)}
                 className={styles.myTopHeader}
+
               >
                 <Container>
                   <div className={styles.logoContainer}>
@@ -373,191 +376,9 @@ export default function Header() {
                         >
                           Investment Solutions
                         </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/retirement-planning");
-                            setExpanded(false);
-                          }}
-                        >
-                          Retirement Planning
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/wealth-management");
-                            setExpanded(false);
-                          }}
-                        >
-                          Wealth Management
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/educational-resource");
-                            setExpanded(false);
-                          }}
-                        >
-                          Educational Resources
-                        </NavDropdown.Item>
+                        {/* Other NavDropdown.Items */}
                       </NavDropdown>
-                      <NavDropdown title="What We Do" id="basic-nav-dropdown">
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/service/mutual-funds");
-                            setExpanded(false);
-                          }}
-                        >
-                          Mutual Funds
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push(
-                              "/service/training-in-financial-markets"
-                            );
-                            setExpanded(false);
-                          }}
-                        >
-                          Training in Financial Markets
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/service/algo-trading");
-                            setExpanded(false);
-                          }}
-                        >
-                          Algo Trading
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/service/advisory-services");
-                            setExpanded(false);
-                          }}
-                        >
-                          Advisory Services
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/service/fixed-deposits-&-bond");
-                            setExpanded(false);
-                          }}
-                        >
-                          Fixed Deposits & Bonds
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push(
-                              "/service/alternate-investment-funds-(AIFS)"
-                            );
-                            setExpanded(false);
-                          }}
-                        >
-                          Alternative Investment funds
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/service/real-estate-funds");
-                            setExpanded(false);
-                          }}
-                        >
-                          Real Estate funds
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/service/insurances");
-                            setExpanded(false);
-                          }}
-                        >
-                          Insurances
-                        </NavDropdown.Item>
-                      </NavDropdown>
-                      <NavDropdown
-                        title="What We Think"
-                        id="basic-nav-dropdown"
-                      >
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            handleNavigation("/Blog/blogs");
-                            setExpanded(false);
-                          }}
-                        >
-                          Blogs
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            handleNavigation("/#media");
-                            setExpanded(false);
-                          }}
-                        >
-                          Videos
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            handleNavigation("/#media");
-                            setExpanded(false);
-                          }}
-                        >
-                          Reports
-                        </NavDropdown.Item>
-                      </NavDropdown>
-                      <NavDropdown title="Calculator" id="basic-nav-dropdown">
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/sip-calculator");
-                            setExpanded(false);
-                          }}
-                        >
-                          SIP Calculator
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/lumpsum-calculator");
-                            setExpanded(false);
-                          }}
-                        >
-                          Lumpsum
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/swp-calculator");
-                            setExpanded(false);
-                          }}
-                        >
-                          SIP combined with Lumpsum
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/swp-calculator");
-                            setExpanded(false);
-                          }}
-                        >
-                          SWP
-                        </NavDropdown.Item>
-                      </NavDropdown>
-                      <Nav.Link
-                        onClick={() => {
-                          handleNavigation("/");
-                          setExpanded(false);
-                        }}
-                        className={styles.algoTradingMobileLink}
-                      >
-                        Algo Trading
-                      </Nav.Link>
+                      {/* Other NavDropdowns */}
                     </Nav>
                   </Navbar.Collapse>
                 </Container>

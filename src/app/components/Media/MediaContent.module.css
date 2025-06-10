@@ -33,6 +33,9 @@
     height: 100vh;
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .styledSection::before {

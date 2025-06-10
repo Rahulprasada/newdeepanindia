@@ -13,7 +13,6 @@ import dynamic from "next/dynamic";
 const SlickSlider = dynamic(() => import("react-slick"), { ssr: false });
 
 export default function Cardpart({ data = [] }) {
-  // Import slick-carousel CSS dynamically
   useEffect(() => {
     import("slick-carousel/slick/slick.css");
     import("slick-carousel/slick/slick-theme.css");
