@@ -1,18 +1,19 @@
 "use client";
 
 import React from "react";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
-import Container from '@mui/material/Container';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+import Container from "@mui/material/Container";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import DownloadIcon from "@mui/icons-material/Download";
 import Image from "next/image";
 import Handshake from "../../../assets/10-removebg-preview.png";
+import GetMoreButton from "../../components/Button/page";
 
 const resources = [
   {
@@ -69,13 +70,14 @@ const EducationalResource = () => {
             fontWeight: 300,
           }}
         >
-          Knowledge is the foundation of sound financial decisions. Our platform offers:
+          Knowledge is the foundation of sound financial decisions. Our platform
+          offers:
         </Typography>
 
         <Box
           sx={{
             position: "relative",
-            backgroundColor:'#33197a',
+            backgroundColor: "#33197a",
             width: "100%",
             backgroundImage: `linear-gradient(rgba(73, 50, 107, 0.7), rgba(73, 50, 107, 0.7)), url(/assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg)`,
             backgroundSize: "cover",
@@ -212,8 +214,12 @@ const EducationalResource = () => {
               },
             }}
           >
-            Empower yourself with insights that help you take control of your finances.
+            Empower yourself with insights that help you take control of your
+            finances.
           </Typography>
+        </Box>
+        <Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}>
+          <GetMoreButton />
         </Box>
       </Container>
     </Box>

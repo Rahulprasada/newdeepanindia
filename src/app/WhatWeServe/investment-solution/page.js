@@ -22,7 +22,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 // Image assets (ensure paths are correct)
 import Handshake from "../../../assets/3-removebg-preview.png";
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
-import GetMoreButton from "@/app/components/Button/page";
+import GetMoreButton from "../../components/Button/page";
 
 // Keyframes animations using @mui/system keyframes
 const slideIn = keyframes`

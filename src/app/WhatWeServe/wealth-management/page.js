@@ -27,6 +27,7 @@ import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 // Image assets (ensure paths are correct)
 import Handshake from "../../../assets/9-removebg-preview.png"; // Using the correct image path for Wealth Management
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
+import GetMoreButton from "../../components/Button/page";
 
 // Keyframes animations using @mui/system keyframes
 const slideIn = keyframes`
@@ -281,6 +282,7 @@ const WealthManagement = () => {
         </Box>
       </Container>
     </MainBox>
+
   );
 };
 

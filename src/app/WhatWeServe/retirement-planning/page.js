@@ -30,9 +30,9 @@ import UpdateIcon from "@mui/icons-material/Update";
 // RetirementPlanning component here for consistency with its design.
 import Handshake from "../../../assets/8-removebg-preview.png";
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
-
+import GetMoreButton from "../../components/Button/page";
 // External component (assuming it exists)
-// import GetMoreButton from "../../Button/GetMoreButton";
+
 
 // Keyframes animations using @mui/system keyframes
 const slideIn = keyframes`
@@ -291,6 +291,9 @@ const RetirementPlanning = () => {
 
           {/* Get More Button - Assuming this is a reusable component */}
         </QualificationBox>
+        <Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}>
+          <GetMoreButton />
+        </Box>
       </Container>
     </MainBox>
   );
