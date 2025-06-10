@@ -227,15 +227,24 @@ export default function Header() {
             <nav
               className={`${styles.navBtn} ${isOpen ? styles.navBtnOpen : ""}`}
             >
-              <ul className="block md:hidden">
+              <ul
+                className="block md:hidden"
+                style={{ paddingLeft: "0", margin: "0" }}
+              >
                 <li
                   style={{
                     color: "#49326b",
                     marginTop: "10px",
                     textDecoration: "underline",
+                    listStyle: "none",
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigation("/#ourstory");
                   }}
                 >
-                  Home
+
+                    Home
                 </li>
               </ul>
 
@@ -245,6 +254,10 @@ export default function Header() {
                     color: "#49326b",
                     marginTop: "10px",
                     textDecoration: "underline",
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigation("/#About");
                   }}
                 >
                   Who We Are
@@ -258,20 +271,12 @@ export default function Header() {
                     marginTop: "10px",
                     textDecoration: "underline",
                   }}
-                >
-                  Partnes With Us
-                </li>
-              </ul>
-
-              <ul className="block md:hidden">
-                <li
-                  style={{
-                    color: "#49326b",
-                    marginTop: "10px",
-                    textDecoration: "underline",
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigation("/#partner");
                   }}
                 >
-                  Algo Trading
+                  Partnes With Us
                 </li>
               </ul>
 
@@ -470,35 +475,34 @@ export default function Header() {
                   </div>
                 </li>
                 <Box
-  sx={{
-    backgroundColor: "#49326b",
-    padding: "10px",
-    maxWidth: "200px",
-    width: "100%",
-    borderRadius: "5px",
-    display: { xs: "block", sm: "none" }, // 👈 Only show on mobile
-  }}
->
-  <Nav.Link
-    onClick={() => handleNavigation("/")}
-    style={{
-      height: "40px",
-      width: "120px",
-      color: "#fff",
-      borderRadius: "4px",
-      cursor: "pointer",
-      fontWeight: "bold",
-      textAlign: "center",
-      display: "inline-block",
-      textDecoration: "none",
-      alignContent: "center",
-      marginLeft: "30px",
-    }}
-  >
-    Algo Trading
-  </Nav.Link>
-</Box>
-
+                  sx={{
+                    backgroundColor: "#49326b",
+                    padding: "10px",
+                    maxWidth: "200px",
+                    width: "100%",
+                    borderRadius: "5px",
+                    display: { xs: "block", sm: "none" }, // 👈 Only show on mobile
+                  }}
+                >
+                  <Nav.Link
+                    onClick={() => handleNavigation("/")}
+                    style={{
+                      height: "40px",
+                      width: "120px",
+                      color: "#fff",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      display: "inline-block",
+                      textDecoration: "none",
+                      alignContent: "center",
+                      marginLeft: "30px",
+                    }}
+                  >
+                    Algo Trading
+                  </Nav.Link>
+                </Box>
               </ul>
             </nav>
           </div>
