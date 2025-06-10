@@ -10,12 +10,20 @@ import { FaAngleDown } from "react-icons/fa";
 import Divider from "@mui/material/Divider";
 import styles from "./Header.module.css";
 import Deepalogo from "../../../assets/EditedLogo-removebg-preview.png";
-
+import Box from "@mui/material/Box";
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreen = () => setIsMobile(window.innerWidth <= 768);
+    checkScreen(); // initial check
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
   // STEP 2: Create a ref for the navigation container
   const navContainerRef = useRef(null);
@@ -187,10 +195,10 @@ export default function Header() {
                 src={Deepalogo}
                 alt="Logo"
                 style={{
-                  width:"auto",
+                  width: "auto",
                   height: "100px",
                   cursor: "pointer",
-                  }}
+                }}
                 // Use a class for easier styling
               />
             </div>
@@ -219,6 +227,54 @@ export default function Header() {
             <nav
               className={`${styles.navBtn} ${isOpen ? styles.navBtnOpen : ""}`}
             >
+              <ul className="block md:hidden">
+                <li
+                  style={{
+                    color: "#49326b",
+                    marginTop: "10px",
+                    textDecoration: "underline",
+                  }}
+                >
+                  Home
+                </li>
+              </ul>
+
+              <ul className="block md:hidden">
+                <li
+                  style={{
+                    color: "#49326b",
+                    marginTop: "10px",
+                    textDecoration: "underline",
+                  }}
+                >
+                  Who We Are
+                </li>
+              </ul>
+
+              <ul className="block md:hidden">
+                <li
+                  style={{
+                    color: "#49326b",
+                    marginTop: "10px",
+                    textDecoration: "underline",
+                  }}
+                >
+                  Partnes With Us
+                </li>
+              </ul>
+
+              <ul className="block md:hidden">
+                <li
+                  style={{
+                    color: "#49326b",
+                    marginTop: "10px",
+                    textDecoration: "underline",
+                  }}
+                >
+                  Algo Trading
+                </li>
+              </ul>
+
               {/* STEP 4: Attach the ref to the UL */}
               <ul className={styles.navLinks} ref={navContainerRef}>
                 <li
@@ -413,6 +469,36 @@ export default function Header() {
                     </ul>
                   </div>
                 </li>
+                <Box
+  sx={{
+    backgroundColor: "#49326b",
+    padding: "10px",
+    maxWidth: "200px",
+    width: "100%",
+    borderRadius: "5px",
+    display: { xs: "block", sm: "none" }, // 👈 Only show on mobile
+  }}
+>
+  <Nav.Link
+    onClick={() => handleNavigation("/")}
+    style={{
+      height: "40px",
+      width: "120px",
+      color: "#fff",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontWeight: "bold",
+      textAlign: "center",
+      display: "inline-block",
+      textDecoration: "none",
+      alignContent: "center",
+      marginLeft: "30px",
+    }}
+  >
+    Algo Trading
+  </Nav.Link>
+</Box>
+
               </ul>
             </nav>
           </div>
