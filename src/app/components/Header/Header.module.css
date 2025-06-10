@@ -302,7 +302,7 @@
   }
 
   .navBtnOpen {
-      transform: translateY(5); /* Animate to its final position */
+      transform: translateY(0); /* Animate to its final position */
   }
 
   .navLinks {
@@ -336,9 +336,6 @@
   }
 
   .dropdownShow {
-    padding: 20px;
-    display: flex;
-    flex-direction: row; /* Show when active */
     max-height: 300px; /* Allow it to expand */
   }
 
