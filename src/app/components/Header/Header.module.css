@@ -302,7 +302,7 @@
   }
 
   .navBtnOpen {
-      transform: translateY(5); /* Animate to its final position */
+      transform: translateY(0); /* Animate to its final position */
   }
 
   .navLinks {
