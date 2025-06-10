@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid"; // Import Grid for layout
 import { styled, keyframes } from "@mui/system"; // Correct import for styled and keyframes
 
@@ -22,6 +22,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 // Image assets (ensure paths are correct)
 import Handshake from "../../../assets/3-removebg-preview.png";
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
+import GetMoreButton from "@/app/components/Button/page";
 
 // Keyframes animations using @mui/system keyframes
 const slideIn = keyframes`
@@ -54,75 +55,81 @@ const points = [
 ];
 
 // Styled component for the main container box
-const MainBox = styled(Box)(({ theme }) => ({ // Use theme for responsive breakpoints
-  padding: '60px 0',
-  backgroundColor: '#f9f3fe',
-  position: 'relative',
-  overflow: 'hidden',
+const MainBox = styled(Box)(({ theme }) => ({
+  // Use theme for responsive breakpoints
+  padding: "60px 0",
+  backgroundColor: "#f9f3fe",
+  position: "relative",
+  overflow: "hidden",
 
-  [theme.breakpoints.down('sm')]: { // media screen and (max-width: 600px)
-    padding: '30px 0',
+  [theme.breakpoints.down("sm")]: {
+    // media screen and (max-width: 600px)
+    padding: "30px 0",
   },
 }));
 
 // Styled component for the Qualification box with background image
-const QualificationBox = styled(Box)(({ theme }) => ({ // Use theme for responsive breakpoints
-  position: 'relative',
-  width: '100%',
+const QualificationBox = styled(Box)(({ theme }) => ({
+  // Use theme for responsive breakpoints
+  position: "relative",
+  width: "100%",
   // Using imported image asset src for background
   backgroundImage: `linear-gradient(rgba(73, 50, 107, 0.7), rgba(73, 50, 107, 0.7)), url(${aboutImg1.src})`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  padding: '40px 20px', // Default padding for larger screens
-  borderRadius: '16px',
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  boxShadow: '0 8px 24px rgba(73, 50, 107, 0.1)', // Added shadow for consistency
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  padding: "40px 20px", // Default padding for larger screens
+  borderRadius: "16px",
+  overflow: "hidden",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  boxShadow: "0 8px 24px rgba(73, 50, 107, 0.1)", // Added shadow for consistency
 
-  '&::before': {
+  "&::before": {
     content: '""',
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
-    background: 'rgba(73, 50, 107, 0.3)',
+    width: "100%",
+    height: "100%",
+    background: "rgba(73, 50, 107, 0.3)",
     zIndex: 1,
   },
 
-  '& > *': {
-    position: 'relative',
+  "& > *": {
+    position: "relative",
     zIndex: 2,
   },
 
-  [theme.breakpoints.down('sm')]: { // media screen and (max-width: 600px)
-    padding: '20px 12px', // Adjusted padding for smaller screens
+  [theme.breakpoints.down("sm")]: {
+    // media screen and (max-width: 600px)
+    padding: "20px 12px", // Adjusted padding for smaller screens
   },
 }));
 
 // Styled component for the "Get Started" button
-const StyledButton = styled(Button)(({ theme }) => ({ // Use theme for responsive breakpoints
-  backgroundColor: '#49326b',
-  color: '#ffffff',
+const StyledButton = styled(Button)(({ theme }) => ({
+  // Use theme for responsive breakpoints
+  backgroundColor: "#49326b",
+  color: "#ffffff",
   fontWeight: 600,
-  padding: '12px 32px',
-  borderRadius: '8px',
-  textTransform: 'none',
-  fontSize: '18px',
-  transition: 'all 0.3s ease',
+  padding: "12px 32px",
+  borderRadius: "8px",
+  textTransform: "none",
+  fontSize: "18px",
+  transition: "all 0.3s ease",
 
-  '&:hover': {
-    backgroundColor: '#e4d4fa',
-    color: '#49326b',
-    transform: 'scale(1.05)',
+  "&:hover": {
+    backgroundColor: "#e4d4fa",
+    color: "#49326b",
+    transform: "scale(1.05)",
   },
 
-  [theme.breakpoints.down('sm')]: { // media screen and (max-width: 600px)
-    padding: '10px 24px',
-    fontSize: '16px',
+  [theme.breakpoints.down("sm")]: {
+    // media screen and (max-width: 600px)
+    padding: "10px 24px",
+    fontSize: "16px",
   },
 }));
 
@@ -164,7 +171,8 @@ const InvestmentSolution = () => {
             animation: `${fadeIn} 1.2s ease-in-out`,
           }}
         >
-          We help you grow and secure your wealth through goal-oriented investment strategies.
+          We help you grow and secure your wealth through goal-oriented
+          investment strategies.
         </Typography>
 
         {/* Qualification Card Section */}
@@ -181,9 +189,13 @@ const InvestmentSolution = () => {
               maxWidth: "1300px", // Limit max width of the card itself for better readability
             }}
           >
-            <Grid container spacing={{ xs: 1, sm: 2 }} alignItems="center"> {/* Grid for layout inside Card */}
+            <Grid container spacing={{ xs: 1, sm: 2 }} alignItems="center">
+              {" "}
+              {/* Grid for layout inside Card */}
               {/* Points List */}
-              <Grid item xs={12} sm={7} md={8}> {/* Adjust grid item sizes as needed */}
+              <Grid item xs={12} sm={7} md={8}>
+                {" "}
+                {/* Adjust grid item sizes as needed */}
                 <List sx={{ width: "100%" }}>
                   {points.map((point, index) => (
                     <ListItem
@@ -200,7 +212,10 @@ const InvestmentSolution = () => {
                     >
                       <ListItemIcon sx={{ minWidth: "32px" }}>
                         <CheckCircleIcon
-                          sx={{ color: "#49326b", fontSize: { xs: "16px", sm: "18px" } }} // Responsive icon size
+                          sx={{
+                            color: "#49326b",
+                            fontSize: { xs: "16px", sm: "18px" },
+                          }} // Responsive icon size
                         />
                       </ListItemIcon>
                       <ListItemText
@@ -215,9 +230,10 @@ const InvestmentSolution = () => {
                   ))}
                 </List>
               </Grid>
-
               {/* Handshake Image */}
-              <Grid item xs={12} sm={5} md={4}> {/* Adjust grid item sizes as needed */}
+              <Grid item xs={12} sm={5} md={4}>
+                {" "}
+                {/* Adjust grid item sizes as needed */}
                 <Box
                   sx={{
                     display: "flex",
@@ -276,11 +292,15 @@ const InvestmentSolution = () => {
               animation: `${fadeIn} 1.4s ease-in-out`,
             }}
           >
-            Whether you’re planning for a home, child’s education, or wealth creation, we ensure your investments work smarter.
+            Whether you’re planning for a home, child’s education, or wealth
+            creation, we ensure your investments work smarter.
           </Typography>
 
           {/* Get Started Button */}
         </QualificationBox>
+        <Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}>
+          <GetMoreButton />
+        </Box>
       </Container>
     </MainBox>
   );

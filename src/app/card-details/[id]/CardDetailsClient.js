@@ -32,50 +32,46 @@ const CardDetailsClient = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true); // Reset loading state on ID change
+    setLoading(true);
     const fetchDetails = async () => {
       try {
         const response = await instance.get(`/landing/customer/Blogs/${id}`);
         if (response.status === 200 && response.data) {
           setData(response.data);
         } else {
-          const fallback = defaultCards.find(
-            (card) => String(card.id) === String(id)
-          );
-          if (fallback) {
-            setData(fallback);
-          } else {
-            setError("No details found!");
-          }
+          const fallback = defaultCards.find((card) => String(card.id) === String(id));
+          if (fallback) setData(fallback);
+          else setError("No details found!");
         }
       } catch (err) {
-        const fallback = defaultCards.find(
-          (card) => String(card.id) === String(id)
-        );
-        if (fallback) {
-          setData(fallback);
-        } else {
-          setError("Failed to fetch data");
-        }
+        const fallback = defaultCards.find((card) => String(card.id) === String(id));
+        if (fallback) setData(fallback);
+        else setError("Failed to fetch data");
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) {
-      fetchDetails();
-    }
+    if (id) fetchDetails();
   }, [id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  // --- THIS IS THE UPDATED FUNCTION ---
   const handleShare = async () => {
     const shareUrl = window.location.href;
+    
+    // Create the custom text you want to pre-fill.
+    // We use the blog's title here as requested.
+    const shareText = `Check out this article: "${data?.title || 'An interesting post'}" from Deepan India.`;
+    
     const shareData = {
-      title: data?.title || "Check out this blog!",
-      text: data?.metaDescription || "An interesting blog post!",
+      // The `title` property is for the title of the share dialog itself.
+      title: data?.title || "Share this Blog Post",
+      // The `text` property is the pre-filled message in the user's app (WhatsApp, etc.)
+      text: shareText,
       url: shareUrl,
     };
 
@@ -83,82 +79,45 @@ const CardDetailsClient = () => {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
+        // Fallback for browsers that don't support the Share API (like desktop)
         await navigator.clipboard.writeText(shareUrl);
-        // Using a custom alert/message box instead of browser's alert()
-        console.log("Blog URL copied to clipboard:", shareUrl);
-        // You might want to implement a custom Material-UI Snackbar or Dialog here
-        // For now, I'll log to console or you can replace this with your custom UI.
-        alert(
-          "Blog URL copied to clipboard! Share it on your favorite platform."
-        );
+        alert("Blog URL copied to clipboard! You can now paste it to share.");
       }
     } catch (err) {
       console.error("Share failed:", err);
-      // Fallback to clipboard if share fails
+      // Fallback if the user cancels the share or it fails
       await navigator.clipboard.writeText(shareUrl);
-      console.log("Failed to share. URL copied to clipboard:", shareUrl);
-      alert("Failed to share. URL copied to clipboard!");
+      alert("Failed to share. URL has been copied to your clipboard instead!");
     }
   };
+
+  // --- The rest of the component remains the same ---
 
   if (loading) {
     return (
       <>
         <MainBox image={aboutImg1.src}>
           <ContentBox>
-            <Skeleton
-              variant="text"
-              width="60%"
-              height={60}
-              sx={{ bgcolor: "rgba(255, 255, 255, 0.3)", mx: "auto" }}
-            />
-            <Skeleton
-              variant="text"
-              width="80%"
-              height={30}
-              sx={{ bgcolor: "rgba(255, 255, 255, 0.3)", mx: "auto" }}
-            />
+            <Skeleton variant="text" width="60%" height={60} sx={{ bgcolor: "rgba(255, 255, 255, 0.3)", mx: "auto" }}/>
+            <Skeleton variant="text" width="80%" height={30} sx={{ bgcolor: "rgba(255, 255, 255, 0.3)", mx: "auto" }}/>
           </ContentBox>
         </MainBox>
         <Main2Box>
           <Container maxWidth="lg">
             <Content1Box>
-              <ImageBox>
-                <Skeleton
-                  variant="rectangular"
-                  width="100%"
-                  height={400}
-                  sx={{ borderRadius: "12px" }}
-                />
-              </ImageBox>
+              <ImageBox><Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: "12px" }}/></ImageBox>
               <Skeleton variant="text" width="90%" height={80} />
               <ContentSection>
                 <Skeleton variant="text" width="40%" height={40} />
                 <Skeleton variant="text" width="100%" height={100} />
               </ContentSection>
-              {/* Skeleton for AuthorBox content */}
               <AuthorBox image={aboutImg1.src}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                  <Box> {/* Text content skeleton */}
-                    <Skeleton
-                      variant="text"
-                      width={150}
-                      height={30}
-                      sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}
-                    />
-                    <Skeleton
-                      variant="text"
-                      width={200}
-                      height={30}
-                      sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}
-                    />
+                  <Box>
+                    <Skeleton variant="text" width={150} height={30} sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}/>
+                    <Skeleton variant="text" width={200} height={30} sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}/>
                   </Box>
-                  <Skeleton
-                    variant="rectangular"
-                    width={120}
-                    height={40}
-                    sx={{ bgcolor: "rgba(255, 255, 255, 0.3)", borderRadius: "8px" }}
-                  />
+                  <Skeleton variant="rectangular" width={120} height={40} sx={{ bgcolor: "rgba(255, 255, 255, 0.3)", borderRadius: "8px" }}/>
                 </Box>
               </AuthorBox>
             </Content1Box>
@@ -169,124 +128,46 @@ const CardDetailsClient = () => {
   }
 
   if (error) {
-    return (
-      <Typography
-        variant="h5"
-        color="#49326b"
-        sx={{ textAlign: "center", padding: "4rem" }}
-      >
-        {error}
-      </Typography>
-    );
+    return <Typography variant="h5" color="#49326b" sx={{ textAlign: "center", padding: "4rem" }}>{error}</Typography>;
   }
 
   if (!data) {
-    return (
-      <Typography
-        variant="h5"
-        color="#49326b"
-        sx={{ textAlign: "center", padding: "4rem" }}
-      >
-        No details found!
-      </Typography>
-    );
+    return <Typography variant="h5" color="#49326b" sx={{ textAlign: "center", padding: "4rem" }}>No details found!</Typography>;
   }
 
-  // Determine image source
   const imageSrc =
-    typeof data?.image === "object" // Check if it's a Next.js Image object
+    typeof data?.image === "object"
       ? data.image.src
-      : data?.image?.includes("static") || data?.image?.includes("assets") // Check for local asset paths
+      : data?.image?.includes("static") || data?.image?.includes("assets")
       ? data?.image
-      : data?.image // Fallback to direct URL if available
+      : data?.image
       ? `${Url}${data?.image}`
-      : defaultCards.find((card) => String(card.id) === String(id))?.image?.src; // Fallback to defaultCards image
+      : defaultCards.find((card) => String(card.id) === String(id))?.image?.src;
 
   return (
     <>
       <MainBox image={aboutImg1.src}>
         <ContentBox>
-          <Typography variant="h3" className="title">
-            {data.title.toUpperCase()}
-          </Typography>
-          <Typography
-            component="div"
-            dangerouslySetInnerHTML={{ __html: data.subTitle }}
-            className="subtitle"
-          />
+          <Typography variant="h3" className="title">{data.title.toUpperCase()}</Typography>
+          <Typography component="div" dangerouslySetInnerHTML={{ __html: data.subTitle }} className="subtitle" />
         </ContentBox>
       </MainBox>
       <Main2Box>
         <Container maxWidth="lg">
           <Content1Box>
-            <ImageBox>
-              <StyledImage src={imageSrc} alt={data.title} loading="lazy" />
-            </ImageBox>
-            <Typography variant="body1" className="metaDescription">
-              {data.metaDescription}
-            </Typography>
-            <Typography
-              component="div"
-              dangerouslySetInnerHTML={{ __html: data.content }}
-              color="#49326b"
-            />
-            <Typography
-              variant="subtitle1"
-              sx={{ color: "#49326b", mt: 2, fontWeight: 500 }}
-            >
-              Share this blog with your network:
-            </Typography>
-
-            {/* AuthorBox with restructured content for left/right alignment */}
+            <ImageBox><StyledImage src={imageSrc} alt={data.title} loading="lazy" /></ImageBox>
+            <Typography variant="body1" className="metaDescription">{data.metaDescription}</Typography>
+            <Typography component="div" dangerouslySetInnerHTML={{ __html: data.content }} color="#49326b" />
             <AuthorBox image={aboutImg1.src}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: { xs: 'column', sm: 'row' }, // Stack vertically on small screens, horizontally on larger
-                  justifyContent: 'space-between', // Push content to ends
-                  alignItems: { xs: 'flex-start', sm: 'center' }, // Align top on small, center on larger
-                  width: '100%', // Ensure it takes full width
-                  gap: { xs: 2, sm: 0 }, // Add vertical gap on small screens
-                }}
-              >
-                {/* Left side: Author and Company details */}
+              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, width: '100%', gap: { xs: 2, sm: 0 } }}>
                 <Box sx={{ textAlign: 'left' }}>
-                  <Typography
-                    sx={{ color: "#e4d4fa", fontSize: { xs: "0.9rem", sm: "1rem" } }}
-                    component="div"
-                    dangerouslySetInnerHTML={{
-                      __html: `Written by <strong>${data?.author}</strong>`,
-                    }}
-                  />
-                  <Typography
-                    sx={{ color: "#e4d4fa", fontSize: { xs: "0.9rem", sm: "1rem" } }}
-                    component="div"
-                    dangerouslySetInnerHTML={{
-                      __html: data?.company,
-                    }}
-                  />
-                  <Typography sx={{ color: "#e4d4fa", fontSize: { xs: "0.9rem", sm: "1rem" } }}>
-                    {data?.code}
-                  </Typography>
+                  <Typography sx={{ color: "#e4d4fa", fontSize: { xs: "0.9rem", sm: "1rem" } }} component="div" dangerouslySetInnerHTML={{ __html: `Written by <strong>${data?.author}</strong>` }}/>
+                  <Typography sx={{ color: "#e4d4fa", fontSize: { xs: "0.9rem", sm: "1rem" } }} component="div" dangerouslySetInnerHTML={{ __html: data?.company }}/>
+                  <Typography sx={{ color: "#e4d4fa", fontSize: { xs: "0.9rem", sm: "1rem" } }}>{data?.code}</Typography>
                 </Box>
-
-                {/* Right side: Share Post Button */}
-                <Box sx={{ flexShrink: 0, mt: { xs: 2, sm: 0 } }}> {/* Add margin top on mobile, prevent shrinking */}
-                  <button
-                    onClick={handleShare}
-                    style={{
-                      cursor: "pointer",
-                      padding: "10px 20px",
-                      borderRadius: "8px",
-                      border: "1px solid #49326b",
-                      background: "#e4d4fa",
-                      color: "#49326b",
-                      fontWeight: "bold",
-                      fontSize: "1rem",
-                      whiteSpace: "nowrap", // Prevent button text from wrapping
-                    }}
-                  >
-                    <ShareIcon sx={{width:'40px'}} /> Post
+                <Box sx={{ flexShrink: 0, mt: { xs: 2, sm: 0 } }}>
+                  <button onClick={handleShare} style={{ cursor: "pointer", padding: "10px 20px", borderRadius: "8px", border: "1px solid #49326b", background: "#e4d4fa", color: "#49326b", fontWeight: "bold", fontSize: "1rem", whiteSpace: "nowrap", display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <ShareIcon /> Share Post
                   </button>
                 </Box>
               </Box>

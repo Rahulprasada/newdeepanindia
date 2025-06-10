@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid"; // Import Grid for layout
 import { styled, keyframes } from "@mui/system"; // Correct import for styled and keyframes
 
@@ -61,60 +61,62 @@ const steps = [
 
 // Styled component for the main container box
 const MainBox = styled(Box)(({ theme }) => ({
-  padding: '60px 0',
-  backgroundColor: '#f9f3fe',
-  position: 'relative',
-  overflow: 'hidden',
+  padding: "60px 0",
+  backgroundColor: "#f9f3fe",
+  position: "relative",
+  overflow: "hidden",
 
-  [theme.breakpoints.down('sm')]: { // @media screen and (max-width: 600px)
-    padding: '30px 0',
+  [theme.breakpoints.down("sm")]: {
+    // @media screen and (max-width: 600px)
+    padding: "30px 0",
   },
 }));
 
 // Styled component for the Qualification box with background image
 const QualificationBox = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  width: '100%',
+  position: "relative",
+  width: "100%",
   backgroundImage: `linear-gradient(rgba(73, 50, 107, 0.7), rgba(73, 50, 107, 0.7)), url(${aboutImg1.src})`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  padding: '40px 40px', // Default padding for larger screens
-  borderRadius: '16px',
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  boxShadow: '0 8px 24px rgba(73, 50, 107, 0.1)', // Added shadow for consistency
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  padding: "40px 40px", // Default padding for larger screens
+  borderRadius: "16px",
+  overflow: "hidden",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  boxShadow: "0 8px 24px rgba(73, 50, 107, 0.1)", // Added shadow for consistency
 
-  '&::before': {
+  "&::before": {
     content: '""',
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
-    background: 'rgba(73, 50, 107, 0.3)',
+    width: "100%",
+    height: "100%",
+    background: "rgba(73, 50, 107, 0.3)",
     zIndex: 1,
   },
 
-  '& > *': {
-    position: 'relative',
+  "& > *": {
+    position: "relative",
     zIndex: 2,
   },
 
-  [theme.breakpoints.down('sm')]: { // @media (max-width: 600px)
-    padding: '20px 10px',
+  [theme.breakpoints.down("sm")]: {
+    // @media (max-width: 600px)
+    padding: "20px 10px",
   },
 }));
 
 // Styled component for the Highlight Span within Typography
-const HighlightSpan = styled('span')(({ theme }) => ({
-  color: 'white', // Default color
+const HighlightSpan = styled("span")(({ theme }) => ({
+  color: "white", // Default color
   fontWeight: 700,
-  transition: 'color 0.3s ease',
-  '&:hover': {
-    color: '#e73ed1', // Hover color
+  transition: "color 0.3s ease",
+  "&:hover": {
+    color: "#e73ed1", // Hover color
   },
 }));
 
@@ -171,7 +173,9 @@ const WealthManagement = () => {
               maxWidth: "1000px", // Increased max width for better layout on large screens
             }}
           >
-            <Grid container spacing={{ xs: 2, md: 6 }} alignItems="center"> {/* Grid for layout inside Card */}
+            <Grid container spacing={{ xs: 2, md: 6 }} alignItems="center">
+              {" "}
+              {/* Grid for layout inside Card */}
               {/* Points List */}
               <Grid item xs={12} sm={6} md={6}>
                 <List sx={{ width: "100%" }}>
@@ -206,7 +210,6 @@ const WealthManagement = () => {
                   ))}
                 </List>
               </Grid>
-
               {/* Handshake Image */}
               <Grid item xs={12} sm={6} md={6}>
                 <Box
@@ -273,6 +276,9 @@ const WealthManagement = () => {
             </HighlightSpan>
           </Typography>
         </QualificationBox>
+        <Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}>
+          <GetMoreButton />
+        </Box>
       </Container>
     </MainBox>
   );

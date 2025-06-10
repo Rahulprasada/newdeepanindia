@@ -1,10 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+
+// STEP 1: Import 'useRef'
+import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { FaSearch, FaAngleDown } from "react-icons/fa";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { FaAngleDown } from "react-icons/fa";
 import Divider from "@mui/material/Divider";
 import styles from "./Header.module.css";
 import Deepalogo from "../../../assets/EditedLogo-removebg-preview.png";
@@ -13,37 +15,71 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
+
+  // STEP 2: Create a ref for the navigation container
+  const navContainerRef = useRef(null);
+
   let hoverTimeout;
 
+  // This effect handles closing the mobile menu on window resize
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 676);
+      if (window.innerWidth > 920) {
+        setIsOpen(false);
+      }
     };
-
-    handleResize(); // run once on mount
+    handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // STEP 3: Add the "click outside" detector effect
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        navContainerRef.current &&
+        !navContainerRef.current.contains(event.target)
+      ) {
+        setVisibleDropdown(null); // Close any open dropdown
+      }
+    };
+
+    if (visibleDropdown !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [visibleDropdown]);
+
+  // Handles hover effect for desktop
   const handleMouseEnter = (index) => {
-    clearTimeout(hoverTimeout);
-    setVisibleDropdown(index);
+    if (window.innerWidth > 920) {
+      clearTimeout(hoverTimeout);
+      setVisibleDropdown(index);
+    }
   };
 
+  // Handles mouse leaving for desktop
   const handleMouseLeave = () => {
-    hoverTimeout = setTimeout(() => {
-      setVisibleDropdown(null);
-    }, 300);
+    if (window.innerWidth > 920) {
+      hoverTimeout = setTimeout(() => {
+        setVisibleDropdown(null);
+      }, 300);
+    }
+  };
+
+  // Handles clicks for both mobile accordion and desktop "sticky" open
+  const handleDropdownToggle = (index) => {
+    setVisibleDropdown((prev) => (prev === index ? null : index));
   };
 
   const handleNavigation = (href) => {
-    // Close mobile menu on navigation
     setIsOpen(false);
-    
+    setVisibleDropdown(null); // Ensure dropdown closes on navigation
+
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
@@ -87,42 +123,47 @@ export default function Header() {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me d-flex align-items-center">
                   <Link
-                    style={{
-                      marginLeft: "20px",
-                      fontWeight: "bold",
-                      color: "red",
-                    }}
+                    style={{ marginLeft: "20px" }}
                     href="/#ourstory"
                     className={styles.styledNavLink}
-                    onClick={(e) => { e.preventDefault(); handleNavigation("/#ourstory"); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation("/#ourstory");
+                    }}
                   >
                     Home
                   </Link>
                   <Link
-                    style={{ marginLeft: "20px", fontWeight: "bold" }}
+                    style={{ marginLeft: "20px" }}
                     href="/#About"
                     className={styles.styledNavLink}
-                    onClick={(e) => { e.preventDefault(); handleNavigation("/#About"); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation("/#About");
+                    }}
                   >
                     Who We Are
                   </Link>
                   <Nav.Link
-                    style={{ marginLeft: "20px", fontWeight: "bold" }}
+                    style={{ marginLeft: "20px" }}
                     onClick={() => handleNavigation("/")}
                     className={styles.algoTradingLink}
                   >
                     Algo Trading
                   </Nav.Link>
                   <Link
-                    style={{ marginLeft: "20px", fontWeight: "bold" }}
+                    style={{ marginLeft: "20px" }}
                     href="/#partner"
                     className={styles.styledNavLink}
-                    onClick={(e) => { e.preventDefault(); handleNavigation("/#partner"); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation("/#partner");
+                    }}
                   >
                     Partner with us
                   </Link>
                   <Nav.Link
-                    style={{ marginLeft: "20px", fontWeight: "bold" }}
+                    style={{ marginLeft: "20px" }}
                     onClick={() => handleNavigation("/#contact")}
                     className={styles.btnTopHeader}
                   >
@@ -139,7 +180,7 @@ export default function Header() {
         <Container>
           <div className={styles.myContainer}>
             <div
-              className={`${styles.logoContainer} sample`}
+              className={styles.logoContainer}
               onClick={() => handleNavigation("/")}
             >
               <Image
@@ -149,11 +190,12 @@ export default function Header() {
                   width:"auto",
                   height: "100px",
                   cursor: "pointer",
-                }}
+                  }}
+                // Use a class for easier styling
               />
             </div>
             <div
-              className={`${styles.hamburger} sample`}
+              className={styles.hamburger}
               onClick={() => setIsOpen(!isOpen)}
             >
               <div
@@ -172,13 +214,20 @@ export default function Header() {
                 }
               ></div>
             </div>
-            <div
+
+            {/* UNIFIED NAVIGATION - This works for both desktop and mobile */}
+            <nav
               className={`${styles.navBtn} ${isOpen ? styles.navBtnOpen : ""}`}
             >
-              <ul className={styles.navLinks}>
+              {/* STEP 4: Attach the ref to the UL */}
+              <ul className={styles.navLinks} ref={navContainerRef}>
                 <li
                   className={styles.navLink}
-                  onClick={() => visibleDropdown === 0 ? setVisibleDropdown(null) : setVisibleDropdown(0)}
+                  onClick={() =>
+                    visibleDropdown === 0
+                      ? setVisibleDropdown(null)
+                      : setVisibleDropdown(0)
+                  }
                   style={{ display: "flex" }}
                 >
                   What We Serve <FaAngleDown style={{ marginTop: "5px" }} />
@@ -221,7 +270,11 @@ export default function Header() {
                 </li>
                 <li
                   className={styles.navLink}
-                  onClick={() => visibleDropdown === 1 ? setVisibleDropdown(null) : setVisibleDropdown(1)}
+                  onClick={() =>
+                    visibleDropdown === 1
+                      ? setVisibleDropdown(null)
+                      : setVisibleDropdown(1)
+                  }
                   style={{ display: "flex" }}
                 >
                   What We Do <FaAngleDown style={{ marginTop: "5px" }} />
@@ -231,17 +284,27 @@ export default function Header() {
                     }`}
                   >
                     <ul>
-                      <li onClick={() => handleNavigation("/service/mutual-funds")}>
+                      <li
+                        onClick={() =>
+                          handleNavigation("/service/mutual-funds")
+                        }
+                      >
                         Mutual Funds
                       </li>
                       <li
                         onClick={() =>
-                          handleNavigation("/service/training-in-financial-markets")
+                          handleNavigation(
+                            "/service/training-in-financial-markets"
+                          )
                         }
                       >
                         Training in Financial Markets
                       </li>
-                      <li onClick={() => handleNavigation("/service/algo-trading")}>
+                      <li
+                        onClick={() =>
+                          handleNavigation("/service/algo-trading")
+                        }
+                      >
                         Algo Trading Solutions
                       </li>
                       <li
@@ -274,7 +337,9 @@ export default function Header() {
                       >
                         Real Estate funds
                       </li>
-                      <li onClick={() => handleNavigation("/service/insurances")}>
+                      <li
+                        onClick={() => handleNavigation("/service/insurances")}
+                      >
                         Insurances
                       </li>
                     </ul>
@@ -282,7 +347,11 @@ export default function Header() {
                 </li>
                 <li
                   className={styles.navLink}
-                  onClick={() => visibleDropdown === 3 ? setVisibleDropdown(null) : setVisibleDropdown(3)}
+                  onClick={() =>
+                    visibleDropdown === 3
+                      ? setVisibleDropdown(null)
+                      : setVisibleDropdown(3)
+                  }
                   style={{ display: "flex" }}
                 >
                   What We Think <FaAngleDown style={{ marginTop: "5px" }} />
@@ -306,7 +375,11 @@ export default function Header() {
                 </li>
                 <li
                   className={styles.navLink}
-                  onClick={() => visibleDropdown === 2 ? setVisibleDropdown(null) : setVisibleDropdown(2)}
+                  onClick={() =>
+                    visibleDropdown === 2
+                      ? setVisibleDropdown(null)
+                      : setVisibleDropdown(2)
+                  }
                   style={{ display: "flex" }}
                 >
                   Calculator <FaAngleDown style={{ marginTop: "5px" }} />
@@ -318,21 +391,21 @@ export default function Header() {
                     <ul>
                       <li
                         onClick={() =>
-                          handleNavigation("../calculators/sip-calculator")
+                          handleNavigation("/calculators/sip-calculator")
                         }
                       >
                         SIP
                       </li>
                       <li
                         onClick={() =>
-                          handleNavigation("../calculators/lumpsum-calculator")
+                          handleNavigation("/calculators/lumpsum-calculator")
                         }
                       >
                         Lumpsum
                       </li>
                       <li
                         onClick={() =>
-                          handleNavigation("../calculators/swp-calculator")
+                          handleNavigation("/calculators/swp-calculator")
                         }
                       >
                         SWP
@@ -341,50 +414,9 @@ export default function Header() {
                   </div>
                 </li>
               </ul>
-            </div>
+            </nav>
           </div>
-
-          {/* This block of code for mobileMenus seems to have contradictory logic */}
-          {/* It's set to display only when !isMobile, but its CSS is for max-width: 600px */}
-          {/* This means it will likely never be displayed. The primary mobile menu is the one above. */}
-          {!isMobile && (
-            <div className={styles.mobileMenus}>
-              <Navbar
-                expand="lg"
-                expanded={expanded}
-                onToggle={() => setExpanded(!expanded)}
-                className={styles.myTopHeader}
-
-              >
-                <Container>
-                  <div className={styles.logoContainer}>
-                    <Image src={Deepalogo} alt="Logo" className={styles.logo} />
-                  </div>
-                  <Navbar.Toggle
-                    aria-controls="basic-navbar-nav"
-                    className={styles.customNavbarToggle}
-                  />
-                  <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className={styles.customNavbarLinks}>
-                      <NavDropdown title="Who We Are" id="basic-nav-dropdown">
-                        <NavDropdown.Item
-                          className={styles.navDropdown}
-                          onClick={() => {
-                            router.push("/investment-solution");
-                            setExpanded(false);
-                          }}
-                        >
-                          Investment Solutions
-                        </NavDropdown.Item>
-                        {/* Other NavDropdown.Items */}
-                      </NavDropdown>
-                      {/* Other NavDropdowns */}
-                    </Nav>
-                  </Navbar.Collapse>
-                </Container>
-              </Navbar>
-            </div>
-          )}
+          {/* The redundant mobileMenus block has been removed to prevent hydration errors. */}
         </Container>
       </div>
     </header>

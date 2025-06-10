@@ -48,7 +48,7 @@ const Wealthy = ({ data }) => {
         style={{ objectFit: "cover", zIndex: 1 }}
         priority
       />
-      <Container sx={{ minWidth: "100%" }}>
+      <Container maxWidth={'lg'}>
         <Box className={styles.contentWrapper}>
           <Box className={styles.textBox}>
           <Typography
@@ -69,7 +69,7 @@ const Wealthy = ({ data }) => {
               }}
             >
               How <span className="deepan">Deepan</span>{" "}
-              <span className="india">India</span> Helps You Build Wealth?
+              <span className="india">India</span><br /> Helps You Build Wealth?
             </Typography>
           </Box>
 
@@ -79,6 +79,7 @@ const Wealthy = ({ data }) => {
             display="flex"
             direction="row"
             alignItems="left"
+            maxWidth={'1300px'}
           >
             {itemsToRender.map((product, index) => (
               <Grid
@@ -86,7 +87,7 @@ const Wealthy = ({ data }) => {
                 xs={12}
                 sm={6}
                 key={index}
-                sx={{ display: "flex", flexDirection: "wrap", gap: "20px" }}
+                sx={{ display: "flex", flexDirection: "wrap", gap: "20px",maxWidth:'350px',width:'100%' }}
               >
                 <Box className={styles.productCard}>
                   <Image

@@ -280,7 +280,6 @@ const PrivacyPolicy = () => {
                 <Typography
                   variant="h6"
                   component="h3"
-                  className="text-xl font-semibold text-grey-800 mb-3"
                   sx={{color:'#49326b'}}
                 >
                   Data Security
