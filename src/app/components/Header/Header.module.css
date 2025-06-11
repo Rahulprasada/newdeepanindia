@@ -60,13 +60,13 @@
   padding: 6px 15px;
   border-radius: 5px;
   border: 1px solid #49326b;
-  color: #49326b;
+  color: #fff;
   font-size: 14px;
 }
 
 .btnTopHeader:hover {
   background-color: #33197a;
-  color: #fff;
+  color: red;
   border: 1px solid #33197a;
 }
 

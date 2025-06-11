@@ -276,7 +276,6 @@ export default function Header() {
                       fullWidth
                       sx={{
                         color: "#49326b",
-                        justifyContent: "flex-start",
                         textTransform: "none",
                         fontWeight: "bold",
                       }}
@@ -291,13 +290,25 @@ export default function Header() {
                       fullWidth
                       sx={{
                         color: "#49326b",
-                        justifyContent: "flex-start",
                         textTransform: "none",
                         fontWeight: "bold",
                       }}
                       onClick={() => handleNavigation("/#partner")}
                     >
                       Partner With Us
+                    </Button>
+                  </li>
+                  <li style={{ marginTop: "10px" }}>
+                    <Button
+                      fullWidth
+                      sx={{
+                        color: "#49326b",
+                        textTransform: "none",
+                        fontWeight: "bold",
+                      }}
+                      onClick={() => handleNavigation("/#contact")}
+                    >
+                      Contact
                     </Button>
                   </li>
                   {/* What We Serve */}
@@ -311,7 +322,7 @@ export default function Header() {
                         backgroundColor: "transparent",
                         padding: "10px",
                         borderRadius: "10px",
-                        display:'flex'
+                        display: "flex",
                       }}
                       onClick={() => handleMenuOpen("WhatWeServe")}
                       endIcon={<FaAngleDown />}
@@ -331,6 +342,7 @@ export default function Header() {
                           borderRadius: "0",
                           marginTop: "0.5rem",
                           padding: "0",
+                          textAlign: "center",
                         }}
                       >
                         <Box
@@ -413,7 +425,7 @@ export default function Header() {
                         backgroundColor: "transparent",
                         padding: "10px",
                         borderRadius: "10px",
-                                                display:'flex'
+                        display: "flex",
                       }}
                       onClick={() => handleMenuOpen("WhatWeDo")}
                       endIcon={<FaAngleDown />}
@@ -433,7 +445,7 @@ export default function Header() {
                           borderRadius: "0",
                           marginTop: "0.5rem",
                           padding: "0",
-                                                    textAlign:'center'
+                          textAlign: "center",
                         }}
                       >
                         <Box
@@ -758,7 +770,7 @@ export default function Header() {
                     onClick={() => handleDropdownToggle(0)}
                     onMouseEnter={() => handleMouseEnter(0)}
                     onMouseLeave={handleMouseLeave}
-                    style={{ display: "flex",letterSpacing:'1px'}}
+                    style={{ display: "flex", letterSpacing: "1px" }}
                   >
                     What We Serve <FaAngleDown style={{ marginTop: "5px" }} />
                     <div
