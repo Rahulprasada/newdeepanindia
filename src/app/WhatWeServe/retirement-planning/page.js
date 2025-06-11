@@ -167,7 +167,7 @@ const RetirementPlanning = () => {
           }}
         >
           Secure your future with a retirement plan that supports the lifestyle
-          you deserve. Our services include:
+          you deserve.
         </Typography>
 
         {/* Qualification Card Section */}
@@ -190,6 +190,7 @@ const RetirementPlanning = () => {
               {/* Points List */}
               <Grid item xs={12} sm={6} md={6}>
                 <List sx={{ width: "100%" }}>
+                                  <Typography sx={{color:'#49326b'}} >  Our services include:</Typography>
                   {items.map((item, index) => (
                     <ListItem
                       key={index}
@@ -204,17 +205,17 @@ const RetirementPlanning = () => {
                       }}
                     >
                       <ListItemIcon sx={{ minWidth: "40px" }}>
-                        {/* Use the specific icon from the item object */}
-                        {React.cloneElement(item.icon, {
-                          sx: { color: "#49326b", fontSize: "22px" },
-                        })}
-                        {/* Original code used CheckCircleIcon for all, now using item.icon */}
-                        {/* <CheckCircleIcon sx={{ color: "#49326b", fontSize: "22px" }} /> */}
+                      <CheckCircleIcon
+                          sx={{
+                            color: "#49326b",
+                            fontSize: { xs: "18px", sm: "22px" },
+                          }} // Responsive icon size
+                        />
                       </ListItemIcon>
                       <ListItemText
                         primary={item.text}
                         primaryTypographyProps={{
-                          fontSize: "14px",
+                          fontSize: "16px",
                           fontWeight: 600,
                           color: "#49326b",
                         }}
@@ -238,12 +239,11 @@ const RetirementPlanning = () => {
                     <Image
                       src={Handshake}
                       alt="Retirement Planning Handshake"
-                      width={400} // Base width for Next.js Image
-                      height={400} // Base height for Next.js Image
                       style={{
                         width: "100%",
-                        maxWidth: "400px",
-                        height: "auto",
+                        maxWidth: "300px",
+                        height: "100%",
+                        maxHeight:'100%',
                         display: "block", // Ensure image is a block element for sizing
                         animation: `${slideIn} 1.2s ease-in-out`,
                       }}

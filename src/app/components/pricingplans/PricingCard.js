@@ -59,6 +59,8 @@ const PricingCard = ({
         height: "100%",
         maxHeight:'600px',
         display: "flex",
+        maxWidth:'800px',
+        width:'100%',
         flexDirection: "column",
         // --- STYLES TRANSLATED FROM STYLED-COMPONENTS ---
         padding: isCenterCard ? { xs: "40px 20px", md: "50px 25px" } : "40px 20px 20px",
@@ -98,12 +100,12 @@ const PricingCard = ({
         <Typography component="h1" sx={{ fontSize: "30px", fontWeight: 900, color: "#49326b" }}>
           {price}
         </Typography>
-        <Typography component="p" sx={{ color: "#49326b", fontWeight: 600, fontSize: "14px", ml: 0.5 }}>
+        <Typography component="p" sx={{ color: "#49326b", fontWeight: 500, fontSize: "14px", ml: 0.5 }}>
           /{description}
         </Typography>
       </Box>
 
-      <Typography component="p" sx={{ color: "#49326b", fontWeight: 600, mb: 2 }}>
+      <Typography component="p" sx={{ color: "#49326b", fontWeight: 500, mb: 2 }}>
         {subtitle}
       </Typography>
 
@@ -114,7 +116,7 @@ const PricingCard = ({
         {initiallyDisplayedFeatures.map((feature, i) => (
           <Box component="li" key={i} sx={{ display: 'flex', alignItems: 'flex-start', my: 1 }}>
             <VerifiedIcon sx={{ color: "#65749e", fontSize: 20, mr: 1, mt: "3px" }} />
-            <Typography component="span" sx={{ color: "#49326b", fontWeight: 600, textAlign: "left" }}>
+            <Typography component="span" sx={{ color: "#49326b", fontWeight: 500, textAlign: "left" }}>
               {feature}
             </Typography>
           </Box>

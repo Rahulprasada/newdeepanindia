@@ -15,6 +15,7 @@ import { styled, keyframes } from "@mui/system"; // Correct import for styled an
 
 import Image from "next/image"; // Next.js Image component
 import { useRouter } from "next/navigation"; // For Next.js navigation
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 // Material-UI Icons
 import StarIcon from "@mui/icons-material/Star";
@@ -157,7 +158,7 @@ const WealthManagement = () => {
           }}
         >
           Our comprehensive wealth management solutions are tailored for
-          high-net-worth individuals and families. We offer:
+          high-net-worth individuals and families.
         </Typography>
 
         {/* Qualification Card Section */}
@@ -180,6 +181,7 @@ const WealthManagement = () => {
               {/* Points List */}
               <Grid item xs={12} sm={6} md={6}>
                 <List sx={{ width: "100%" }}>
+                  <Typography sx={{ color: "#49326b" }}> We offer:</Typography>
                   {steps.map((step, index) => (
                     <ListItem
                       key={index}
@@ -194,10 +196,12 @@ const WealthManagement = () => {
                       }}
                     >
                       <ListItemIcon sx={{ minWidth: "40px" }}>
-                        {/* Use the specific icon from the step object */}
-                        {React.cloneElement(step.icon, {
-                          sx: { color: "#49326b", fontSize: "22px" },
-                        })}
+                        <CheckCircleIcon
+                          sx={{
+                            color: "#49326b",
+                            fontSize: { xs: "18px", sm: "22px" },
+                          }} // Responsive icon size
+                        />
                       </ListItemIcon>
                       <ListItemText
                         primary={step.label}
@@ -282,7 +286,6 @@ const WealthManagement = () => {
         </Box>
       </Container>
     </MainBox>
-
   );
 };
 

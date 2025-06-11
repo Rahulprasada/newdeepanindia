@@ -94,6 +94,7 @@ const TrainingInFinancialMarketing = ({ serviceName }) => {
                     sx={{ 
                       paddingRight: "8px", 
                       color: "#49326b", 
+                      marginTop:"10px",
                       fontSize: { xs: "1rem", sm: "1.25rem" } 
                     }}
                   />
@@ -119,6 +120,7 @@ const TrainingInFinancialMarketing = ({ serviceName }) => {
                     sx={{ 
                       paddingRight: "8px", 
                       color: "#49326b", 
+                      marginTop:"5px",
                       fontSize: { xs: "1rem", sm: "1.25rem" } 
                     }}
                   />

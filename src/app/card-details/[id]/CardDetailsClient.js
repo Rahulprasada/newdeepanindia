@@ -294,12 +294,12 @@ const Content1Box = styled(Box)`
     line-height: 1.6;
   }
   a {
-      color: #e4d4fa;
+      color: #49326b;
       text-decoration: underline;
       transition: color 0.3s ease;
 
       &:hover {
-        color: #ffffff;
+        color: purple;
         text-decoration: none;
       }
     }

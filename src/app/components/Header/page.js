@@ -1,19 +1,18 @@
 "use client";
 
-// STEP 1: Import 'useRef' and MUI components
+// STEP 1: Import necessary dependencies
 import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { FaAngleDown } from "react-icons/fa";
-import Divider from "@mui/material/Divider";
+import { Container, Nav, Navbar } from "react-bootstrap"; // Fixed import
+import { FaAngleDown } from "react-icons/fa"; // Fixed import
+import Divider from "@mui/material/Divider"; // Fixed import
 import styles from "./Header.module.css";
-import Deepalogo from "../../../assets/EditedLogo-removebg-preview.png";
+import Deepalogo from "@/assets/EditedLogo-removebg-preview.png"; // Adjusted path
 import Box from "@mui/material/Box";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
 
 export default function Header() {
   const router = useRouter();
@@ -21,26 +20,24 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
-  // STEP 2: State for MUI Menu anchor elements (mobile only)
-  const [anchorElWhatWeServe, setAnchorElWhatWeServe] = useState(null);
-  const [anchorElWhatWeDo, setAnchorElWhatWeDo] = useState(null);
-  const [anchorElWhatWeThink, setAnchorElWhatWeThink] = useState(null);
-  const [anchorElCalculator, setAnchorElCalculator] = useState(null);
+  // STEP 3: Create a ref for the navigation container (desktop)
+  const navContainerRef = useRef(null);
 
+  let hoverTimeout;
+
+  // STEP 4: Handle mobile detection after hydration
   useEffect(() => {
+    setIsHydrated(true);
     const checkScreen = () => setIsMobile(window.innerWidth <= 768);
     checkScreen();
     window.addEventListener("resize", checkScreen);
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  // STEP 3: Create a ref for the navigation container
-  const navContainerRef = useRef(null);
-
-  let hoverTimeout;
-
-  // This effect handles closing the mobile menu on window resize
+  // STEP 5: Handle closing mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 920) {
@@ -52,7 +49,7 @@ export default function Header() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // STEP 4: Add the "click outside" detector effect for desktop dropdowns
+  // STEP 6: Handle click outside for desktop dropdowns
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -89,7 +86,7 @@ export default function Header() {
     }
   };
 
-  // Handles clicks for both mobile accordion and desktop "sticky" open
+  // Handles clicks for desktop dropdowns
   const handleDropdownToggle = (index) => {
     setVisibleDropdown((prev) => (prev === index ? null : index));
   };
@@ -98,10 +95,7 @@ export default function Header() {
     setIsOpen(false);
     setVisibleDropdown(null);
     handleMouseLeave();
-    setAnchorElWhatWeServe(null);
-    setAnchorElWhatWeDo(null);
-    setAnchorElWhatWeThink(null);
-    setAnchorElCalculator(null);
+    setOpenDropdown(null); // Close mobile dropdown
 
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
@@ -129,22 +123,17 @@ export default function Header() {
     }
   };
 
-  // MUI Menu handlers
-  const handleMenuOpen = (event, menu) => {
+  // Handle dropdown open/close
+  const handleMenuOpen = (menu) => {
     if (isMobile) {
-      if (menu === "WhatWeServe") setAnchorElWhatWeServe(event.currentTarget);
-      if (menu === "WhatWeDo") setAnchorElWhatWeDo(event.currentTarget);
-      if (menu === "WhatWeThink") setAnchorElWhatWeThink(event.currentTarget);
-      if (menu === "Calculator") setAnchorElCalculator(event.currentTarget);
+      setOpenDropdown((prev) => (prev === menu ? null : menu));
     }
   };
 
-  const handleMenuClose = () => {
-    setAnchorElWhatWeServe(null);
-    setAnchorElWhatWeDo(null);
-    setAnchorElWhatWeThink(null);
-    setAnchorElCalculator(null);
-  };
+  // Avoid rendering navigation until hydrated
+  if (!isHydrated) {
+    return null;
+  }
 
   return (
     <header className={styles.headerContainer}>
@@ -258,7 +247,7 @@ export default function Header() {
               className={`${styles.navBtn} ${isOpen ? styles.navBtnOpen : ""}`}
             >
               {isMobile && isOpen ? (
-                // Mobile view with MUI Dropdowns
+                // Mobile view with Collapse Dropdowns
                 <ul
                   style={{
                     paddingLeft: "0",
@@ -273,7 +262,6 @@ export default function Header() {
                       fullWidth
                       sx={{
                         color: "#49326b",
-                        justifyContent: "flex-start",
                         textTransform: "none",
                         fontWeight: "bold",
                       }}
@@ -318,65 +306,101 @@ export default function Header() {
                       fullWidth
                       sx={{
                         color: "#49326b",
-                        justifyContent: "space-between",
                         textTransform: "none",
                         fontWeight: "bold",
+                        backgroundColor: "transparent",
+                        padding: "10px",
+                        borderRadius: "10px",
+                        display:'flex'
                       }}
-                      onClick={(e) => handleMenuOpen(e, "WhatWeServe")}
+                      onClick={() => handleMenuOpen("WhatWeServe")}
                       endIcon={<FaAngleDown />}
                     >
                       What We Serve
                     </Button>
-                    <Menu
-                      anchorEl={anchorElWhatWeServe}
-                      open={Boolean(anchorElWhatWeServe)}
-                      onClose={handleMenuClose}
-                      PaperProps={{
-                        sx: {
+                    <Collapse in={openDropdown === "WhatWeServe"} timeout={300}>
+                      <Box
+                        sx={{
+                          width: "100vw",
+                          maxWidth: "100%",
+                          maxHeight: "70vh",
+                          overflowY: "auto",
                           backgroundColor: "#fff",
-                          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                          width: "100%",
-                          maxWidth: "300px",
-                        },
-                      }}
-                    >
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/WhatWeServe/investment-solution");
-                          handleMenuClose();
+                          color: "#49326b",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+                          borderRadius: "0",
+                          marginTop: "0.5rem",
+                          padding: "0",
                         }}
-                        sx={{ color: "#49326b" }}
                       >
-                        Investment Solutions
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/WhatWeServe/retirement-planning");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Retirement Planning
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/WhatWeServe/wealth-management");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Wealth Management
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/WhatWeServe/educational-resource");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Educational Resources
-                      </MenuItem>
-                    </Menu>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation(
+                              "/WhatWeServe/investment-solution"
+                            );
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Investment Solutions
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation(
+                              "/WhatWeServe/retirement-planning"
+                            );
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Retirement Planning
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/WhatWeServe/wealth-management");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Wealth Management
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation(
+                              "/WhatWeServe/educational-resource"
+                            );
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Educational Resources
+                        </Box>
+                      </Box>
+                    </Collapse>
                   </li>
                   {/* What We Do */}
                   <li style={{ marginTop: "10px" }}>
@@ -384,105 +408,160 @@ export default function Header() {
                       fullWidth
                       sx={{
                         color: "#49326b",
-                        justifyContent: "space-between",
                         textTransform: "none",
                         fontWeight: "bold",
+                        backgroundColor: "transparent",
+                        padding: "10px",
+                        borderRadius: "10px",
+                                                display:'flex'
                       }}
-                      onClick={(e) => handleMenuOpen(e, "WhatWeDo")}
+                      onClick={() => handleMenuOpen("WhatWeDo")}
                       endIcon={<FaAngleDown />}
                     >
                       What We Do
                     </Button>
-                    <Menu
-                      anchorEl={anchorElWhatWeDo}
-                      open={Boolean(anchorElWhatWeDo)}
-                      onClose={handleMenuClose}
-                      PaperProps={{
-                        sx: {
+                    <Collapse in={openDropdown === "WhatWeDo"} timeout={300}>
+                      <Box
+                        sx={{
+                          width: "100vw",
+                          maxWidth: "100%",
+                          maxHeight: "70vh",
+                          overflowY: "auto",
                           backgroundColor: "#fff",
-                          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                          width: "100%",
-                          maxWidth: "300px",
-                        },
-                      }}
-                    >
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/service/mutual-funds");
-                          handleMenuClose();
+                          color: "#49326b",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+                          borderRadius: "0",
+                          marginTop: "0.5rem",
+                          padding: "0",
+                                                    textAlign:'center'
                         }}
-                        sx={{ color: "#49326b" }}
                       >
-                        Mutual Funds
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation(
-                            "/service/training-in-financial-markets"
-                          );
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Training in Financial Markets
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/service/algo-trading");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Algo Trading Solutions
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/service/advisory-services");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Advisory Services
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/service/fixed-deposits-&-bond");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Fixed Deposits & Bonds
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation(
-                            "/service/alternate-investment-funds-(AIFS)"
-                          );
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Alternative Investment Funds
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/service/real-estate-funds");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Real Estate Funds
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/service/insurances");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Insurances
-                      </MenuItem>
-                    </Menu>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/service/mutual-funds");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Mutual Funds
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation(
+                              "/service/training-in-financial-markets"
+                            );
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Training in Financial Markets
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/service/algo-trading");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Algo Trading Solutions
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/service/advisory-services");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Advisory Services
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/service/fixed-deposits-&-bond");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Fixed Deposits & Bonds
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation(
+                              "/service/alternate-investment-funds-(AIFS)"
+                            );
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Alternative Investment Funds
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/service/real-estate-funds");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Real Estate Funds
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/service/insurances");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Insurances
+                        </Box>
+                      </Box>
+                    </Collapse>
                   </li>
                   {/* What We Think */}
                   <li style={{ marginTop: "10px" }}>
@@ -490,56 +569,81 @@ export default function Header() {
                       fullWidth
                       sx={{
                         color: "#49326b",
-                        justifyContent: "space-between",
+                        justifyContent: "center",
                         textTransform: "none",
                         fontWeight: "bold",
+                        backgroundColor: "transparent",
+                        padding: "10px",
+                        borderRadius: "10px",
                       }}
-                      onClick={(e) => handleMenuOpen(e, "WhatWeThink")}
+                      onClick={() => handleMenuOpen("WhatWeThink")}
                       endIcon={<FaAngleDown />}
                     >
                       What We Think
                     </Button>
-                    <Menu
-                      anchorEl={anchorElWhatWeThink}
-                      open={Boolean(anchorElWhatWeThink)}
-                      onClose={handleMenuClose}
-                      PaperProps={{
-                        sx: {
+                    <Collapse in={openDropdown === "WhatWeThink"} timeout={300}>
+                      <Box
+                        sx={{
+                          width: "100vw",
+                          maxWidth: "100%",
+                          maxHeight: "70vh",
+                          overflowY: "auto",
                           backgroundColor: "#fff",
-                          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                          width: "100%",
-                          maxWidth: "300px",
-                        },
-                      }}
-                    >
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/Blog/blogs");
-                          handleMenuClose();
+                          color: "#49326b",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+                          borderRadius: "0",
+                          marginTop: "0.5rem",
+                          padding: "0",
+                          textAlign: "center",
                         }}
-                        sx={{ color: "#49326b" }}
                       >
-                        Blogs
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/#media");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Videos
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/#media");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Reports
-                      </MenuItem>
-                    </Menu>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/Blog/blogs");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Blogs
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/#media");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Videos
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/#media");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Reports
+                        </Box>
+                      </Box>
+                    </Collapse>
                   </li>
                   {/* Calculator */}
                   <li style={{ marginTop: "10px" }}>
@@ -547,56 +651,81 @@ export default function Header() {
                       fullWidth
                       sx={{
                         color: "#49326b",
-                        justifyContent: "space-between",
+                        justifyContent: "center",
                         textTransform: "none",
                         fontWeight: "bold",
+                        backgroundColor: "transparent",
+                        padding: "10px",
+                        borderRadius: "10px",
                       }}
-                      onClick={(e) => handleMenuOpen(e, "Calculator")}
+                      onClick={() => handleMenuOpen("Calculator")}
                       endIcon={<FaAngleDown />}
                     >
                       Calculator
                     </Button>
-                    <Menu
-                      anchorEl={anchorElCalculator}
-                      open={Boolean(anchorElCalculator)}
-                      onClose={handleMenuClose}
-                      PaperProps={{
-                        sx: {
+                    <Collapse in={openDropdown === "Calculator"} timeout={300}>
+                      <Box
+                        sx={{
+                          width: "100vw",
+                          maxWidth: "100%",
+                          maxHeight: "70vh",
+                          overflowY: "auto",
                           backgroundColor: "#fff",
-                          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                          width: "100%",
-                          maxWidth: "300px",
-                        },
-                      }}
-                    >
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/calculators/sip-calculator");
-                          handleMenuClose();
+                          color: "#49326b",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+                          borderRadius: "0",
+                          marginTop: "0.5rem",
+                          padding: "0",
+                          textAlign: "center",
                         }}
-                        sx={{ color: "#49326b" }}
                       >
-                        SIP
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/calculators/lumpsum-calculator");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        Lumpsum
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          handleNavigation("/calculators/swp-calculator");
-                          handleMenuClose();
-                        }}
-                        sx={{ color: "#49326b" }}
-                      >
-                        SWP
-                      </MenuItem>
-                    </Menu>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/calculators/sip-calculator");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          SIP
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/calculators/lumpsum-calculator");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          Lumpsum
+                        </Box>
+                        <Box
+                          component="li"
+                          onClick={() => {
+                            handleNavigation("/calculators/swp-calculator");
+                          }}
+                          sx={{
+                            color: "#49326b",
+                            padding: "12px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            "&:hover": { backgroundColor: "#f5f5f5" },
+                          }}
+                        >
+                          SWP
+                        </Box>
+                      </Box>
+                    </Collapse>
                   </li>
                   <Box
                     sx={{
@@ -622,14 +751,14 @@ export default function Header() {
                   </Box>
                 </ul>
               ) : (
-                // Desktop view (unchanged)
+                // Desktop view
                 <ul className={styles.navLinks} ref={navContainerRef}>
                   <li
                     className={styles.navLink}
                     onClick={() => handleDropdownToggle(0)}
                     onMouseEnter={() => handleMouseEnter(0)}
                     onMouseLeave={handleMouseLeave}
-                    style={{ display: "flex" }}
+                    style={{ display: "flex",letterSpacing:'1px'}}
                   >
                     What We Serve <FaAngleDown style={{ marginTop: "5px" }} />
                     <div
@@ -661,7 +790,9 @@ export default function Header() {
                         </li>
                         <li
                           onClick={() =>
-                            handleNavigation("/WhatWeServe/educational-resource")
+                            handleNavigation(
+                              "/WhatWeServe/educational-resource"
+                            )
                           }
                         >
                           Educational Resources
@@ -684,19 +815,25 @@ export default function Header() {
                     >
                       <ul>
                         <li
-                          onClick={() => handleNavigation("/service/mutual-funds")}
+                          onClick={() =>
+                            handleNavigation("/service/mutual-funds")
+                          }
                         >
                           Mutual Funds
                         </li>
                         <li
                           onClick={() =>
-                            handleNavigation("/service/training-in-financial-markets")
+                            handleNavigation(
+                              "/service/training-in-financial-markets"
+                            )
                           }
                         >
                           Training in Financial Markets
                         </li>
                         <li
-                          onClick={() => handleNavigation("/service/algo-trading")}
+                          onClick={() =>
+                            handleNavigation("/service/algo-trading")
+                          }
                         >
                           Algo Trading Solutions
                         </li>
@@ -716,7 +853,9 @@ export default function Header() {
                         </li>
                         <li
                           onClick={() =>
-                            handleNavigation("/service/alternate-investment-funds-(AIFs)")
+                            handleNavigation(
+                              "/service/alternate-investment-funds-(AIFs)"
+                            )
                           }
                         >
                           Alternative Investment Funds
@@ -729,7 +868,9 @@ export default function Header() {
                           Real Estate Funds
                         </li>
                         <li
-                          onClick={() => handleNavigation("/service/insurances")}
+                          onClick={() =>
+                            handleNavigation("/service/insurances")
+                          }
                         >
                           Insurances
                         </li>
@@ -826,7 +967,7 @@ export default function Header() {
                         marginLeft: "30px",
                       }}
                     >
-                      Algo 
+                      Algo Trading
                     </Nav.Link>
                   </Box>
                 </ul>

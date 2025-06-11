@@ -242,7 +242,7 @@ const SIPCalculator = () => {
                   >
                     Monthly Investment (₹)
                   </Typography>
-                  <Box sx={{ display: "flex", alignItems: "center",marginLeft:'40px'}}>
+                  <Box sx={{ display: "flex", alignItems: "center",marginLeft:'30px'}}>
                     <TextField
                       value={monthlyInvestment}
                       onChange={handleMonthlyInvestmentChange}

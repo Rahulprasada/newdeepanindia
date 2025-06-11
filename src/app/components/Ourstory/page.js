@@ -94,7 +94,7 @@ const OurStory = ({ data }) => {
                 was founded under the leadership of Mr. Raja Yogi, a veteran
                 with 24 years of experience in financial markets. Starting his
                 career as a Floor Assistant at the Madras Stock Exchange, he
-                later became an Authorized he later became an Authorised Person
+                later became an Authorized Person
                 for reputed NSE brokers. Over the years, he witnessed the
                 challenges investors are facing lack of genuine trainers and
                 advisors, high fees and one-size-fits-all strategies.

@@ -28,13 +28,13 @@ const plansData = [
   {
     title: "SMART TRADER",
     price: "₹9,000",
-    description: "+ GST per quarter",
+    description: " 18%+ GST per quarter",
     icon: Trader,
-    subtitle: "(For traders looking for second income)",
+    subtitle: "(Traders looking for 2nd income)",
     features: [
       "All WISE INVESTOR features PLUS:",
       "Advisory Services for all segments",
-      "Algo Trading Software – Automate BUY/SELL decisions with customized option strategies",
+      "Algo Trading Software – Automate BUY/SELL executions with customized option strategies",
     ],
   },
   {
@@ -45,9 +45,9 @@ const plansData = [
     description: "Fixed/Upfront Fees",
     features: [
       "Fully Automated Rule-Based Trading with Proven Backtesting",
-      "Performance-Based Pricing:",
+      "Performance-Based Pricing",
       "Pay 20% on profit generated (monthly billing cycle)",
-      "OR Pay 50% on profits above 12% per year (quarterly billing for 1st year, then monthly)",
+      "Or Pay 50% on profits above 12% per year (quarterly billing for 1st year, then monthly)",
       "Plan shift allowed once per year",
     ],
   },
@@ -105,7 +105,7 @@ export default function PricingPlans() {
               sm={6} 
               md={4} 
               key={index}
-              sx={{maxWidth:'330px',width:'100%'}}
+              sx={{maxWidth:'350px',width:'100%'}}
 
             >
               <PricingCard

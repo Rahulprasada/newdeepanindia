@@ -214,14 +214,14 @@ const InvestmentSolution = () => {
                         <CheckCircleIcon
                           sx={{
                             color: "#49326b",
-                            fontSize: { xs: "16px", sm: "18px" },
+                            fontSize: { xs: "18px", sm: "22px" },
                           }} // Responsive icon size
                         />
                       </ListItemIcon>
                       <ListItemText
                         primary={point}
                         primaryTypographyProps={{
-                          fontSize: { xs: "12px", sm: "14px" }, // Responsive font size for list items
+                          fontSize: '16px', // Responsive font size for list items
                           fontWeight: 600,
                           color: "#49326b",
                         }}
@@ -247,12 +247,12 @@ const InvestmentSolution = () => {
                     <Image
                       src={Handshake}
                       alt="Handshake illustration"
-                      width={250} // Base width for Next.js Image
-                      height={250} // Base height for Next.js Image
+ // Base height for Next.js Image
                       style={{
+                        maxHeight:'600px',
                         width: "100%",
-                        height: "auto",
-                        maxWidth: { xs: "150px", sm: "200px", md: "250px" }, // Responsive max width
+                        height: "100%",
+                        maxWidth:'350px', // Responsive max width
                         animation: `${slideIn} 1.2s ease-in-out`,
                       }}
                       priority // Optimizes image loading

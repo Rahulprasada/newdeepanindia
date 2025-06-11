@@ -69,7 +69,7 @@ const Wealthy = ({ data }) => {
               }}
             >
               How <span className="deepan">Deepan</span>{" "}
-              <span className="india">India</span><br /> Helps You Build Wealth?
+              <span className="india">India</span><br /> helps You Build Wealth?
             </Typography>
           </Box>
 
