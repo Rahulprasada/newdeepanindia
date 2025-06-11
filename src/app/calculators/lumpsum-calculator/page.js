@@ -283,7 +283,7 @@ const LumpsumCalculator = () => {
                   >
                     Expected Return Rate (%)
                   </Typography>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box sx={{ display: "flex", alignItems: "center",marginLeft:'40px' }}>
                     <TextField
                       value={interestRate}
                       onChange={handleInterestRateChange}

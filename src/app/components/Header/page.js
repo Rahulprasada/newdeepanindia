@@ -235,7 +235,6 @@ export default function Header() {
                   style={{
                     color: "#49326b",
                     marginTop: "10px",
-                    textDecoration: "underline",
                     listStyle: "none",
                   }}
                   onClick={(e) => {
@@ -253,7 +252,6 @@ export default function Header() {
                   style={{
                     color: "#49326b",
                     marginTop: "10px",
-                    textDecoration: "underline",
                   }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -269,14 +267,13 @@ export default function Header() {
                   style={{
                     color: "#49326b",
                     marginTop: "10px",
-                    textDecoration: "underline",
                   }}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavigation("/#partner");
                   }}
                 >
-                  Partnes With Us
+                  Partner With Us
                 </li>
               </ul>
 

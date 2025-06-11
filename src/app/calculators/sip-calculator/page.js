@@ -229,8 +229,7 @@ const SIPCalculator = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    maxWidth:'1600px',
-                    width:'100%',
+      
                     justifyContent: "space-between",
                     alignItems: "center",
                     mt: { xs: "10px", md: "20px" },
@@ -243,7 +242,7 @@ const SIPCalculator = () => {
                   >
                     Monthly Investment (₹)
                   </Typography>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box sx={{ display: "flex", alignItems: "center",marginLeft:'40px'}}>
                     <TextField
                       value={monthlyInvestment}
                       onChange={handleMonthlyInvestmentChange}
@@ -255,7 +254,7 @@ const SIPCalculator = () => {
                           color: "#49326b",
                           fontWeight: 900,
                           textAlign: "center",
-                          fontSize: { xs: "0.9rem", sm: "1rem" }
+                          fontSize: { xs: "0.9rem", sm: "1rem" },
                         },
                       }}
                       InputProps={{

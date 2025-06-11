@@ -248,6 +248,7 @@ const SWPCalculator = () => {
                   >
                     Initial Investment (₹)
                   </Typography>
+                  <Box sx={{marginLeft:'80px'}}>
                   <TextField
                     value={investment}
                     onChange={handleInvestmentChange}
@@ -270,6 +271,7 @@ const SWPCalculator = () => {
                       ),
                     }}
                   />
+                  </Box>
                 </Box>
                 <Slider
                   value={investment}
