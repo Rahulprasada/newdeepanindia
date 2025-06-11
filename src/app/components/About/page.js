@@ -124,8 +124,8 @@ export const About = ({ data }) => {
             <Fade in={true} timeout={1400}>
               <Box
                 sx={{
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  background: 'linear-gradient(135deg, rgb(170, 137, 216), rgb(194, 141, 238))',
+                  border: "5px solid white",
                   borderRadius: "16px",
                   p: { xs: 3, md: 4 },
                   backdropFilter: "blur(5px)",

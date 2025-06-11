@@ -35,7 +35,7 @@ const OurStory = ({ data }) => {
           justifyContent: "center",
         }}
       >
-        <Grid container spacing={{ xs: 4, md: 8 }}>
+        <Grid container spacing={{ xs: 4, md: 12 }}>
           <Grid
             item
             xs={12}
@@ -123,7 +123,7 @@ const OurStory = ({ data }) => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={6} sx={{ order: { xs: 1, md: 2 } }}>
+          <Grid item xs={12} sm={6} md={6} sx={{ order: { xs: 1, md: 2 },display:'flex',justifyContent:'center',alignItems:'center' }}>
             <Slide in timeout={1000}>
               <Box
                 sx={{
