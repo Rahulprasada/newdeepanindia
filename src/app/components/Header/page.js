@@ -5,30 +5,27 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Container, Nav, Navbar } from "react-bootstrap"; // Fixed import
-import { FaAngleDown } from "react-icons/fa"; // Fixed import
-import Divider from "@mui/material/Divider"; // Fixed import
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { FaAngleDown } from "react-icons/fa";
+import Divider from "@mui/material/Divider";
 import styles from "./Header.module.css";
-import Deepalogo from "@/assets/EditedLogo-removebg-preview.png"; // Adjusted path
+import Deepalogo from "@/assets/EditedLogo-removebg-preview.png";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 
 export default function Header() {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname(); // Use the pathname from the hook
   const [isOpen, setIsOpen] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  // STEP 3: Create a ref for the navigation container (desktop)
   const navContainerRef = useRef(null);
-
   let hoverTimeout;
 
-  // STEP 4: Handle mobile detection after hydration
   useEffect(() => {
     setIsHydrated(true);
     const checkScreen = () => setIsMobile(window.innerWidth <= 768);
@@ -37,7 +34,6 @@ export default function Header() {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  // STEP 5: Handle closing mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 920) {
@@ -49,7 +45,6 @@ export default function Header() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // STEP 6: Handle click outside for desktop dropdowns
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -59,17 +54,14 @@ export default function Header() {
         setVisibleDropdown(null);
       }
     };
-
     if (visibleDropdown !== null) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [visibleDropdown]);
 
-  // Handles hover effect for desktop
   const handleMouseEnter = (index) => {
     if (window.innerWidth > 920) {
       clearTimeout(hoverTimeout);
@@ -77,7 +69,6 @@ export default function Header() {
     }
   };
 
-  // Handles mouse leaving for desktop
   const handleMouseLeave = () => {
     if (window.innerWidth > 920) {
       hoverTimeout = setTimeout(() => {
@@ -86,51 +77,51 @@ export default function Header() {
     }
   };
 
-  // Handles clicks for desktop dropdowns
   const handleDropdownToggle = (index) => {
     setVisibleDropdown((prev) => (prev === index ? null : index));
   };
 
+  // ========== FIXED NAVIGATION HANDLER ==========
   const handleNavigation = (href) => {
     setIsOpen(false);
     setVisibleDropdown(null);
     handleMouseLeave();
-    setOpenDropdown(null); // Close mobile dropdown
+    setOpenDropdown(null);
 
-    if (href.startsWith("#")) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    } else if (href.startsWith("/#")) {
+    if (href.startsWith("/#")) {
+      const anchorId = href.substring(2);
       if (pathname === "/") {
-        const anchorId = href.substring(2);
         const element = document.querySelector(`#${anchorId}`);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
-        router.push("/").then(() => {
-          const anchorId = href.substring(2);
+        router.push("/");
+        setTimeout(() => {
           const element = document.querySelector(`#${anchorId}`);
           if (element) {
             element.scrollIntoView({ behavior: "smooth" });
           }
-        });
+        }, 100);
+      }
+    } else if (href.startsWith("#")) {
+      const anchorId = href.substring(1);
+      const element = document.querySelector(`#${anchorId}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
       router.push(href);
     }
   };
+  // ===============================================
 
-  // Handle dropdown open/close
   const handleMenuOpen = (menu) => {
     if (isMobile) {
       setOpenDropdown((prev) => (prev === menu ? null : menu));
     }
   };
 
-  // Avoid rendering navigation until hydrated
   if (!isHydrated) {
     return null;
   }

@@ -85,7 +85,7 @@ const MediaContent = ({ data }) => {
   };
 
   return (
-    <section className={styles.styledSection}>
+    <section id="media" className={styles.styledSection}>
       <Container maxWidth={'lg'}>
       <div className={styles.container}>
         <div className={styles.headerSection}>
