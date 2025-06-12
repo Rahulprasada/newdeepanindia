@@ -529,7 +529,7 @@ export default function Header() {
                           component="li"
                           onClick={() => {
                             handleNavigation(
-                              "/service/alternate-investment-funds-(AIFS)"
+                              "/service/alternate-investment-funds"
                             );
                           }}
                           sx={{
@@ -866,7 +866,7 @@ export default function Header() {
                         <li
                           onClick={() =>
                             handleNavigation(
-                              "/service/alternate-investment-funds-(AIFs)"
+                              "/service/alternate-investment-funds"
                             )
                           }
                         >
