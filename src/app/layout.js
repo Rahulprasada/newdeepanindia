@@ -2,11 +2,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 // 1. Import your Header and Footer components
 //    (Adjust the path if your components are located elsewhere)
-import Header from './components/Header/page';
-import Footer from './components/Footer/page';
+import Header from "./components/Header/page";
+import Footer from "./components/Footer/page";
 import FixedWhatsappButton from "./components/FixedWhatsappButton/page";
 import ScrollToTopButton from "./components/ScrollToTopButton/page";
 import StyledComponentsRegistry from "./lib/registry";
+import { ScrollProvider } from "@/context/ScrollContext";
 // import Loginform from "./LoginPage/page"; // This component is not used in the layout
 
 const geistSans = Geist({
@@ -27,7 +28,8 @@ export const metadata = {
     default: "Deepan India Financial Services - Your Partner in Wealth Growth",
     template: "%s | Deepan India",
   },
-  description: "Deepan India offers comprehensive financial services including mutual funds, retirement planning, algo trading, wealth management, and financial education. Grow and secure your wealth with expert guidance.",
+  description:
+    "Deepan India offers comprehensive financial services including mutual funds, retirement planning, algo trading, wealth management, and financial education. Grow and secure your wealth with expert guidance.",
   keywords: [
     "Deepan India",
     "Financial Services",
@@ -49,18 +51,19 @@ export const metadata = {
 
   openGraph: {
     title: "Deepan India Financial Services - Grow Your Wealth Smartly",
-    description: "Deepan India offers comprehensive financial solutions: mutual funds, retirement planning, algo trading, wealth management, and financial education.",
-    url: "https://www.deepanindia.com", 
+    description:
+      "Deepan India offers comprehensive financial solutions: mutual funds, retirement planning, algo trading, wealth management, and financial education.",
+    url: "https://www.deepanindia.com",
     siteName: "Deepan India Financial Services",
     images: [
       {
-        url: "https://www.deepanindia.com/og-image.jpg", 
+        url: "https://www.deepanindia.com/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Deepan India Financial Services - Building Wealth",
       },
       {
-        url: "https://www.deepanindia.com/og-image-alt.jpg", 
+        url: "https://www.deepanindia.com/og-image-alt.jpg",
         width: 800,
         height: 600,
         alt: "Deepan India Financial Services - Financial Planning",
@@ -76,7 +79,8 @@ export const metadata = {
     site: "@deepanindia", // Your Twitter handle
     creator: "@deepanindia", // Your Twitter handle
     title: "Deepan India Financial Services - Expert Investment Solutions",
-    description: "Secure your financial future with Deepan India. Explore mutual funds, algo trading, retirement planning, and wealth management services.",
+    description:
+      "Secure your financial future with Deepan India. Explore mutual funds, algo trading, retirement planning, and wealth management services.",
     images: ["https://www.deepanindia.com/twitter-image.jpg"], // Replace with your actual Twitter image URL (at least 800x418px)
   },
 
@@ -119,15 +123,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <Header />
-        {/* The <main> tag wraps your page-specific content */}
+        <ScrollProvider>
+          <Header />
+          {/* The <main> tag wraps your page-specific content */}
 
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
 
-        <FixedWhatsappButton />
-        <ScrollToTopButton />
-        {/* Footer will appear at the bottom of every page */}
-        <Footer />
+          <FixedWhatsappButton />
+          <ScrollToTopButton />
+          {/* Footer will appear at the bottom of every page */}
+          <Footer />
+        </ScrollProvider>
       </body>
     </html>
   );

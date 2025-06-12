@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Container from '@mui/material/Container';
+import TextField from "@mui/material/TextField";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Container from "@mui/material/Container";
 import Image from "next/image";
 import styles from "./Contact.module.css";
 import Joinus from "../../../assets/1-removebg-preview.png";
@@ -58,13 +58,16 @@ export default function Contact() {
     }
 
     try {
-      const response = await instance.post(`/landing/customer/CustomerDetails`, {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        interested_in: formData.interested_in,
-        message: formData.message,
-      });
+      const response = await instance.post(
+        `/landing/customer/CustomerDetails`,
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          interested_in: formData.interested_in,
+          message: formData.message,
+        }
+      );
       if (response.status === 200) {
         alert("Form submitted successfully!");
         setFormData({
@@ -191,7 +194,9 @@ export default function Contact() {
                   >
                     <MenuItem value="Mutual funds">Mutual funds</MenuItem>
                     <MenuItem value="Training">Training</MenuItem>
-                    <MenuItem value="Advisory Services">Advisory Services</MenuItem>
+                    <MenuItem value="Advisory Services">
+                      Advisory Services
+                    </MenuItem>
                     <MenuItem value="Algo Trading">Algo Trading</MenuItem>
                     <MenuItem value="Partnership">Partnership</MenuItem>
                     <MenuItem value="Others">Others</MenuItem>
@@ -201,7 +206,7 @@ export default function Contact() {
               <Box mb={2}>
                 <TextareaAutosize
                   minRows={6}
-                  placeholder="Your message"
+                  placeholder="comments"
                   name="message"
                   value={formData.message}
                   onChange={handleFormChange}
@@ -211,11 +216,14 @@ export default function Contact() {
                     fontSize: "16px",
                     border: "1px solid #ccc",
                     borderRadius: "4px",
+                    color: "#000", // text color
                   }}
+                  className="custom-placeholder"
                 />
               </Box>
               <FormGroup>
-                <FormControlLabel sx={{color:'grey'}}
+                <FormControlLabel
+                  sx={{ color: "grey" }}
                   control={
                     <Checkbox
                       checked={checked}

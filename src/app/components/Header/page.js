@@ -13,15 +13,17 @@ import Deepalogo from "@/assets/EditedLogo-removebg-preview.png";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
+import { useScroll } from "@/context/ScrollContext";
 
 export default function Header() {
   const router = useRouter();
-  const pathname = usePathname(); // Use the pathname from the hook
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const { setTargetId } = useScroll();
 
   const navContainerRef = useRef(null);
   let hoverTimeout;
@@ -62,6 +64,17 @@ export default function Header() {
     };
   }, [visibleDropdown]);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]); // This effect depends only on the 'isOpen' state.
+
   const handleMouseEnter = (index) => {
     if (window.innerWidth > 920) {
       clearTimeout(hoverTimeout);
@@ -81,7 +94,6 @@ export default function Header() {
     setVisibleDropdown((prev) => (prev === index ? null : index));
   };
 
-  // ========== FIXED NAVIGATION HANDLER ==========
   const handleNavigation = (href) => {
     setIsOpen(false);
     setVisibleDropdown(null);
@@ -96,17 +108,13 @@ export default function Header() {
           element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
-        router.push("/");
-        setTimeout(() => {
-          const element = document.querySelector(`#${anchorId}`);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 100);
+        setTargetId(anchorId);
+        // Corrected this line from your code. It should just navigate to the root.
+        // The homepage component will handle the scrolling.
+        router.push("/"); 
       }
     } else if (href.startsWith("#")) {
-      const anchorId = href.substring(1);
-      const element = document.querySelector(`#${anchorId}`);
+      const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -114,7 +122,6 @@ export default function Header() {
       router.push(href);
     }
   };
-  // ===============================================
 
   const handleMenuOpen = (menu) => {
     if (isMobile) {

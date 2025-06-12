@@ -101,7 +101,7 @@
 }
 
 .logoContainer {
-  min-width: 50%;
+  min-width: 40%;
   display: flex;
   justify-content:space-evenly;
 }
@@ -197,7 +197,7 @@
   position: relative;
   color: #49326b;
   padding: 10px 0.8rem;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   font-size: 16px;
   transition: 0.5s;
   cursor: pointer;

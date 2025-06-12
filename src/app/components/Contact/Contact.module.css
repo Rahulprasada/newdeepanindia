@@ -15,6 +15,10 @@
     height: 100%;
     z-index: 1;
   }
+  .custom-placeholder::placeholder {
+    color: #9c27b0; /* Example: Purple */
+    opacity: 1; /* Important to make sure it's visible */
+  }
   
   .mainDiv > * {
     position: relative;
