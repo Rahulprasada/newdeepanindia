@@ -1,5 +1,3 @@
-// src/app/Blog/[slug]/BlogDetailClient.js
-
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";

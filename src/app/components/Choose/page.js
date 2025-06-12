@@ -48,8 +48,8 @@ const Choose = ({ data }) => {
         "Pay only when your portfolio crosses a predefined profit threshold.",
     },
     {
-      title: "Zero Management Fees",
-      subTitle: "No hidden charges, making our services cost-effective.",
+      title: "Wide Range of products",
+      subTitle: "Catering to all classes of investors to attain their financial goal charges, making our services cost-effective.",
     },
     {
       title: "Strong Track Record",

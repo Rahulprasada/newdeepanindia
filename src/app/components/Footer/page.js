@@ -153,7 +153,7 @@ export default function Footer() {
               </Typography>
               <Typography
                 component={Link}
-                href="/service/alternate-investment-funds-(AIFS)"
+                href="/service/alternate-investment-funds"
                 className={styles.linkItem}
                 sx={{fontSize:'15px'}}
               >
