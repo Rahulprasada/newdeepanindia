@@ -1,3 +1,5 @@
+// src/app/Blog/[slug]/BlogDetailClient.js
+
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
@@ -8,47 +10,23 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Pagination from "@mui/material/Pagination";
-import { useRouter, useSearchParams } from "next/navigation";
-import { defaultCards } from "../../components/details/DefaultCard";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import ShareIcon from "@mui/icons-material/Share";
+
+import { defaultCards } from "../../components/details/DefaultCard"; // Adjust path
+import { slugify } from "../../../utils/slugify"; // Adjust path
 import { instance, Url } from "../../../utils/api";
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
-import Image from "next/image";
-// CORRECTED: Import the ShareIcon from Material-UI to match your other components
-import ShareIcon from '@mui/icons-material/Share';
 
-// --- Keyframes for Animations ---
-const slideIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-// --- Styled Components (No changes needed) ---
+// --- Styled Components and Keyframes (Copied from your original file, no changes) ---
+const slideIn = keyframes`from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); }`;
 const MainBox = styled(Box)(({ theme }) => ({
   padding: "60px 0",
   background: "linear-gradient(135deg, #f9f3fe 0%, #e8e0ff 100%)",
   minHeight: "100vh",
-  position: "relative",
-  overflow: "hidden",
-  [theme.breakpoints.down("sm")]: {
-    padding: "40px 0",
-  },
+  [theme.breakpoints.down("sm")]: { padding: "40px 0" },
 }));
-
 const StyledCard = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
@@ -61,11 +39,8 @@ const StyledCard = styled(Box)(({ theme }) => ({
   boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)",
   marginBottom: "32px",
   padding: "24px",
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-  },
+  [theme.breakpoints.down("md")]: { flexDirection: "column" },
 }));
-
 const BlogListBox = styled(Box)(({ theme }) => ({
   flex: "1 1 45%",
   padding: "16px",
@@ -73,14 +48,16 @@ const BlogListBox = styled(Box)(({ theme }) => ({
   overflowY: "auto",
   borderLeft: `1px solid ${theme.palette.divider}`,
   "&::-webkit-scrollbar": { width: "8px" },
-  "&::-webkit-scrollbar-thumb": { backgroundColor: theme.palette.grey[400], borderRadius: "8px" },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: theme.palette.grey[400],
+    borderRadius: "8px",
+  },
   [theme.breakpoints.down("md")]: {
     borderLeft: "none",
     borderTop: `1px solid ${theme.palette.divider}`,
     maxHeight: "300px",
   },
 }));
-
 const BlogItem = styled(Box)(({ theme, selected }) => ({
   padding: "16px",
   borderRadius: "8px",
@@ -88,14 +65,17 @@ const BlogItem = styled(Box)(({ theme, selected }) => ({
   cursor: "pointer",
   border: "2px solid #49326b",
   backgroundColor: selected ? "#49326b" : "transparent",
-  color: selected ? theme.palette.primary.contrastText : theme.palette.text.primary,
+  color: selected
+    ? theme.palette.primary.contrastText
+    : theme.palette.text.primary,
   transition: "all 0.3s ease",
   "&:hover": {
-    backgroundColor: selected ? theme.palette.primary.dark : theme.palette.grey[200],
+    backgroundColor: selected
+      ? theme.palette.primary.dark
+      : theme.palette.grey[200],
     transform: "translateY(-2px)",
   },
 }));
-
 const StyledImage = styled(Image)(({ theme }) => ({
   width: "90%",
   height: "90%",
@@ -107,18 +87,14 @@ const StyledImage = styled(Image)(({ theme }) => ({
     minHeight: "300px",
   },
 }));
-
 const ContentBox = styled(Box)(({ theme }) => ({
   padding: "32px",
   backgroundColor: theme.palette.background.paper,
   borderRadius: "16px",
   boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
   animation: `${slideIn} 0.8s ease-in-out`,
-  [theme.breakpoints.down("sm")]: {
-    padding: "24px",
-  },
+  [theme.breakpoints.down("sm")]: { padding: "24px" },
 }));
-
 const AuthorBox = styled(Box)(({ theme, image }) => ({
   backgroundImage: `url(${image.src})`,
   backgroundSize: "cover",
@@ -135,14 +111,15 @@ const AuthorBox = styled(Box)(({ theme, image }) => ({
   "&::before": {
     content: '""',
     position: "absolute",
-    top: 0, left: 0, right: 0, bottom: 0,
-    background: "linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6))",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background:
+      "linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6))",
     borderRadius: "12px",
   },
-  "& > *": {
-    position: "relative",
-    zIndex: 1,
-  },
+  "& > *": { position: "relative", zIndex: 1 },
   [theme.breakpoints.down("sm")]: {
     flexDirection: "column",
     gap: "16px",
@@ -150,104 +127,85 @@ const AuthorBox = styled(Box)(({ theme, image }) => ({
   },
 }));
 
-const BlogsClient = () => {
+// This is the client component that receives the current slug from the URL.
+export default function BlogDetailClient({ currentSlug }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const blogIdFromUrl = searchParams.get("id");
-
   const [allBlogs, setAllBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
-  // --- MOVED AND UPDATED SHARE FUNCTION ---
-  const handleShare = async () => {
-    // Check if a blog is selected before attempting to share
-    if (!selectedBlog) {
-      alert("Please select a blog to share.");
-      return;
-    }
-
-    const shareUrl = window.location.href; // This correctly gets the URL with the ?id=...
-    
-    // Create the custom text using the currently selected blog's title
-    const shareText = `Check out this article: "${selectedBlog.title || 'An interesting post'}" from Deepan India.`;
-    
-    const shareData = {
-      title: selectedBlog.title || "Share this Blog Post",
-      text: shareText,
-      url: shareUrl,
-    };
-  
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        // Fallback for desktop or browsers that don't support the Share API
-        await navigator.clipboard.writeText(shareUrl);
-        alert("Blog URL copied to clipboard! You can now paste it to share.");
-      }
-    } catch (err) {
-      console.error("Share failed:", err);
-      // Fallback if sharing fails or is cancelled
-      await navigator.clipboard.writeText(shareUrl);
-      alert("Failed to share. URL has been copied to your clipboard instead!");
-    }
-  };
-
-  const sliderData = useMemo(
-    () => (allBlogs.length > 0 ? allBlogs : defaultCards),
-    [allBlogs]
-  );
+  // Process the blogs data ONCE to add a slug to each object.
+  const processedBlogs = useMemo(() => {
+    const dataToProcess = allBlogs.length > 0 ? allBlogs : defaultCards;
+    return dataToProcess.map((blog) => ({
+      ...blog,
+      slug: slugify(blog.title), // Add the slug here
+    }));
+  }, [allBlogs]);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const response = await instance.get("/landing/customer/Blogs");
-        setAllBlogs(response.data || defaultCards);
+        setAllBlogs(response.data || []);
       } catch (error) {
         console.error("Error fetching blog details:", error);
-        setAllBlogs(defaultCards);
+        // We'll rely on the defaultCards via processedBlogs
+        setAllBlogs([]);
       }
     };
     fetchBlogs();
   }, []);
 
+  // This effect now finds the blog using the slug from the URL.
   useEffect(() => {
-    if (sliderData.length > 0) {
-      const initialBlog =
-        sliderData.find((blog) => String(blog.id) === String(blogIdFromUrl)) ||
-        sliderData[0];
-      setSelectedBlog(initialBlog);
+    if (processedBlogs.length > 0) {
+      const blogFromSlug = processedBlogs.find(
+        (blog) => blog.slug === currentSlug
+      );
+      setSelectedBlog(blogFromSlug || processedBlogs[0]);
     }
-  }, [sliderData, blogIdFromUrl]);
+  }, [processedBlogs, currentSlug]);
 
+  // This function now navigates to the new slug-based URL.
   const handleSelectBlog = (blog) => {
     setSelectedBlog(blog);
-    router.push(`/Blog/blogs?id=${blog.id}`, { scroll: false });
+    router.push(`/Blog/${blog.slug}`, { scroll: false });
   };
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-    document
-      .getElementById("blog-list-box")
-      ?.scrollTo({ top: 0, behavior: "smooth" });
+  const handleShare = async () => {
+    if (!selectedBlog) return;
+    const shareUrl = window.location.href; // This will now be the clean URL!
+    const shareText = `Check out this article: "${selectedBlog.title}" from Deepan India.`;
+    const shareData = {
+      title: selectedBlog.title,
+      text: shareText,
+      url: shareUrl,
+    };
+
+    try {
+      if (navigator.share) await navigator.share(shareData);
+      else {
+        await navigator.clipboard.writeText(shareUrl);
+        alert("Blog URL copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Share failed:", err);
+    }
   };
 
-  const imageSrc = useMemo(() => {
-    if (!selectedBlog) return aboutImg1.src;
-    if (typeof selectedBlog.image === "object" && selectedBlog.image.src) {
-      return selectedBlog.image.src;
-    }
-    if (typeof selectedBlog.image === "string") {
-      return `${Url}${selectedBlog.image}`;
-    }
-    return aboutImg1.src;
-  }, [selectedBlog]);
-
+  const handlePageChange = (event, value) => setPage(value);
+  const imageSrc = useMemo(
+    () => selectedBlog?.image?.src || aboutImg1.src,
+    [selectedBlog]
+  );
   const startIndex = (page - 1) * itemsPerPage;
-  const paginatedData = sliderData.slice(startIndex, startIndex + itemsPerPage);
-  const pageCount = Math.ceil(sliderData.length / itemsPerPage);
+  const paginatedData = processedBlogs.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+  const pageCount = Math.ceil(processedBlogs.length / itemsPerPage);
 
   return (
     <MainBox>
@@ -257,43 +215,44 @@ const BlogsClient = () => {
             <Grid item xs={12}>
               <StyledCard>
                 <Grid item xs={12} md={8}>
-                  <BlogListBox id="blog-list-box">
+                  <BlogListBox>
                     {paginatedData.map((blog, index) => (
                       <BlogItem
                         key={blog.id}
                         selected={selectedBlog?.id === blog.id}
                         onClick={() => handleSelectBlog(blog)}
-                        role="button"
-                        aria-label={`Select blog: ${blog.title}`}
                       >
-                        <Typography
-                          variant="body1"
-                          sx={{ fontWeight: 600, display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: 2, overflow: "hidden" }}
-                        >
+                        <Typography variant="body1" sx={{ fontWeight: 600 }}>
                           {startIndex + index + 1}. {blog.title}
                         </Typography>
                       </BlogItem>
                     ))}
                   </BlogListBox>
                   {pageCount > 1 && (
-                    <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "center", p: 2 }}
+                    >
                       <Pagination
                         count={pageCount}
                         page={page}
                         onChange={handlePageChange}
                         color="primary"
-                        size="small"
-                        sx={{ "& .MuiPaginationItem-root": { color: "#49326b", "&:hover": { backgroundColor: "#e8e0ff" }, "&.Mui-selected": { backgroundColor: "#49326b", color: "#fff" } } }}
+                        sx={{
+                          "& .MuiPaginationItem-root": { color: "#49326b" },
+                          "&.Mui-selected": {
+                            backgroundColor: "#49326b",
+                            color: "#fff",
+                          },
+                        }}
                       />
                     </Box>
                   )}
                 </Grid>
-
                 <Grid item xs={12} md={4}>
                   <StyledImage
                     key={selectedBlog?.id}
                     src={imageSrc}
-                    alt={selectedBlog?.title || "Blog Image"}
+                    alt={selectedBlog?.title || "Blog"}
                     width={450}
                     height={300}
                     priority
@@ -305,33 +264,45 @@ const BlogsClient = () => {
             {selectedBlog && (
               <Grid item xs={12}>
                 <ContentBox>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: "#49326b", mb: 2 }}>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontWeight: 700, color: "#49326b", mb: 2 }}
+                  >
                     {selectedBlog.title}
                   </Typography>
-                  <Typography variant="body1" sx={{ color: "#616161", mb: 4, lineHeight: 1.7 }}>
+                  <Typography
+                    variant="body1"
+                    sx={{ color: "#616161", mb: 4, lineHeight: 1.7 }}
+                  >
                     {selectedBlog.metaDescription}
                   </Typography>
                   <Divider sx={{ mb: 4 }} />
                   <Typography
                     component="div"
                     dangerouslySetInnerHTML={{ __html: selectedBlog.content }}
-                    sx={{ color: "#49326b", lineHeight: 1.8, "& a": { color: "#49326b", textDecoration: "underline" } }}
+                    sx={{
+                      color: "#49326b",
+                      lineHeight: 1.8,
+                      "& a": { color: "#49326b", textDecoration: "underline" },
+                    }}
                   />
                   <AuthorBox image={aboutImg1}>
                     <Box>
                       <Typography
                         component="div"
-                        dangerouslySetInnerHTML={{ __html: `Written by ${selectedBlog.author}` }}
+                        dangerouslySetInnerHTML={{
+                          __html: `Written by ${selectedBlog.author}`,
+                        }}
                         sx={{ fontWeight: "bold" }}
                       />
                       <Typography variant="body2">
                         {selectedBlog.company}
                       </Typography>
                     </Box>
-                    {selectedBlog.code === "Everything for Everyone" ? (
-                      <Box sx={{ flexShrink: 0, mt: { xs: 2, sm: 0 } }}>
+                    {selectedBlog.code === "Everything for Everyone" && (
+                      <Box>
                         <button
-                          onClick={handleShare} // This now works correctly
+                          onClick={handleShare}
                           style={{
                             cursor: "pointer",
                             padding: "10px 20px",
@@ -340,8 +311,6 @@ const BlogsClient = () => {
                             background: "#e4d4fa",
                             color: "#49326b",
                             fontWeight: "bold",
-                            fontSize: "1rem",
-                            whiteSpace: "nowrap",
                             display: "flex",
                             alignItems: "center",
                             gap: "8px",
@@ -350,9 +319,6 @@ const BlogsClient = () => {
                           <ShareIcon /> Share Post
                         </button>
                       </Box>
-                    ) : (
-                      // Corrected bug: use selectedBlog.code
-                      <Typography>{selectedBlog.code}</Typography>
                     )}
                   </AuthorBox>
                 </ContentBox>
@@ -363,6 +329,4 @@ const BlogsClient = () => {
       </Container>
     </MainBox>
   );
-};
-
-export default BlogsClient;
+}

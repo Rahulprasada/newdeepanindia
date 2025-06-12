@@ -1,39 +1,22 @@
-import React, { Suspense } from 'react';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
+// src/app/Blog/blogs/page.js
 
-// Import the client component you just made
-import BlogsClient from './BlogsClient';
+import { redirect } from 'next/navigation';
+import { defaultCards } from "../../components/details/DefaultCard"; // Adjust path
+import { slugify } from '../../../utils/slugify'; // Adjust path
 
-// This is a simple, good-looking loading component that will be shown
-// while the main blog component loads on the client.
-function LoadingFallback() {
+// This is a Server Component that handles redirection.
+export default function BlogListRedirectPage() {
+  // If there are blogs, redirect to the first one using its slug.
+  if (defaultCards && defaultCards.length > 0) {
+    const firstBlogSlug = slugify(defaultCards[0].title);
+    redirect(`/Blog/${firstBlogSlug}`);
+  }
+
+  // Fallback if no blogs are found
   return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        minHeight: '80vh',
-        background: 'linear-gradient(135deg, #f9f3fe 0%, #e8e0ff 100%)'
-      }}
-    >
-      <CircularProgress sx={{ color: '#49326b' }} />
-      <Typography sx={{ mt: 2, color: '#49326b', fontWeight: 'bold' }}>
-        Loading Blogs...
-      </Typography>
-    </Box>
-  );
-}
-
-// This is your new page. It's a Server Component by default.
-// Its only job is to provide the Suspense boundary.
-export default function BlogsPage() {
-  return (
-    <Suspense fallback={<LoadingFallback />}>
-      <BlogsClient />
-    </Suspense>
+    <div>
+      <h1>Blogs</h1>
+      <p>No blog posts available at the moment.</p>
+    </div>
   );
 }
