@@ -12,6 +12,7 @@ import { border, styled } from "@mui/system";
 
 // UPDATED: Using Next.js's optimized Image component
 import Image from "next/image";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 // Your Asset Imports (cleaned up unused imports)
 import InsuranceImage from "../../../assets/23-removebg-preview.png";
@@ -37,7 +38,7 @@ const SectionWrapper = styled(Box)(({ theme }) => ({
 
 const InfoCard = styled(Box)(({ image }) => ({
   position: "relative",
-  maxWidth:'300px',
+  maxWidth: "300px",
   width: "100%",
   height: "100%",
   border: "10px solid #e4d4fa",
@@ -160,7 +161,7 @@ const MutualFundsSection = ({ serviceName }) => {
       </Box>
       <SectionWrapper>
         <Container maxWidth="lg">
-          <Grid container spacing={4} justifyContent={'space-between'}>
+          <Grid container spacing={4} justifyContent={"space-between"}>
             {/* Key Benefits */}
             <Grid item xs={12} md={6}>
               <Box
@@ -169,7 +170,7 @@ const MutualFundsSection = ({ serviceName }) => {
                   flexDirection: "column",
                   alignItems: "flex-start",
                   padding: "20px",
-                  justifyContent:'center'
+                  justifyContent: "center",
                 }}
               >
                 <SectionTitle>Key Benefits</SectionTitle>
@@ -232,10 +233,58 @@ const MutualFundsSection = ({ serviceName }) => {
             <Grid item xs={12} sm={6} md={4}>
               <InfoCard>
                 <SectionTitle1>SIP (Systematic Investment Plan)</SectionTitle1>
-                <Point1>- Small, regular investments (monthly/weekly).</Point1>
-                <Point1>- Builds discipline and long-term wealth.</Point1>
-                <Point1>- Rupee cost averaging benefit.</Point1>
-                <Point1>- Great for salaried individuals.</Point1>
+
+                <Point1>
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />
+                  Small, regular investments (monthly/weekly).
+                </Point1>
+
+                <Point1>
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />
+                  Builds discipline and long-term wealth.
+                </Point1>
+
+                <Point1>
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />
+                  Rupee cost averaging benefit.
+                </Point1>
+
+                <Point1>
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />
+                  Great for salaried individuals.
+                </Point1>
               </InfoCard>
             </Grid>
 
@@ -244,11 +293,41 @@ const MutualFundsSection = ({ serviceName }) => {
               <InfoCard>
                 <SectionTitle1>Lumpsum Investment</SectionTitle1>
                 <Point1>
-                  - One-time bulk investment (as & when you get surplus).
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />{" "}
+                  One-time bulk investment (as & when you get surplus).
                 </Point1>
-                <Point1>- Best suited during market dips or windfalls.</Point1>
                 <Point1>
-                  - Potential for higher returns in long-term bull phases.
+                  {" "}
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />{" "}
+                  Best suited during market dips or windfalls.
+                </Point1>
+                <Point1>
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />
+                  Potential for higher returns in long-term bull phases.
                 </Point1>
               </InfoCard>
             </Grid>
@@ -259,10 +338,43 @@ const MutualFundsSection = ({ serviceName }) => {
               {/* Stacks cleanly on small screens */}
               <InfoCard image={aboutImg1}>
                 <SectionTitle1>SWP (Systematic Withdrawal Plan)</SectionTitle1>
-                <Point1>- Regular income from invested funds.</Point1>
-                <Point1>- Ideal for retirees or passive income seekers.</Point1>
                 <Point1>
-                  - Capital remains invested while income is generated.
+                  {" "}
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />
+                  Regular income from invested funds.
+                </Point1>
+                <Point1>
+                  {" "}
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />{" "}
+                  Ideal for retirees or passive income seekers.
+                </Point1>
+                <Point1>
+                  <FiberManualRecordIcon
+                    sx={{
+                      mr: 1,
+                      mt: 0.25,
+                      color: "#49326b",
+                      fontSize: "0.7rem",
+                      flexShrink: 0,
+                    }}
+                  />{" "}
+                  Capital remains invested while income is generated.
                 </Point1>
               </InfoCard>
             </Grid>

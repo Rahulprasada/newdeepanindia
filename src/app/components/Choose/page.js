@@ -248,7 +248,7 @@ const Choose = ({ data }) => {
                     <Card
                       sx={{
                         width: "350px", // ✅ Add this line
-                        height: "160px",
+                        height: "180px",
                         maxWidth: "100%", // You already have this
                         backgroundColor: "#ffffff",
                         borderRadius: "10px",
