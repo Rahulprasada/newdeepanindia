@@ -27,7 +27,7 @@ export default function HomePage() {
       <Services />
       <Details />
       <Partner />
-      <MediaContent data={2}/>
+      <MediaContent data={5}/>
       <FinancialCalculatorsMUI />
       <Contact />
     </>

@@ -188,7 +188,7 @@ export default function Footer() {
                 component={Link}
                 href="/Blog/blogs" // Changed to blogs-list as per original
                 className={styles.linkItem}
-                sx={{fontSize:'15px'}}
+                sx={{fontSize:'15px',cursor:'pointer'}}
               >
                 Blogs
               </Typography>
@@ -196,7 +196,7 @@ export default function Footer() {
                 component="a" // Use 'a' tag for external/anchor links
                 onClick={() => handleNavigation("/#media")} // Use handleNavigation for anchor
                 className={styles.linkItem}
-                sx={{fontSize:'15px'}}
+                sx={{fontSize:'15px',cursor:'pointer'}}
               >
                 Videos
               </Typography>
@@ -204,7 +204,7 @@ export default function Footer() {
                 component="a" // Use 'a' tag for external/anchor links
                 onClick={() => handleNavigation("/#media")} // Use handleNavigation for anchor
                 className={styles.linkItem}
-                sx={{fontSize:'15px'}}
+                sx={{fontSize:'15px',cursor:'pointer'}}
               >
                 Reports
               </Typography>

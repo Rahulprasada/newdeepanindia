@@ -65,9 +65,7 @@
 }
 
 .btnTopHeader:hover {
-  background-color: #33197a;
   color: red;
-  border: 1px solid #33197a;
 }
 
 .styledDivider {

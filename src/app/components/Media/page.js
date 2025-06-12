@@ -17,7 +17,7 @@ const fallbackData = [
     description:
       "ABC Corp used our platform to automate financial workflows and cut costs by 30%. Their journey from manual processes to full automation showcases the power of modern fintech solutions.",
     icon: Building2,
-    url: "http://www.youtube.com/@deepanindiafinancialservices",
+    url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
     metrics: { savings: "30%", time: "60%" },
   },
   {
@@ -26,7 +26,7 @@ const fallbackData = [
     description:
       "XYZ Ltd. improved fund transparency and reduced errors using our analytics suite. Real-time insights transformed their decision-making process completely.",
     icon: TrendingUp,
-    url: "http://www.youtube.com/@deepanindiafinancialservices",
+    url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
     metrics: { accuracy: "95%", efficiency: "40%" },
   },
   {
@@ -35,7 +35,7 @@ const fallbackData = [
     description:
       "PQR Finance achieved real-time insights and faster decision making with our dashboards. Data visualization became their competitive advantage.",
     icon: BarChart3,
-    url: "http://www.youtube.com/@deepanindiafinancialservices",
+    url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
     metrics: { speed: "75%", insights: "50%" },
   },
 ];
@@ -106,13 +106,16 @@ const MediaContent = ({ data }) => {
                 <div className={styles.slideContent}>
                   <div className={styles.visualSection}>
                     <div className={styles.videoBox}>
-                      <iframe
-                        src={item.url}
-                        title="YouTube Video"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
+                    <iframe
+  src="https://www.youtube.com/embed/vnf2IzRmPwI"
+  title="YouTube Video"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  width="100%"
+  height="315"
+></iframe>
+
                     </div>
                   </div>
                   <div className={styles.contentSection}>

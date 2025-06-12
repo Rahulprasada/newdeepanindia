@@ -276,7 +276,7 @@ const ADVISORY = [
                           pr: theme.spacing(0.5),
                           mt: theme.spacing(0.5),
                           color: "#49326b",
-                          fontSize: "0.7rem",
+                          fontSize: "1rem",
                         }}
                       />
                       <Typography
@@ -301,7 +301,7 @@ const ADVISORY = [
                           pr: theme.spacing(0.5),
                           mt: theme.spacing(0.5),
                           color: "#49326b",
-                          fontSize: "0.7rem",
+                          fontSize: "1rem",
                         }}
                       />
                       <Typography
@@ -326,7 +326,7 @@ const ADVISORY = [
                           pr: theme.spacing(0.5),
                           mt: theme.spacing(0.5),
                           color: "#49326b",
-                          fontSize: "0.7rem",
+                          fontSize: "1rem",
                         }}
                       />
                       <Typography
