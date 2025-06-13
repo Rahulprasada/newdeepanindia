@@ -4,11 +4,23 @@ import LandingImage3 from "../../../assets/blog5.jpg";
 import LandingImage4 from "../../../assets/blog4.jpg";
 import LandingImage5 from "../../../assets/landingImage3.jpg";
 
+// Helper function to create a URL-friendly slug from a title
+const createSlug = (title) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/\s+/g, '-')         // Replace spaces with hyphens
+    .replace(/-+/g, '-')          // Replace multiple hyphens with a single one
+    .trim();                      // Trim leading/trailing hyphens
+};
+
+
 export const defaultCards = [
   {
     id: 1,
     title:
       "What to Do After B.Com or B.Com (Finance)? Top Career and Study Options in Finance",
+    slug: createSlug("What to Do After B.Com or B.Com (Finance)? Top Career and Study Options in Finance"),
     metaDescription:
       "Confused about what to do after B.Com or B.Com Finance? Discover top career options, best finance courses, and study paths like MBA, CA, CFA, Stock Market Pro Trader e.t.c to build a successful career in finance.",
     subTitle: `Are you a B.Com or B.Com Finance graduate wondering what to do next? With the financial industry growing rapidly, there’s never been a better time to explore your career and study options in finance. Whether you want to pursue higher studies or dive into the professional world, this guide is for you. At <a href="https://newdeepanindia-csy8.vercel.app">Deepan India Financial Services Pvt. Ltd.</a>, we’re committed to helping students make informed financial and career decisions that set them up for long-term success.`,
@@ -22,6 +34,7 @@ export const defaultCards = [
     id: 2,
     title:
       "Want to Kill Idle Time Productively? Try the Serious Game of Trading in Financial Markets",
+    slug: createSlug("Want to Kill Idle Time Productively? Try the Serious Game of Trading in Financial Markets"),
     metaDescription:
       "Discover how to turn idle time into income by trading in financial markets. Learn stocks, forex, commodities & crypto's trading with the right mindset and strategy to join the top 1% of successful traders.",
     subTitle: `Are you looking to turn idle time into a powerful income-generating opportunity? Welcome to the world of trading in financial markets — a serious game where strategy, discipline, and mindset matter more than luck. Unlike any other field, trading offers 100% independence, timeless relevance, and unlimited opportunities, yet only a few make it to the top. Why? Because trading isn’t about doing more — it’s about doing things right.`,
@@ -35,6 +48,7 @@ export const defaultCards = [
     id: 3,
     title:
       "Are You Ready to Turn Your Contacts into Wealth? Start with SIP in Mutual Funds",
+    slug: createSlug("Are You Ready to Turn Your Contacts into Wealth? Start with SIP in Mutual Funds"),
     metaDescription:
       "Start your journey to financial freedom with SIP in mutual funds. Discover how early investing, rupee cost averaging, and smart referrals can build long-term wealth for you and your loved ones.",
     subTitle: `In a world where everyone is chasing financial freedom, very few know where to begin. The truth is — it’s not about earning more, but investing smarter. One of the easiest and most effective ways to build long-term wealth is through a <a href="https://newdeepanindia-csy8.vercel.app/sip-calculator">Systematic Investment Plan (SIP)</a> in mutual funds. If you’ve ever wished to help yourself or your loved ones reach financial goals with minimal risk and maximum discipline, this blog is for you.`,
@@ -47,11 +61,12 @@ export const defaultCards = [
   {
     id: 4,
     title: "Is Trading Really Rocket Science? Here’s the Truth",
+    slug: createSlug("Is Trading Really Rocket Science? Here’s the Truth"),
     metaDescription:
       "Is trading in financial markets as complex as rocket science? Discover why only 1% of traders succeed and how mindset, strategy, and discipline make all the difference. Start your trading journey with Deepan India.",
     subTitle: `In today’s digital age, where knowledge, courses, and automated trading tools are easily available, many still wonder: Why are only 1% of traders truly successful? Is trading in financial markets that complicated? Is it really like rocket science? The answer might surprise you. Trading is not difficult because of the tools — it’s difficult because of the trader. Let’s explore why trading remains one of the most mentally demanding and personality-driven professions, despite all the technology and education at our fingertips.`,
     image: LandingImage4,
-    content: `<p><strong>Why Only 1% Succeed in Trading — Even Today</strong></p><p><br /></p><p><strong>1. Knowledge: Too Little or Too Much Is Dangerous</strong></p><p>Many assume more knowledge equals more profits. But in trading, both ignorance and information overload can be harmful. A trader with too little knowledge acts on assumptions. A trader with too much knowledge can over-analyze and hesitate — leading to missed opportunities.</p><p><strong>2. Training: One Size Doesn’t Fit All</strong></p><p>There are endless trading strategies and methods— from price action to moving averages, from scalping to swing trading. But here's the catch: no single strategy fits everyone. The best trading system is the one that <strong>aligns with your personality, psychology, and risk tolerance</strong>.</p><p>Even the most well-crafted training will fail if it doesn’t match who you are as a trader.</p><p><strong>3. Advisory Services: Not All That Glitters Is Gold</strong></p><p>The internet is flooded with advisors promising high returns. But most show Excel-based backtested results, not real-time performance. Genuine mentorship is rare. Hiring an expert without understanding their system or your own capacity to follow it won’t help.</p><p><strong>"Advisory is guidance, not a guarantee."</strong></p><p><strong>4.Automated Trading: Efficient but Not Emotion-Proof</strong></p><p><strong>Algo trading</strong> and automated systems can help eliminate emotional errors, execute trades faster, and manage multiple instruments at once. But still, your mindset matters.</p><p>Can you tolerate a series of small losses for a bigger win later? Can you stick to one system without jumping ship?</p><p>Even the best automation can't work if you override it emotionally.</p><p><br /></p><p><strong> So, Is Trading Rocket Science?</strong></p><p>Not really. But it's not a cakewalk either.</p><p>Success in trading is about:</p><p>·        Having the right amount of knowledge</p><p>·        Choosing a strategy that suits your mindset</p><p>·        Trusting the process even when results are slow</p><p>·        Emotional discipline and patience</p><p>It's not about IQ — it's about EIQ (Emotional Intelligence)</p><p><br /></p><p></p><p><strong>Final Takeaway</strong></p><p>If you’ve been overwhelmed by the tools, strategies, or training out there, take a step back. Trading isn’t about doing more — it’s about doing what’s right for you.</p><p><br /></p><p>At <strong><a href="https://newdeepanindia-csy8.vercel.app/">Deepan India Financial Services Pvt. Ltd.</a>,</strong> we help individuals identify their trading personality, choose or build strategies accordingly, and offer support that goes beyond just tools and tips — we offer clarity.</p><p>---</p><p>"Stop chasing complexity. Start mastering simplicity in trading."</p><p><br /></p><p> Lets check your inner personality and choose the most suitable trading type for you in our next blog - <strong><a href="/card-details/5">CLICK here</a></strong><strong> (5</strong><sup><strong>th</strong></sup><strong> blog link)</strong></p>`,
+    content: `<p><strong>Why Only 1% Succeed in Trading — Even Today</strong></p><p><br /></p><p><strong>1. Knowledge: Too Little or Too Much Is Dangerous</strong></p><p>Many assume more knowledge equals more profits. But in trading, both ignorance and information overload can be harmful. A trader with too little knowledge acts on assumptions. A trader with too much knowledge can over-analyze and hesitate — leading to missed opportunities.</p><p><strong>2. Training: One Size Doesn’t Fit All</strong></p><p>There are endless trading strategies and methods— from price action to moving averages, from scalping to swing trading. But here's the catch: no single strategy fits everyone. The best trading system is the one that <strong>aligns with your personality, psychology, and risk tolerance</strong>.</p><p>Even the most well-crafted training will fail if it doesn’t match who you are as a trader.</p><p><strong>3. Advisory Services: Not All That Glitters Is Gold</strong></p><p>The internet is flooded with advisors promising high returns. But most show Excel-based backtested results, not real-time performance. Genuine mentorship is rare. Hiring an expert without understanding their system or your own capacity to follow it won’t help.</p><p><strong>"Advisory is guidance, not a guarantee."</strong></p><p><strong>4.Automated Trading: Efficient but Not Emotion-Proof</strong></p><p><strong>Algo trading</strong> and automated systems can help eliminate emotional errors, execute trades faster, and manage multiple instruments at once. But still, your mindset matters.</p><p>Can you tolerate a series of small losses for a bigger win later? Can you stick to one system without jumping ship?</p><p>Even the best automation can't work if you override it emotionally.</p><p><br /></p><p><strong> So, Is Trading Rocket Science?</strong></p><p>Not really. But it's not a cakewalk either.</p><p>Success in trading is about:</p><p>·        Having the right amount of knowledge</p><p>·        Choosing a strategy that suits your mindset</p><p>·        Trusting the process even when results are slow</p><p>·        Emotional discipline and patience</p><p>It's not about IQ — it's about EIQ (Emotional Intelligence)</p><p><br /></p><p></p><p><strong>Final Takeaway</strong></p><p>If you’ve been overwhelmed by the tools, strategies, or training out there, take a step back. Trading isn’t about doing more — it’s about doing what’s right for you.</p><p><br /></p><p>At <strong><a href="https://newdeepanindia-csy8.vercel.app/">Deepan India Financial Services Pvt. Ltd.</a>,</strong> we help individuals identify their trading personality, choose or build strategies accordingly, and offer support that goes beyond just tools and tips — we offer clarity.</p><p>---</p><p>"Stop chasing complexity. Start mastering simplicity in trading."</p><p><br /></p><p> Lets check your inner personality and choose the most suitable trading type for you in our next blog - <strong><a href="/card-details/choosing-the-right-trading-style-for-you-find-what-suits-your-personality-and-goals">CLICK here</a></strong></p>`,
     author: "Raja Yogi",
     company: `Deepan India Financial Services Pvt Ltd`,
     code: "Everything for Everyone",
@@ -60,6 +75,7 @@ export const defaultCards = [
     id: 5,
     title:
       "Choosing the Right Trading Style for You: Find What Suits Your Personality and Goals",
+    slug: createSlug("Choosing the Right Trading Style for You: Find What Suits Your Personality and Goals"),
     metaDescription:
       "Explore different trading styles like scalping, intraday, swing, and positional trading. Learn how to choose the right trading strategy based on your time, risk appetite, and capital. Perfect for beginners and aspiring traders in India.",
     subTitle: `Is trading right for you? Or rather—what kind of trading is right for you? One of the first steps in your trading journey is to identify a style that aligns with your personality, risk tolerance, time availability, capital, and mindset. Whether you're a student, working professional, or aspiring full-time trader, understanding various trading strategies can guide you toward consistent performance in the<a href="https://newdeepanindia-csy8.vercel.app/service/training-in-financial-markets"> Indian financial markets</a>. Here’s a detailed guide to help you choose the right trading style that fits your lifestyle.`,

@@ -51,7 +51,7 @@ const RealEstateFund = ({ serviceName }) => {
             pl: { xs: 2, sm: 4, md: 6 }, // Responsive left padding
           }}
         >
-          REAL ESTATE FUNDS
+          REAL ESTATE FUNDS (REITs)
         </Typography>
       </Box>
       <Box sx={{ px: 2, py: 4, backgroundColor: "#F9F3FE" }}>
@@ -90,7 +90,7 @@ const RealEstateFund = ({ serviceName }) => {
                     }}
                   >
                     <FiberManualRecordIcon
-                      sx={{ color: "#49326b", mt: "6px", mr: 1 }}
+                      sx={{ color: "#49326b", mt: "2px", mr: 1,width:{xs:'1rem',md:'2rem'} }}
                     />
                     <Typography
                       sx={{
@@ -112,7 +112,7 @@ const RealEstateFund = ({ serviceName }) => {
                     }}
                   >
                     <FiberManualRecordIcon
-                      sx={{ color: "#49326b", mt: "6px", mr: 1 }}
+                      sx={{ color: "#49326b", mt: "2px", mr: 1,width:{xs:'1rem',md:'2rem'}  }}
                     />
                     <Typography
                       sx={{
@@ -134,7 +134,7 @@ const RealEstateFund = ({ serviceName }) => {
                     }}
                   >
                     <FiberManualRecordIcon
-                      sx={{ color: "#49326b", mt: "6px", mr: 1 }}
+                      sx={{ color: "#49326b", mt: "2px", mr: 1,width:{xs:'1rem',md:'2rem'}  }}
                     />
                     <Typography
                       sx={{
@@ -156,7 +156,7 @@ const RealEstateFund = ({ serviceName }) => {
                     }}
                   >
                     <FiberManualRecordIcon
-                      sx={{ color: "#49326b", mt: "6px", mr: 1 }}
+                      sx={{ color: "#49326b", mt: "2px", mr: 1,width:{xs:'1rem',md:'2rem'}  }}
                     />
                     <Typography
                       sx={{
@@ -248,7 +248,7 @@ const QualificationBox = styled(Box)(({ image }) => ({
     zIndex: 2,
   },
   "@media (max-width: 600px)": {
-    padding: "20px 10px",
+    padding: "10px 30px 0px 0px ",
   },
 }));
 
@@ -256,7 +256,7 @@ const QualificationBox = styled(Box)(({ image }) => ({
 const styles = `
   @media (max-width: 600px) {
     .real-estate-image {
-      display: none !important;
+
     }
   }
 `;

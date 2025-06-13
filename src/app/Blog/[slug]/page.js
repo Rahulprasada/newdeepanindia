@@ -35,11 +35,11 @@ function LoadingFallback() {
 // This Server Component gets the slug from the URL `params`
 // and passes it down to the client component.
 export default function BlogDetailPage({ params }) {
-  const { slug } = params; // e.g., "what-to-do-after-b-com"
+  const currentSlug = params.slug?.[0] || null; // e.g., "what-to-do-after-b-com"
 
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <BlogDetailClient currentSlug={slug} />
+      <BlogDetailClient currentSlug={currentSlug} />
     </Suspense>
   );
 }

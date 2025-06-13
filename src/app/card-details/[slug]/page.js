@@ -1,58 +1,49 @@
-// app/Blog/[id]/page.js
+// app/card-details/[slug]/page.js
 
-import { instance } from "../../../utils/api";
-import { Url } from "../../../utils/api";
+import { instance, Url } from "../../../utils/api";
 import { defaultCards } from "../../components/details/DefaultCard";
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
 import CardDetailsClient from "./CardDetailsClient";
 
 export async function generateMetadata({ params }) {
-  const { id } = params;
+  const { slug } = params;
+  
   const siteUrl = process.env.VERCEL_URL 
     ? `https://${process.env.VERCEL_URL}` 
     : process.env.NEXT_PUBLIC_SITE_URL;
 
-  // --- SOLUTION: Use a variable that can be populated by either the API or the fallback ---
-  let data = null;
+  const cardFromLocalData = defaultCards.find((card) => card.slug === slug);
 
-  try {
-    // --- STEP 1: Attempt to fetch data from the API ---
-    const response = await instance.get(`/landing/customer/Blogs/${id}`);
-    if (response.status === 200 && response.data) {
-      data = response.data; // API call was successful, store the data
-    }
-  } catch (apiError) {
-    // If the API call fails (e.g., 404, 500, network error), we catch it here.
-    // Instead of returning an error, we simply log a warning and let the code proceed.
-    // The `data` variable will remain `null`.
-    console.warn(
-      `API call for Blog ID ${id} failed. Attempting to use local fallback. Error: ${apiError.message}`
-    );
-  }
-
-  // --- STEP 2: If the API failed (data is still null), try the local fallback ---
-  if (!data) {
-    const fallback = defaultCards.find((card) => String(card.id) === String(id));
-    if (fallback) {
-      data = fallback; // Fallback was successful, store the data
-    }
-  }
-
-  // --- STEP 3: If BOTH the API and the fallback failed, now we return "Not Found" ---
-  if (!data) {
+  if (!cardFromLocalData) {
     return {
       title: "Blog Not Found | Deepan India",
       description: "The requested blog post could not be found.",
     };
   }
+  
+  const { id } = cardFromLocalData;
+  let data = null;
 
-  // --- STEP 4: If we have data from either source, proceed to generate metadata ---
-  // This part of the code is the same as before.
+  try {
+    const response = await instance.get(`/landing/customer/Blogs/${id}`);
+    if (response.status === 200 && response.data) {
+      data = response.data;
+    }
+  } catch (apiError) {
+    console.warn(
+      `API call for Blog ID ${id} (from slug "${slug}") failed. Using local fallback. Error: ${apiError.message}`
+    );
+  }
+
+  if (!data) {
+    data = cardFromLocalData;
+  }
+
   let imageSrc;
   if (data.image && typeof data.image === 'object' && data.image.src) {
     imageSrc = `${siteUrl}${data.image.src}`;
   } else if (data.image) {
-    imageSrc = `${Url}${data.image}`;
+    imageSrc = data.image.startsWith('http') ? data.image : `${Url}${data.image}`;
   } else {
     imageSrc = `${siteUrl}${aboutImg1.src}`;
   }
@@ -68,7 +59,8 @@ export async function generateMetadata({ params }) {
       : data.metaDescription
     : "Discover insightful financial tips and updates from Deepan India Financial Services.";
     
-  const canonicalUrl = `${siteUrl}/Blog/${id}`;
+  // --- THIS LINE IS NOW CORRECTED ---
+  const canonicalUrl = `${siteUrl}/card-details/${slug}`;
 
   return {
     title: seoTitle,
@@ -96,7 +88,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// The Page component remains unchanged
 export default function CardDetailsPage() {
   return <CardDetailsClient />;
 }

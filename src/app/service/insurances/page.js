@@ -50,7 +50,7 @@ const Insurance = ({ serviceName }) => {
             pl: { xs: 2, sm: 4, md: 6 }, // Responsive left padding
           }}
         >
-          INSURANCE
+          INSURANCES
         </Typography>
       </Box>
       <Box sx={{ px: 2, py: 4, backgroundColor: "#F9F3FE" }}>
@@ -239,7 +239,6 @@ const QualificationBox = styled(Box)(({ image }) => ({
 const styles = `
   @media (max-width: 600px) {
     .insurance-image {
-      display: none !important;
     }
   }
 `;

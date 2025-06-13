@@ -7,49 +7,34 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import { useRouter, usePathname } from "next/navigation"; // Import for Next.js navigation
-
-// Icon imports (using MUI icons as per your initial React component)
+import { useRouter, usePathname } from "next/navigation"; 
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
-// Import your CSS Module styles
 import styles from "./Footer.module.css";
 
-// Image imports
-import Deepalogo from "../../../assets/EditedLogo-removebg-preview.png"; // Assuming this is your main logo
-// Note: Original code used separate images for social icons like Instagram, LinkedIn etc.
-// For consistency with MUI icons, I've used MUI icons where possible in the social section.
-// If you prefer the image assets, you can revert the social icon section to use Image components.
-// For now, I'm assuming the icon images are placeholder or less preferred than MUI icons.
 
 export default function Footer() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Replicating the handleNavigation logic for anchor links in Next.js
   const handleNavigation = (href) => {
     if (href.startsWith("#")) {
-      // Handle anchor links on the same page
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else if (href.startsWith("/#")) {
-      // Handle anchor links from other pages
       if (pathname === "/") {
-        // Already on home page, just scroll to the section
         const anchorId = href.substring(2);
         const element = document.querySelector(`#${anchorId}`);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
-        // Navigate to home page and then scroll to section
-        router.push("/");
+        router.push("/#media");
         setTimeout(() => {
           const anchorId = href.substring(2);
           const element = document.querySelector(`#${anchorId}`);
@@ -59,7 +44,6 @@ export default function Footer() {
         }, 100);
       }
     } else {
-      // Handle regular page navigation
       router.push(href);
     }
   };
@@ -68,7 +52,6 @@ export default function Footer() {
     <footer className={styles.footerMain} >
       <Container maxWidth="xl">
         <Grid container spacing={{ xs: 3, md: 8 }} sx={{ width: "100%", margin: 0 }}>
-          {/* What We Serve */}
           <Grid item xs={12} sm={6} md={2}>
             <Typography variant="h6" className={styles.footTitle}sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               What We Serve
@@ -105,7 +88,6 @@ export default function Footer() {
             </Box>
           </Grid>
 
-          {/* What We Do */}
           <Grid item xs={12} sm={6} md={2}>
             <Typography variant="h6" className={styles.footTitle}sx={{fontSize:'16px' ,fontWeight:'bold'}}>
               What We Do
@@ -186,23 +168,23 @@ export default function Footer() {
             <Box className={styles.links}>
               <Typography
                 component={Link}
-                href="/Blog/blogs" // Changed to blogs-list as per original
+                href="/Blog/blogs"
                 className={styles.linkItem}
                 sx={{fontSize:'15px',cursor:'pointer'}}
               >
                 Blogs
               </Typography>
               <Typography
-                component="a" // Use 'a' tag for external/anchor links
-                onClick={() => handleNavigation("/#media")} // Use handleNavigation for anchor
+                component="a" 
+                onClick={() => handleNavigation("/#media")} 
                 className={styles.linkItem}
                 sx={{fontSize:'15px',cursor:'pointer'}}
               >
                 Videos
               </Typography>
               <Typography
-                component="a" // Use 'a' tag for external/anchor links
-                onClick={() => handleNavigation("/#media")} // Use handleNavigation for anchor
+                component="a" 
+                onClick={() => handleNavigation("/#media")} 
                 className={styles.linkItem}
                 sx={{fontSize:'15px',cursor:'pointer'}}
               >
@@ -285,7 +267,6 @@ export default function Footer() {
           </Grid>
         </Grid>
 
-        {/* Google Maps Iframe */}
         <Box className={styles.mapContainer}>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.6682900232054!2d80.29056200000001!3d13.120187999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52670a343aef1d%3A0x89acc915e36fd6e6!2sFirst%20Choice%20Investment!5e0!3m2!1sen!2sin!4v1748239450808!5m2!1sen!2sin"
@@ -299,13 +280,12 @@ export default function Footer() {
 
         <Divider className={styles.styledDivider} />
 
-        {/* Bottom Section */}
         <Grid
           container
           spacing={1}
           alignItems="center"
-          justifyContent={{ xs: "center", md: "space-between" }} // Center on small, space-between on medium+
-          sx={{ textAlign: { xs: "center", md: "left" } }} // Center text on small, left align on medium+
+          justifyContent={{ xs: "center", md: "space-between" }} 
+          sx={{ textAlign: { xs: "center", md: "left" } }} 
         >
           {/* Social Icons */}
           <Grid item xs={12} md={4}>
@@ -343,14 +323,12 @@ export default function Footer() {
             </Box>
           </Grid>
 
-          {/* Copyright */}
           <Grid item xs={12} md={4}>
             <Typography className={styles.copyrightText} sx={{ fontWeight: 'bold' }}>
               © {new Date().getFullYear()} Deepan India. All rights reserved.
             </Typography>
           </Grid>
 
-          {/* Privacy and Terms */}
           <Grid item xs={12} md={4}>
             <Box className={styles.bottomLink} sx={{ justifyContent: { xs: "center", md: "flex-end" } }}>
               <Typography

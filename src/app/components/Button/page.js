@@ -31,7 +31,7 @@ const GetMoreButton = () => {
         }
       } else {
         // Navigate to home page and then scroll to section
-        router.push("/#About"); // Use router.push instead of navigate
+        router.push("/#contact"); // Use router.push instead of navigate
         setTimeout(() => {
           const anchorId = href.substring(2);
           const element = document.querySelector(`#${anchorId}`);

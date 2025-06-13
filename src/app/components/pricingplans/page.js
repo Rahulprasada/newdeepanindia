@@ -32,7 +32,7 @@ const plansData = [
     icon: Trader,
     subtitle: "(Traders looking for 2nd income)",
     features: [
-      "All WISE INVESTOR features PLUS:",
+      "All WISE INVESTOR features PLUS",
       "Advisory Services for all segments",
       "Algo Trading Software – Automate BUY/SELL executions with customized option strategies",
     ],
@@ -90,7 +90,7 @@ export default function PricingPlans() {
         <Grid
           container
           maxWidth={'1500px'}
-          spacing={{ xs: 2, sm: 4, md: 6 }} 
+          spacing={{ xs: 6, sm: 6, md: 6 }} 
           justifyContent="center" 
           alignItems="stretch" 
           sx={{

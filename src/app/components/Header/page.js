@@ -111,7 +111,7 @@ export default function Header() {
         setTargetId(anchorId);
         // Corrected this line from your code. It should just navigate to the root.
         // The homepage component will handle the scrolling.
-        router.push("/"); 
+        router.push("/#media"); 
       }
     } else if (href.startsWith("#")) {
       const element = document.querySelector(href);
@@ -140,7 +140,7 @@ export default function Header() {
           <Container
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent:'flex-end',
               height: "60px",
               alignItems: "center",
             }}

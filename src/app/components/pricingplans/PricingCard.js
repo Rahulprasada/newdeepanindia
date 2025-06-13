@@ -55,7 +55,7 @@ const PricingCard = ({
   return (
     <Box
       sx={{
-        // --- CORE LAYOUT ---
+        marginTop:'30px',
         height: "100%",
         maxHeight:'600px',
         display: "flex",
@@ -124,7 +124,7 @@ const PricingCard = ({
       </Box>
 
       {/* Read More Button */}
-      {showReadMoreButton && (
+      {showReadMoreButton && index!= 1 && (
         <Box sx={{ width: "100%", mt: 'auto', pt: 2 }}>
           <Button
             variant="outlined"

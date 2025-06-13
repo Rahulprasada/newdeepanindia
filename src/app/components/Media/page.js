@@ -9,7 +9,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import styles from "./MediaContent.module.css";
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
 const fallbackData = [
   {
     subTitle: "Case Study 1",
@@ -86,81 +86,89 @@ const MediaContent = ({ data }) => {
 
   return (
     <section id="media" className={styles.styledSection}>
-      <Container maxWidth={'lg'}>
-      <div className={styles.container}>
-        <div className={styles.headerSection}>
-          <h1 className={styles.mainTitle}>Finance Leaders Trust Us</h1>
-          <p className={styles.subtitle}>
-            Discover how industry leaders transformed their operations
-          </p>
-        </div>
+      <Container maxWidth={"lg"}>
+        <div className={styles.container}>
+          <div className={styles.headerSection}>
+            <h1 className={styles.mainTitle}>Finance Leaders Trust Us</h1>
+            <p className={styles.subtitle}>
+              Discover how industry leaders transformed their operations
+            </p>
+          </div>
 
-        <div className={styles.sliderContainer}>
-          {caseStudyData.map((item, index) => {
-            const IconComponent = item.icon || Building2;
-            return (
-              <div
-                key={index}
-                className={`${styles.slide} ${index === slideIndex ? styles.active : ""}`}
-              >
-                <div className={styles.slideContent}>
-                  <div className={styles.visualSection}>
-                    <div className={styles.videoBox}>
-                    <iframe
-  src="https://www.youtube.com/embed/vnf2IzRmPwI"
-  title="YouTube Video"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  width="100%"
-  height="315"
-></iframe>
-
+          <div className={styles.sliderContainer}>
+            {caseStudyData.map((item, index) => {
+              const IconComponent = item.icon || Building2;
+              return (
+                <div
+                  key={index}
+                  className={`${styles.slide} ${
+                    index === slideIndex ? styles.active : ""
+                  }`}
+                >
+                  <div className={styles.slideContent}>
+                    <div className={styles.visualSection}>
+                      <div className={styles.videoBox}>
+                        <iframe
+                          src="https://www.youtube.com/embed/vnf2IzRmPwI"
+                          title="YouTube Video"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          width="100%"
+                          height="315"
+                        ></iframe>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.contentSection}>
-                    <div className={styles.iconWrapper}>
-                      <IconComponent size={48} />
-                    </div>
-                    <div className={styles.textContent}>
-                      <span className={styles.subTitle}>{item.subTitle}</span>
-                      <h2 className={styles.title}>{item.title}</h2>
-                      <p className={styles.description}>{item.description}</p>
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.actionButton}
-                      >
-                        <Play size={16} />
-                        Watch Case Study
-                        <ArrowRight size={16} />
-                      </a>
+                    <div className={styles.contentSection}>
+                      <div className={styles.iconWrapper}>
+                        <IconComponent size={48} />
+                      </div>
+                      <div className={styles.textContent}>
+                        <span className={styles.subTitle}>{item.subTitle}</span>
+                        <h2 className={styles.title}>{item.title}</h2>
+                        <p className={styles.description}>{item.description}</p>
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.actionButton}
+                        >
+                          <Play size={16} />
+                          Watch Case Study
+                          <ArrowRight size={16} />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className={styles.controlsContainer}>
-          <div className={styles.progressContainer}>
-            {progress.map((value, index) => (
-              <div
-                key={index}
-                className={`${styles.progressBar} ${index === slideIndex ? styles.active : ""}`}
-                onClick={() => handleProgressClick(index)}
-                style={{ "--progress": `${index === slideIndex ? value : 0}%` }}
-              />
-            ))}
+              );
+            })}
           </div>
 
-          <button className={styles.playPauseButton} onClick={togglePlayPause}>
-            {isPlaying ? "Pause" : "Play"}
-          </button>
+          <div className={styles.controlsContainer}>
+            <div className={styles.progressContainer}>
+              {progress.map((value, index) => (
+                <div
+                  key={index}
+                  className={`${styles.progressBar} ${
+                    index === slideIndex ? styles.active : ""
+                  }`}
+                  onClick={() => handleProgressClick(index)}
+                  style={{
+                    "--progress": `${index === slideIndex ? value : 0}%`,
+                  }}
+                />
+              ))}
+            </div>
+
+            <button
+              className={styles.playPauseButton}
+              onClick={togglePlayPause}
+            >
+              {isPlaying ? "Pause" : "Play"}
+            </button>
+          </div>
         </div>
-      </div>
       </Container>
     </section>
   );

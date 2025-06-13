@@ -131,7 +131,6 @@ export default function RootLayout({ children }) {
 
           <FixedWhatsappButton />
           <ScrollToTopButton />
-          {/* Footer will appear at the bottom of every page */}
           <Footer />
         </ScrollProvider>
       </body>

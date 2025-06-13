@@ -290,6 +290,7 @@ const ADVISORY = [
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: "vertical",
                           overflow: "hidden",
+                                                    marginLeft:'10px'
                         }}
                       >
                         {course.subtitle}
@@ -302,6 +303,7 @@ const ADVISORY = [
                           mt: theme.spacing(0.5),
                           color: "#49326b",
                           fontSize: "1rem",
+                 
                         }}
                       />
                       <Typography
@@ -315,6 +317,8 @@ const ADVISORY = [
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: "vertical",
                           overflow: "hidden",
+                          marginLeft:'10px'
+
                         }}
                       >
                         {course.description}
@@ -340,6 +344,8 @@ const ADVISORY = [
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: "vertical",
                           overflow: "hidden",
+                          marginLeft:'10px'
+
                         }}
                       >
                         {course.audience}

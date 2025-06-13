@@ -51,7 +51,7 @@ const AlternativeInvestMentFunt = ({ serviceName }) => {
             pl: { xs: 2, sm: 4, md: 6 }, // Responsive left padding
           }}
         >
-         ALTERNATE-INVESTMENT-FUNDS-(AIFS)
+         ALTERNATE-INVESTMENT-FUNDS-(AIFs)
         </Typography>
       </Box>
       <Box sx={{ px: 2, py: 4,backgroundColor: "#F9F3FE"  }}>

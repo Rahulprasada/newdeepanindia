@@ -1,22 +1,38 @@
-// src/app/Blog/blogs/page.js
+"use client"; // <-- This is the most important change
 
-import { redirect } from 'next/navigation';
-import { defaultCards } from "../../components/details/DefaultCard"; // Adjust path
-import { slugify } from '../../../utils/slugify'; // Adjust path
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
-// This is a Server Component that handles redirection.
-export default function BlogListRedirectPage() {
-  // If there are blogs, redirect to the first one using its slug.
-  if (defaultCards && defaultCards.length > 0) {
-    const firstBlogSlug = slugify(defaultCards[0].title);
-    redirect(`/Blog/${firstBlogSlug}`);
-  }
+import { defaultCards } from "../../components/details/DefaultCard"; 
+import { slugify } from '../../../utils/slugify'; 
 
-  // Fallback if no blogs are found
+export default function BlogRedirectClientPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (defaultCards && defaultCards.length > 0) {
+      const firstBlogSlug = slugify(defaultCards[0].title);
+      
+      router.push(`/Blog/${firstBlogSlug}`);
+    } else {
+      router.push('/Blog');
+    }
+  }, [router]); 
+
   return (
-    <div>
-      <h1>Blogs</h1>
-      <p>No blog posts available at the moment.</p>
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        minHeight: '90vh', 
+        backgroundColor:'#fff'
+      }}
+    >
+      <CircularProgress color="secondary" />
+    </Box>
   );
 }

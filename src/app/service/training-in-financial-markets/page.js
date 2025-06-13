@@ -134,7 +134,7 @@ const TextWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const TrainingInFinancialMarketing = ({
-  serviceName = "Training in Financial Marketing",
+  serviceName = "Training in Financial Market",
 }) => {
   const [imageError, setImageError] = useState({});
 
@@ -267,11 +267,11 @@ const TrainingInFinancialMarketing = ({
                   >
                     {course.title}
                   </Typography>
-                  <TextWrapper sx={{ mt: 1.5 }}> {/* Added margin top to separate from title */}
+                  <TextWrapper sx={{ mt: 1.5 }}> 
                     <FiberManualRecordIcon
                       sx={{
-                        mr: 1, // Margin right for icon
-                        mt: 0.25, // Slight vertical adjustment
+                        mr: 1, 
+                        mt: 0.7, 
                         color: "#49326b",
                         fontSize: "0.7rem", // Small icon size
                         flexShrink: 0, // Prevent icon from shrinking
@@ -292,7 +292,7 @@ const TrainingInFinancialMarketing = ({
                     <FiberManualRecordIcon
                       sx={{
                         mr: 1,
-                        mt: 0.25,
+                        mt: 0.7,
                         color: "#49326b",
                         fontSize: "0.7rem",
                         flexShrink: 0,

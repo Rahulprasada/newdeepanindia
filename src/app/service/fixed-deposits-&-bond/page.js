@@ -90,7 +90,7 @@ const FixedDepost = ({ serviceName }) => {
                     }}
                   >
                     <FiberManualRecordIcon
-                      sx={{ color: "#49326b", mt: "6px", mr: 1 }}
+                      sx={{ color: "#49326b", mt: "2px", mr: 1 }}
                     />
                     <Typography
                       sx={{
@@ -112,7 +112,7 @@ const FixedDepost = ({ serviceName }) => {
                     }}
                   >
                     <FiberManualRecordIcon
-                      sx={{ color: "#49326b", mt: "6px", mr: 1 }}
+                      sx={{ color: "#49326b", mt: "2px", mr: 1 }}
                     />
                     <Typography
                       sx={{
@@ -134,7 +134,7 @@ const FixedDepost = ({ serviceName }) => {
                     }}
                   >
                     <FiberManualRecordIcon
-                      sx={{ color: "#49326b", mt: "6px", mr: 1 }}
+                      sx={{ color: "#49326b", mt: "2px", mr: 1 }}
                     />
                     <Typography
                       sx={{
@@ -158,7 +158,6 @@ const FixedDepost = ({ serviceName }) => {
                       maxWidth: "400px",
                       display: "block",
                     }}
-                    className="fixed-deposit-image"
                   />
                 </Grid>
               </Grid>

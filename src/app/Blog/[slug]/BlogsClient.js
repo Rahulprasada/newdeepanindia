@@ -11,13 +11,13 @@ import Pagination from "@mui/material/Pagination";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ShareIcon from "@mui/icons-material/Share";
+import Skeleton from "@mui/material/Skeleton"; // <-- IMPORT SKELETON
 
-import { defaultCards } from "../../components/details/DefaultCard"; // Adjust path
-import { slugify } from "../../../utils/slugify"; // Adjust path
-import { instance, Url } from "../../../utils/api";
+import { defaultCards } from "../../components/details/DefaultCard";
+import { slugify } from "../../../utils/slugify";
+import { instance } from "../../../utils/api";
 import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
 
-// --- Styled Components and Keyframes (Copied from your original file, no changes) ---
 const slideIn = keyframes`from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); }`;
 const MainBox = styled(Box)(({ theme }) => ({
   padding: "60px 0",
@@ -125,48 +125,163 @@ const AuthorBox = styled(Box)(({ theme, image }) => ({
   },
 }));
 
-// This is the client component that receives the current slug from the URL.
+// --- NEW SKELETON COMPONENT ---
+const BlogDetailSkeleton = () => {
+  return (
+    <MainBox>
+      <Container maxWidth="xl">
+        <Box sx={{ padding: { xs: "24px", md: "48px" } }}>
+          <Grid container spacing={4}>
+            <Grid item xs={12}>
+              <ContentBox sx={{ width: "100%" }}>
+                <Skeleton
+                  variant="text"
+                  width="90%"
+                  height={56}
+                  sx={{ mb: 2 }}
+                />
+                <Skeleton variant="text" width="100%" height={24} />
+                <Skeleton
+                  variant="text"
+                  width="90%"
+                  height={24}
+                  sx={{ mb: 4 }}
+                />
+                <Divider sx={{ mb: 4 }} />
+                {/* Skeleton for the main content */}
+                <Skeleton variant="text" height={20} />
+                <Skeleton variant="text" height={20} />
+                <Skeleton variant="text" height={20} width="70%" />
+                <br />
+                <Skeleton variant="text" height={20} />
+                <Skeleton variant="text" height={20} width="80%" />
+
+                <AuthorBox image={aboutImg1}>
+                  <Box sx={{ width: "100%" }}>
+                    <Skeleton
+                      variant="text"
+                      width={500}
+                      height={24}
+                      sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}
+                    />
+                    <Skeleton
+                      variant="text"
+                      width={550}
+                      height={20}
+                      sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}
+                    />
+                  </Box>
+                  <Skeleton
+                    variant="rectangular"
+                    width={320}
+                    height={40}
+                    sx={{
+                      borderRadius: "8px",
+                      bgcolor: "rgba(255, 255, 255, 0.3)",
+                    }}
+                  />
+                </AuthorBox>
+              </ContentBox>
+            </Grid>
+            <Grid item xs={12}>
+              <StyledCard>
+                <Grid item xs={12} md={8}>
+                  <BlogListBox>
+                    {/* Skeleton for the list of blogs */}
+                    {Array.from(new Array(5)).map((_, index) => (
+                      <Skeleton
+                        key={index}
+                        variant="image"
+                        height={60}
+                        sx={{ borderRadius: "8px", mb: 1 }}
+                      />
+                    ))}
+                  </BlogListBox>
+                  <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+                    <Skeleton variant="image" width={200} height={40} />
+                  </Box>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Skeleton
+                    variant="rectangular"
+                    width="90%"
+                    height={300}
+                    sx={{ borderRadius: "16px" }}
+                  />
+                </Grid>
+              </StyledCard>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
+    </MainBox>
+  );
+};
+
+// --- MAIN COMPONENT ---
 export default function BlogDetailClient({ currentSlug }) {
   const router = useRouter();
-  const [allBlogs, setAllBlogs] = useState([]);
+
+  const [apiBlogs, setApiBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
-  // Process the blogs data ONCE to add a slug to each object.
-  const processedBlogs = useMemo(() => {
-    const dataToProcess = allBlogs.length > 0 ? allBlogs : defaultCards;
-    return dataToProcess.map((blog) => ({
-      ...blog,
-      slug: slugify(blog.title), // Add the slug here
-    }));
-  }, [allBlogs]);
-
+  // All your hooks (useEffect, useMemo) and handlers remain the same.
   useEffect(() => {
     const fetchBlogs = async () => {
+      setIsLoading(true);
       try {
         const response = await instance.get("/landing/customer/Blogs");
-        setAllBlogs(response.data || []);
+        if (response.data && Array.isArray(response.data)) {
+          setApiBlogs(response.data);
+        } else {
+          setApiBlogs([]);
+        }
       } catch (error) {
-        console.error("Error fetching blog details:", error);
-        // We'll rely on the defaultCards via processedBlogs
-        setAllBlogs([]);
+        console.error(
+          "API fetch failed, using local fallback data. Error:",
+          error
+        );
+        setApiBlogs([]);
+      } finally {
+        setTimeout(() => setIsLoading(false), 500);
       }
     };
     fetchBlogs();
   }, []);
 
-  // This effect now finds the blog using the slug from the URL.
-  useEffect(() => {
-    if (processedBlogs.length > 0) {
-      const blogFromSlug = processedBlogs.find(
-        (blog) => blog.slug === currentSlug
-      );
-      setSelectedBlog(blogFromSlug || processedBlogs[0]);
-    }
-  }, [processedBlogs, currentSlug]);
+  const processedBlogs = useMemo(() => {
+    const dataSource = apiBlogs.length > 0 ? apiBlogs : defaultCards;
+    return dataSource.map((blog) => ({
+      ...blog,
+      slug: slugify(blog.title),
+    }));
+  }, [apiBlogs]);
 
-  // This function now navigates to the new slug-based URL.
+  useEffect(() => {
+    if (processedBlogs.length === 0 || isLoading) return;
+
+    let blogToSelect;
+    if (currentSlug) {
+      blogToSelect = processedBlogs.find((blog) => blog.slug === currentSlug);
+    }
+    if (!blogToSelect) {
+      blogToSelect = processedBlogs[0];
+    }
+    setSelectedBlog(blogToSelect);
+  }, [processedBlogs, currentSlug, isLoading]);
+
   const handleSelectBlog = (blog) => {
     setSelectedBlog(blog);
     router.push(`/Blog/${blog.slug}`, { scroll: false });
@@ -194,10 +309,6 @@ export default function BlogDetailClient({ currentSlug }) {
   };
 
   const handlePageChange = (event, value) => setPage(value);
-  const imageSrc = useMemo(
-    () => selectedBlog?.image?.src || aboutImg1.src,
-    [selectedBlog]
-  );
   const startIndex = (page - 1) * itemsPerPage;
   const paginatedData = processedBlogs.slice(
     startIndex,
@@ -205,6 +316,12 @@ export default function BlogDetailClient({ currentSlug }) {
   );
   const pageCount = Math.ceil(processedBlogs.length / itemsPerPage);
 
+
+  if (isLoading) {
+    return <BlogDetailSkeleton />;
+  }
+
+  // Otherwise, render the real component.
   return (
     <MainBox>
       <Container maxWidth="xl">
@@ -216,7 +333,7 @@ export default function BlogDetailClient({ currentSlug }) {
                   <BlogListBox>
                     {paginatedData.map((blog, index) => (
                       <BlogItem
-                        key={blog.id}
+                        key={blog.id || index}
                         selected={selectedBlog?.id === blog.id}
                         onClick={() => handleSelectBlog(blog)}
                       >
@@ -246,19 +363,29 @@ export default function BlogDetailClient({ currentSlug }) {
                     </Box>
                   )}
                 </Grid>
-                <Grid item xs={12} md={4}>
-                  <StyledImage
-                    key={selectedBlog?.id}
-                    src={imageSrc}
-                    alt={selectedBlog?.title || "Blog"}
-                    width={450}
-                    height={300}
-                    priority
-                  />
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {selectedBlog && (
+                    <StyledImage
+                      key={selectedBlog.id}
+                      src={selectedBlog.image?.src || aboutImg1.src}
+                      alt={selectedBlog.title || "Blog Image"}
+                      width={450}
+                      height={300}
+                      priority
+                    />
+                  )}
                 </Grid>
               </StyledCard>
             </Grid>
-
             {selectedBlog && (
               <Grid item xs={12}>
                 <ContentBox>
@@ -270,7 +397,7 @@ export default function BlogDetailClient({ currentSlug }) {
                   </Typography>
                   <Typography
                     variant="body1"
-                    sx={{ color: "#616161", mb: 4, lineHeight: 1.7 }}
+                    sx={{ color: "#616161", mb: 4, lineHeight: 1.7 , "& a": { color:"blue" },}}
                   >
                     {selectedBlog.metaDescription}
                   </Typography>
@@ -281,7 +408,7 @@ export default function BlogDetailClient({ currentSlug }) {
                     sx={{
                       color: "#49326b",
                       lineHeight: 1.8,
-                      "& a": { color: "#49326b", textDecoration: "underline" },
+                      "& a": { color:"blue" },
                     }}
                   />
                   <AuthorBox image={aboutImg1}>
@@ -289,7 +416,7 @@ export default function BlogDetailClient({ currentSlug }) {
                       <Typography
                         component="div"
                         dangerouslySetInnerHTML={{
-                          __html: `Written by ${selectedBlog.author}`,
+                          __html: `Written by <strong>${selectedBlog.author}</strong>`,
                         }}
                         sx={{ fontWeight: "bold" }}
                       />
@@ -297,7 +424,6 @@ export default function BlogDetailClient({ currentSlug }) {
                         {selectedBlog.company}
                       </Typography>
                     </Box>
-                    {selectedBlog.code === "Everything for Everyone" && (
                       <Box>
                         <button
                           onClick={handleShare}
@@ -317,7 +443,6 @@ export default function BlogDetailClient({ currentSlug }) {
                           <ShareIcon /> Share Post
                         </button>
                       </Box>
-                    )}
                   </AuthorBox>
                 </ContentBox>
               </Grid>

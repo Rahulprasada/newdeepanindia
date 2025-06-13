@@ -30,8 +30,8 @@ const Choose = ({ data }) => {
 
   const iconMap = {
     0: TrendingUpIcon,
-    1: SpeedIcon,
-    2: CurrencyRupeeIcon,
+    1: CurrencyRupeeIcon,
+    2: SpeedIcon,
     3: SecurityIcon,
     4: VisibilityIcon,
     5: SmartToyIcon,
@@ -49,7 +49,7 @@ const Choose = ({ data }) => {
     },
     {
       title: "Wide Range of products",
-      subTitle: "Catering to all classes of investors to attain their financial goal charges, making our services cost-effective.",
+      subTitle: "Catering to all classes of investors to attain their financial goal.",
     },
     {
       title: "Strong Track Record",
