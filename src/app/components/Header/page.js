@@ -754,7 +754,7 @@ export default function Header() {
                         fontWeight: "bold",
                         textTransform: "none",
                       }}
-                      onClick={() => handleNavigation("/")}
+                      onClick={() => window.location.href = "https://trade.deepanindia.com"}
                     >
                       Algo Trading
                     </Button>
