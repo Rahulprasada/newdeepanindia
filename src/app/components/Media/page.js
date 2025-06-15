@@ -20,24 +20,24 @@ const fallbackData = [
     url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
     metrics: { savings: "30%", time: "60%" },
   },
-  {
-    subTitle: "Case Study 2",
-    title: "Scaling Fund Management at XYZ Ltd.",
-    description:
-      "XYZ Ltd. improved fund transparency and reduced errors using our analytics suite. Real-time insights transformed their decision-making process completely.",
-    icon: TrendingUp,
-    url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
-    metrics: { accuracy: "95%", efficiency: "40%" },
-  },
-  {
-    subTitle: "Case Study 3",
-    title: "Real-Time Insights for PQR Finance",
-    description:
-      "PQR Finance achieved real-time insights and faster decision making with our dashboards. Data visualization became their competitive advantage.",
-    icon: BarChart3,
-    url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
-    metrics: { speed: "75%", insights: "50%" },
-  },
+  // {
+  //   subTitle: "Case Study 2",
+  //   title: "Scaling Fund Management at XYZ Ltd.",
+  //   description:
+  //     "XYZ Ltd. improved fund transparency and reduced errors using our analytics suite. Real-time insights transformed their decision-making process completely.",
+  //   icon: TrendingUp,
+  //   url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
+  //   metrics: { accuracy: "95%", efficiency: "40%" },
+  // },
+  // {
+  //   subTitle: "Case Study 3",
+  //   title: "Real-Time Insights for PQR Finance",
+  //   description:
+  //     "PQR Finance achieved real-time insights and faster decision making with our dashboards. Data visualization became their competitive advantage.",
+  //   icon: BarChart3,
+  //   url: "https://youtu.be/vnf2IzRmPwI?si=JowdXW676dJpOBmV",
+  //   metrics: { speed: "75%", insights: "50%" },
+  // },
 ];
 
 const MediaContent = ({ data }) => {

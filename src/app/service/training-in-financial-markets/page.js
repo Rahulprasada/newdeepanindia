@@ -133,13 +133,14 @@ const TextWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
+
+
 const TrainingInFinancialMarketing = ({
-  serviceName = "Training in Financial Market",
+  serviceName = "Training in Financial Markets",
 }) => {
   const [imageError, setImageError] = useState({});
 
-  // Handle image loading errors
-  const handleImageError = (key) => { // Changed index to key for uniqueness
+  const handleImageError = (key) => { 
     setImageError((prev) => ({ ...prev, [key]: true }));
   };
 

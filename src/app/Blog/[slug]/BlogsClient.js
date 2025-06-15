@@ -4,6 +4,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { styled, keyframes } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useParams } from "next/navigation";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
@@ -11,7 +12,7 @@ import Pagination from "@mui/material/Pagination";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ShareIcon from "@mui/icons-material/Share";
-import Skeleton from "@mui/material/Skeleton"; // <-- IMPORT SKELETON
+import Skeleton from "@mui/material/Skeleton";
 
 import { defaultCards } from "../../components/details/DefaultCard";
 import { slugify } from "../../../utils/slugify";
@@ -73,6 +74,9 @@ const BlogItem = styled(Box)(({ theme, selected }) => ({
       : theme.palette.grey[200],
     transform: "translateY(-2px)",
   },
+  "&:active": {
+    transform: "translateY(4px)",
+  },
 }));
 const StyledImage = styled(Image)(({ theme }) => ({
   width: "90%",
@@ -125,119 +129,16 @@ const AuthorBox = styled(Box)(({ theme, image }) => ({
   },
 }));
 
-// --- NEW SKELETON COMPONENT ---
-const BlogDetailSkeleton = () => {
-  return (
-    <MainBox>
-      <Container maxWidth="xl">
-        <Box sx={{ padding: { xs: "24px", md: "48px" } }}>
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <ContentBox sx={{ width: "100%" }}>
-                <Skeleton
-                  variant="text"
-                  width="90%"
-                  height={56}
-                  sx={{ mb: 2 }}
-                />
-                <Skeleton variant="text" width="100%" height={24} />
-                <Skeleton
-                  variant="text"
-                  width="90%"
-                  height={24}
-                  sx={{ mb: 4 }}
-                />
-                <Divider sx={{ mb: 4 }} />
-                {/* Skeleton for the main content */}
-                <Skeleton variant="text" height={20} />
-                <Skeleton variant="text" height={20} />
-                <Skeleton variant="text" height={20} width="70%" />
-                <br />
-                <Skeleton variant="text" height={20} />
-                <Skeleton variant="text" height={20} width="80%" />
-
-                <AuthorBox image={aboutImg1}>
-                  <Box sx={{ width: "100%" }}>
-                    <Skeleton
-                      variant="text"
-                      width={500}
-                      height={24}
-                      sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}
-                    />
-                    <Skeleton
-                      variant="text"
-                      width={550}
-                      height={20}
-                      sx={{ bgcolor: "rgba(255, 255, 255, 0.3)" }}
-                    />
-                  </Box>
-                  <Skeleton
-                    variant="rectangular"
-                    width={320}
-                    height={40}
-                    sx={{
-                      borderRadius: "8px",
-                      bgcolor: "rgba(255, 255, 255, 0.3)",
-                    }}
-                  />
-                </AuthorBox>
-              </ContentBox>
-            </Grid>
-            <Grid item xs={12}>
-              <StyledCard>
-                <Grid item xs={12} md={8}>
-                  <BlogListBox>
-                    {/* Skeleton for the list of blogs */}
-                    {Array.from(new Array(5)).map((_, index) => (
-                      <Skeleton
-                        key={index}
-                        variant="image"
-                        height={60}
-                        sx={{ borderRadius: "8px", mb: 1 }}
-                      />
-                    ))}
-                  </BlogListBox>
-                  <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
-                    <Skeleton variant="image" width={200} height={40} />
-                  </Box>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  md={4}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Skeleton
-                    variant="rectangular"
-                    width="90%"
-                    height={300}
-                    sx={{ borderRadius: "16px" }}
-                  />
-                </Grid>
-              </StyledCard>
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
-    </MainBox>
-  );
-};
-
-// --- MAIN COMPONENT ---
-export default function BlogDetailClient({ currentSlug }) {
+export default function BlogDetailClient() {
+  const params = useParams();
+  const currentSlug = params?.slug;
   const router = useRouter();
-
   const [apiBlogs, setApiBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
-  // All your hooks (useEffect, useMemo) and handlers remain the same.
   useEffect(() => {
     const fetchBlogs = async () => {
       setIsLoading(true);
@@ -249,10 +150,7 @@ export default function BlogDetailClient({ currentSlug }) {
           setApiBlogs([]);
         }
       } catch (error) {
-        console.error(
-          "API fetch failed, using local fallback data. Error:",
-          error
-        );
+        console.error("API fetch failed:", error);
         setApiBlogs([]);
       } finally {
         setTimeout(() => setIsLoading(false), 500);
@@ -261,67 +159,74 @@ export default function BlogDetailClient({ currentSlug }) {
     fetchBlogs();
   }, []);
 
+  // Scroll slightly downward when skeleton loader is displayed
+  useEffect(() => {
+    if (isLoading) {
+      window.scrollTo({
+        top: window.scrollY + 700,
+        behavior: "smooth",
+      });
+    }
+  }, [isLoading]);
+
   const processedBlogs = useMemo(() => {
     const dataSource = apiBlogs.length > 0 ? apiBlogs : defaultCards;
-    return dataSource.map((blog) => ({
-      ...blog,
-      slug: slugify(blog.title),
-    }));
+    return dataSource.map((blog) => ({ ...blog, slug: slugify(blog.title) }));
   }, [apiBlogs]);
 
   useEffect(() => {
     if (processedBlogs.length === 0 || isLoading) return;
-
-    let blogToSelect;
-    if (currentSlug) {
-      blogToSelect = processedBlogs.find((blog) => blog.slug === currentSlug);
-    }
-    if (!blogToSelect) {
-      blogToSelect = processedBlogs[0];
-    }
+    const blogToSelect = processedBlogs.find((blog) => blog.slug === currentSlug) || processedBlogs[0];
     setSelectedBlog(blogToSelect);
   }, [processedBlogs, currentSlug, isLoading]);
 
   const handleSelectBlog = (blog) => {
     setSelectedBlog(blog);
-    router.push(`/Blog/${blog.slug}`, { scroll: false });
-  };
-
-  const handleShare = async () => {
-    if (!selectedBlog) return;
-    const shareUrl = window.location.href; // This will now be the clean URL!
-    const shareText = `Check out this article: "${selectedBlog.title}" from Deepan India.`;
-    const shareData = {
-      title: selectedBlog.title,
-      text: shareText,
-      url: shareUrl,
-    };
-
-    try {
-      if (navigator.share) await navigator.share(shareData);
-      else {
-        await navigator.clipboard.writeText(shareUrl);
-        alert("Blog URL copied to clipboard!");
-      }
-    } catch (err) {
-      console.error("Share failed:", err);
-    }
+    router.replace(`/Blog/${blog.slug}`, { scroll: false });
   };
 
   const handlePageChange = (event, value) => setPage(value);
   const startIndex = (page - 1) * itemsPerPage;
-  const paginatedData = processedBlogs.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const paginatedData = processedBlogs.slice(startIndex, startIndex + itemsPerPage);
   const pageCount = Math.ceil(processedBlogs.length / itemsPerPage);
 
-
   if (isLoading) {
-    return <BlogDetailSkeleton />;
+    return (
+      <MainBox>
+        <Container maxWidth="xl">
+          <Box sx={{ padding: { xs: "24px", md: "48px" } }}>
+            <Grid container spacing={4}>
+              <Grid item xs={12}>
+                <StyledCard>
+                  <Grid item xs={12} md={8}>
+                    <BlogListBox>
+                      {[...Array(5)].map((_, index) => (
+                        <Skeleton
+                          key={index}
+                          variant="rectangular"
+                          height={60}
+                          sx={{ borderRadius: 2, mb: 2 }}
+                        />
+                      ))}
+                    </BlogListBox>
+                  </Grid>
+                  <Grid item xs={12} md={4} sx={{ display: "flex", justifyContent: "center" }}>
+                    <Skeleton
+                      variant="rectangular"
+                      width={450}
+                      height={300}
+                      sx={{ borderRadius: "16px", margin: "20px" }}
+                    />
+                  </Grid>
+                </StyledCard>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </MainBox>
+    );
   }
 
-  // Otherwise, render the real component.
   return (
     <MainBox>
       <Container maxWidth="xl">
@@ -344,35 +249,17 @@ export default function BlogDetailClient({ currentSlug }) {
                     ))}
                   </BlogListBox>
                   {pageCount > 1 && (
-                    <Box
-                      sx={{ display: "flex", justifyContent: "center", p: 2 }}
-                    >
+                    <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
                       <Pagination
                         count={pageCount}
                         page={page}
                         onChange={handlePageChange}
                         color="primary"
-                        sx={{
-                          "& .MuiPaginationItem-root": { color: "#49326b" },
-                          "&.Mui-selected": {
-                            backgroundColor: "#49326b",
-                            color: "#fff",
-                          },
-                        }}
                       />
                     </Box>
                   )}
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  md={4}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
+                <Grid item xs={12} md={4} sx={{ display: "flex", justifyContent: "center" }}>
                   {selectedBlog && (
                     <StyledImage
                       key={selectedBlog.id}
@@ -389,15 +276,12 @@ export default function BlogDetailClient({ currentSlug }) {
             {selectedBlog && (
               <Grid item xs={12}>
                 <ContentBox>
-                  <Typography
-                    variant="h4"
-                    sx={{ fontWeight: 700, color: "#49326b", mb: 2 }}
-                  >
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: "#49326b", mb: 2 }}>
                     {selectedBlog.title}
                   </Typography>
                   <Typography
                     variant="body1"
-                    sx={{ color: "#616161", mb: 4, lineHeight: 1.7 , "& a": { color:"blue" },}}
+                    sx={{ color: "#616161", mb: 4, lineHeight: 1.7, "& a": { color: "blue" } }}
                   >
                     {selectedBlog.metaDescription}
                   </Typography>
@@ -405,44 +289,36 @@ export default function BlogDetailClient({ currentSlug }) {
                   <Typography
                     component="div"
                     dangerouslySetInnerHTML={{ __html: selectedBlog.content }}
-                    sx={{
-                      color: "#49326b",
-                      lineHeight: 1.8,
-                      "& a": { color:"blue" },
-                    }}
+                    sx={{ color: "#49326b", lineHeight: 1.8, "& a": { color: "blue" } }}
                   />
                   <AuthorBox image={aboutImg1}>
                     <Box>
-                      <Typography
-                        component="div"
-                        dangerouslySetInnerHTML={{
-                          __html: `Written by <strong>${selectedBlog.author}</strong>`,
-                        }}
-                        sx={{ fontWeight: "bold" }}
-                      />
-                      <Typography variant="body2">
-                        {selectedBlog.company}
-                      </Typography>
+                      <Typography component="div" dangerouslySetInnerHTML={{ __html: `Written by <strong>${selectedBlog.author}</strong>` }} />
+                      <Typography variant="body2">{selectedBlog.company}</Typography>
                     </Box>
-                      <Box>
-                        <button
-                          onClick={handleShare}
-                          style={{
-                            cursor: "pointer",
-                            padding: "10px 20px",
-                            borderRadius: "8px",
-                            border: "1px solid #49326b",
-                            background: "#e4d4fa",
-                            color: "#49326b",
-                            fontWeight: "bold",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                          }}
-                        >
-                          <ShareIcon /> Share Post
-                        </button>
-                      </Box>
+                    <Box>
+                      <button
+                        onClick={() => {
+                          const url = window.location.href;
+                          navigator.clipboard.writeText(url);
+                          alert("Blog URL copied to clipboard!");
+                        }}
+                        style={{
+                          cursor: "pointer",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "1px solid #49326b",
+                          background: "#e4d4fa",
+                          color: "#49326b",
+                          fontWeight: "bold",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                        }}
+                      >
+                        <ShareIcon /> Share Post
+                      </button>
+                    </Box>
                   </AuthorBox>
                 </ContentBox>
               </Grid>

@@ -111,7 +111,7 @@ export default function Header() {
         setTargetId(anchorId);
         // Corrected this line from your code. It should just navigate to the root.
         // The homepage component will handle the scrolling.
-        router.push("/#media"); 
+        router.push("/"); 
       }
     } else if (href.startsWith("#")) {
       const element = document.querySelector(href);
@@ -172,7 +172,7 @@ export default function Header() {
                   </Link>
                   <Nav.Link
                     style={{ marginLeft: "20px" }}
-                    onClick={() => handleNavigation("/")}
+                    onClick={() => window.location.href = "https://trade.deepanindia.com"}
                     className={styles.algoTradingLink}
                   >
                     Algo Trading

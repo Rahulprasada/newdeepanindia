@@ -9,6 +9,7 @@ import { defaultCards } from '../../components/details/DefaultCard'; // Adjust p
 
 // This client component will now do the heavy lifting.
 import BlogDetailClient from './BlogsClient'; 
+import schema from '../../../lib/schema';
 
 // Loading component remains the same.
 function LoadingFallback() {
@@ -32,22 +33,52 @@ function LoadingFallback() {
 }
 
 
-// This Server Component gets the slug from the URL `params`
-// and passes it down to the client component.
 export default function BlogDetailPage({ params }) {
-  const currentSlug = params.slug?.[0] || null; // e.g., "what-to-do-after-b-com"
+  const currentSlug = params // e.g., "what-to-do-after-b-com"
 
   return (
-    <Suspense fallback={<LoadingFallback />}>
-      <BlogDetailClient currentSlug={currentSlug} />
-    </Suspense>
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema?.organization),
+      }}
+    />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `https://deepanindia.com/Blog/${currentSlug}}`,
+          },
+          headline: currentSlug.title,
+          description: currentSlug.metaDescription?.replace(/<[^>]+>/g, ""),
+          image: `${currentSlug.Image}`,
+          author: {
+            "@type": "Organization",
+            name: "Deepan India",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Deepan India",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://deepanindia.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FEditedLogo-removebg-preview.35b1ca45.png&w=1920&q=75",
+            },
+          },
+        }),
+      }}
+    />
+  <BlogDetailClient currentSlug={currentSlug} />
+  </>
   );
 }
 
-// Function to generate static paths for all your blogs
-// This is great for performance and SEO!
 export async function generateStaticParams() {
   return defaultCards.map((post) => ({
     slug: slugify(post.title),
   }));
-}
+}      
