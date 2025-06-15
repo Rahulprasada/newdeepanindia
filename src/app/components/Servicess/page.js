@@ -25,7 +25,7 @@ const services = [
   { title: "Algo Trading", image: trader, path: "/service/algo-trading" },
   { title: "Advisory Services", image: laptop, path: "/service/advisory-services" },
   { title: "Fixed Deposits & Bonds", image: coin, path: "/service/fixed-deposits-&-bond" },
-  { title: "Alternate Investment ", image: typer, path: "/service/alternate-investment-funds" },
+  { title: "Alternative Investment Funds", image: typer, path: "/service/alternate-investment-funds" },
   { title: "Real Estate Funds", image: house, path: "/service/real-estate-funds" },
   { title: "Insurances", image: umberla, path: "/service/insurances" },
 ];
