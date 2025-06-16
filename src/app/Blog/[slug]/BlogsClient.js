@@ -176,7 +176,9 @@ export default function BlogDetailClient() {
 
   useEffect(() => {
     if (processedBlogs.length === 0 || isLoading) return;
-    const blogToSelect = processedBlogs.find((blog) => blog.slug === currentSlug) || processedBlogs[0];
+    const blogToSelect =
+      processedBlogs.find((blog) => blog.slug === currentSlug) ||
+      processedBlogs[0];
     setSelectedBlog(blogToSelect);
   }, [processedBlogs, currentSlug, isLoading]);
 
@@ -187,7 +189,10 @@ export default function BlogDetailClient() {
 
   const handlePageChange = (event, value) => setPage(value);
   const startIndex = (page - 1) * itemsPerPage;
-  const paginatedData = processedBlogs.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedData = processedBlogs.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
   const pageCount = Math.ceil(processedBlogs.length / itemsPerPage);
 
   if (isLoading) {
@@ -210,7 +215,12 @@ export default function BlogDetailClient() {
                       ))}
                     </BlogListBox>
                   </Grid>
-                  <Grid item xs={12} md={4} sx={{ display: "flex", justifyContent: "center" }}>
+                  <Grid
+                    item
+                    xs={12}
+                    md={4}
+                    sx={{ display: "flex", justifyContent: "center" }}
+                  >
                     <Skeleton
                       variant="rectangular"
                       width={450}
@@ -249,7 +259,9 @@ export default function BlogDetailClient() {
                     ))}
                   </BlogListBox>
                   {pageCount > 1 && (
-                    <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "center", p: 2 }}
+                    >
                       <Pagination
                         count={pageCount}
                         page={page}
@@ -259,7 +271,12 @@ export default function BlogDetailClient() {
                     </Box>
                   )}
                 </Grid>
-                <Grid item xs={12} md={4} sx={{ display: "flex", justifyContent: "center" }}>
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  sx={{ display: "flex", justifyContent: "center" }}
+                >
                   {selectedBlog && (
                     <StyledImage
                       key={selectedBlog.id}
@@ -276,12 +293,20 @@ export default function BlogDetailClient() {
             {selectedBlog && (
               <Grid item xs={12}>
                 <ContentBox>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: "#49326b", mb: 2 }}>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontWeight: 700, color: "#49326b", mb: 2 }}
+                  >
                     {selectedBlog.title}
                   </Typography>
                   <Typography
                     variant="body1"
-                    sx={{ color: "#616161", mb: 4, lineHeight: 1.7, "& a": { color: "blue" } }}
+                    sx={{
+                      color: "#616161",
+                      mb: 4,
+                      lineHeight: 1.7,
+                      "& a": { color: "blue" },
+                    }}
                   >
                     {selectedBlog.metaDescription}
                   </Typography>
@@ -289,12 +314,31 @@ export default function BlogDetailClient() {
                   <Typography
                     component="div"
                     dangerouslySetInnerHTML={{ __html: selectedBlog.content }}
-                    sx={{ color: "#49326b", lineHeight: 1.8, "& a": { color: "blue" } }}
+                    sx={{
+                      color: "#49326b",
+                      lineHeight: 1.8,
+                      "& a": { color: "blue" },
+                    }}
                   />
                   <AuthorBox image={aboutImg1}>
                     <Box>
-                      <Typography component="div" dangerouslySetInnerHTML={{ __html: `Written by <strong>${selectedBlog.author}</strong>` }} />
-                      <Typography variant="body2">{selectedBlog.company}</Typography>
+                      <Typography
+                        sx={{
+                          color: "#e4d4fa",
+                          fontSize: { xs: "0.9rem", sm: "1rem" },
+                          "& a": {
+                            color: "red",
+                            textDecoration: "none",
+                          },
+                        }}
+                        component="div"
+                        dangerouslySetInnerHTML={{
+                          __html: `Written by <strong>${selectedBlog.author}</strong>`,
+                        }}
+                      />
+                      <Typography variant="body2">
+                        {selectedBlog.company}
+                      </Typography>
                     </Box>
                     <Box>
                       <button
