@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
-import aboutImg1 from "../../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
+import aboutImg1 from "../../assets/studio-background-concept-abstract-empty-light-gradient-purple-studio-room-background-product.jpg";
 // Import MUI components
 
 const PrivacyPolicy = () => {

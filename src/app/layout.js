@@ -57,13 +57,13 @@ export const metadata = {
     siteName: "Deepan India Financial Services",
     images: [
       {
-        url: "https://www.deepanindia.com/og-image.jpg",
+        url: "https://www.deepanindia.com/logo.png",
         width: 1200,
         height: 630,
         alt: "Deepan India Financial Services - Building Wealth",
       },
       {
-        url: "https://www.deepanindia.com/og-image-alt.jpg",
+        url: "https://www.deepanindia.com/logo.png",
         width: 800,
         height: 600,
         alt: "Deepan India Financial Services - Financial Planning",
@@ -81,7 +81,7 @@ export const metadata = {
     title: "Deepan India Financial Services - Expert Investment Solutions",
     description:
       "Secure your financial future with Deepan India. Explore mutual funds, algo trading, retirement planning, and wealth management services.",
-    images: ["https://www.deepanindia.com/twitter-image.jpg"], // Replace with your actual Twitter image URL (at least 800x418px)
+    images: ["https://www.deepanindia.com/logo.png"], // Replace with your actual Twitter image URL (at least 800x418px)
   },
 
   // Favicons and Icons

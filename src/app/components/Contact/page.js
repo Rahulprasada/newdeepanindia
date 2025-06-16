@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Checkbox from "@mui/material/Checkbox";
@@ -18,7 +18,7 @@ import Container from "@mui/material/Container";
 import Image from "next/image";
 import styles from "./Contact.module.css";
 import Joinus from "../../../assets/1-removebg-preview.png";
-import { instance } from "../../../utils/api";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const [checked, setChecked] = useState(false);
@@ -29,6 +29,15 @@ export default function Contact() {
     interested_in: "",
     message: "",
   });
+  const formRef = useRef(null); // Create a ref for the form
+
+  // Initialize EmailJS with the public key
+  useEffect(() => {
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+    console.log('====================================');
+    console.log(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+    console.log('====================================');
+  }, []);
 
   const handleFormChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -49,26 +58,24 @@ export default function Contact() {
     setChecked(e.target.checked);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission
+  
     if (!checked) {
       alert("You must agree to the Privacy Policy.");
       return;
     }
-
+  
     try {
-      const response = await instance.post(
-        `/landing/customer/CustomerDetails`,
-        {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          interested_in: formData.interested_in,
-          message: formData.message,
-        }
+      const emailResponse = await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY // Pass public key explicitly
       );
-      if (response.status === 200) {
+  console.log("emailResponse",emailResponse);
+  
+      if (emailResponse.status === 200 && emailResponse.text === "OK") {
         alert("Form submitted successfully!");
         setFormData({
           name: "",
@@ -78,10 +85,13 @@ export default function Contact() {
           message: "",
         });
         setChecked(false);
+        formRef.current.reset(); // Reset the form
+      } else {
+        alert("Email failed. Please try again later.");
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Something went wrong. Please try again later.");
+      console.error("EmailJS error:", error);
+      alert(`Failed to send email: ${error.text || "Please check your EmailJS configuration."}`);
     }
   };
 
@@ -141,13 +151,14 @@ export default function Contact() {
               alt="joinus"
               width={500}
               height={500}
+              style={{ width: "100%", height: "auto" }}
               className={styles.joinusImage}
             />
           </Grid>
 
           {/* Right Panel - Form */}
           <Grid item xs={12} md={6}>
-            <form onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={handleSubmit}>
               <Box mb={2}>
                 <TextField
                   fullWidth
@@ -216,9 +227,9 @@ export default function Contact() {
                     fontSize: "16px",
                     border: "1px solid #ccc",
                     borderRadius: "4px",
-                    color: "#000", // text color
+                    color: "#000",
                   }}
-                  className="custom-placeholder"
+                  className={styles.customPlaceholder}
                 />
               </Box>
               <FormGroup>
@@ -234,9 +245,20 @@ export default function Contact() {
                   label="* I agree to receive communication from DeepanIndia."
                 />
               </FormGroup>
-              <button type="submit" className={styles.submitBtn}>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  backgroundColor: "#49326b",
+                  color: "#fff",
+                  "&:hover": { backgroundColor: "#39255b" },
+                  padding: "10px 20px",
+                  borderRadius: "4px",
+                  width: "100%",
+                }}
+              >
                 Get Started Today
-              </button>
+              </Button>
             </form>
           </Grid>
         </Grid>

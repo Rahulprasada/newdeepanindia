@@ -135,7 +135,7 @@ export default function Footer() {
               </Typography>
               <Typography
                 component={Link}
-                href="/service/alternate-investment-funds"
+                href="/service/alternative-investment-funds"
                 className={styles.linkItem}
                 sx={{fontSize:'15px'}}
               >
@@ -333,14 +333,21 @@ export default function Footer() {
             <Box className={styles.bottomLink} sx={{ justifyContent: { xs: "center", md: "flex-end" } }}>
               <Typography
                 component={Link}
-                href="/persionalservice/privacy-policy"
+                href="/refund-policy"
+                className={styles.bottomLinkItem}
+              >
+                Refund Policy
+              </Typography>
+              <Typography
+                component={Link}
+                href="/privacy-policy"
                 className={styles.bottomLinkItem}
               >
                 Privacy Policy
               </Typography>
               <Typography
                 component={Link}
-                href="/persionalservice/terms-of-service"
+                href="/terms-of-service"
                 className={styles.bottomLinkItem}
               >
                 Terms of Service
