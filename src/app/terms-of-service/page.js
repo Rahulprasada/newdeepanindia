@@ -82,7 +82,7 @@ const TermsOfServices = () => {
 
           <h2 style={{marginTop:6,color:'#49326b'}}>Contact Information</h2>
           <p style={{marginBottom:4,color:'#49326b'}}>
-            If you have any questions about these Terms, please contact us at info@DeepanIndia.com
+            If you have any questions about these Terms, please contact us at enquiry@deepanindia.com
           </p>
         </div>
       </div>

@@ -63,14 +63,18 @@ const PrivacyPolicy = () => {
         >
           {/* Last Updated Section */}
           <Box className="bg-blue-50 p-6 border-b border-blue-100">
-            <Typography variant="body2" sx={{color:'#49326b'}} className="text-sm">
+            <Typography
+              variant="body2"
+              sx={{ color: "#49326b" }}
+              className="text-sm"
+            >
               Last Updated: April 4, 2025
             </Typography>
           </Box>
 
           {/* Introduction */}
           <Box className="p-6 sm:p-8">
-            <Box className="prose max-w-none" sx={{color:'#49326b'}}>
+            <Box className="prose max-w-none" sx={{ color: "#49326b" }}>
               <Typography
                 variant="h5"
                 component="h2"
@@ -79,7 +83,7 @@ const PrivacyPolicy = () => {
                 Introduction
               </Typography>
               <Typography variant="body1" className="mb-6 text-gray-700">
-                Capital Investments Trading Fund (&quot;we,&quot;
+                Deepan India Financial Services Pvt. Ltd (&quot;we,&quot;
                 &quot;our,&quot; or &quot;us&quot;) is committed to protecting
                 your privacy. This Privacy Policy explains how we collect, use,
                 disclose, and safeguard your information when you engage with
@@ -97,7 +101,7 @@ const PrivacyPolicy = () => {
                   variant="h6"
                   component="h3"
                   className="text-xl font-semibold text-blue-800 mb-3"
-                  sx={{color:'#49326b'}}
+                  sx={{ color: "#49326b" }}
                 >
                   Information We Collect
                 </Typography>
@@ -107,7 +111,7 @@ const PrivacyPolicy = () => {
                     variant="subtitle1"
                     component="h4"
                     className="font-medium text-gray-900 mb-2"
-                    sx={{color:'#49326b'}}
+                    sx={{ color: "#49326b" }}
                   >
                     Personal Information
                   </Typography>
@@ -126,7 +130,7 @@ const PrivacyPolicy = () => {
                     variant="subtitle1"
                     component="h4"
                     className="font-medium text-gray-900 mb-2"
-                    sx={{color:'#49326b'}}
+                    sx={{ color: "#49326b" }}
                   >
                     Financial Information
                   </Typography>
@@ -143,7 +147,7 @@ const PrivacyPolicy = () => {
                     variant="subtitle1"
                     component="h4"
                     className="font-medium text-gray-900 mb-2"
-                    sx={{color:'#49326b'}}
+                    sx={{ color: "#49326b" }}
                   >
                     Automatically Collected Information
                   </Typography>
@@ -161,7 +165,7 @@ const PrivacyPolicy = () => {
                   variant="h6"
                   component="h3"
                   className="text-xl font-semibold text-blue-800 mb-3"
-                  sx={{color:'#49326b'}}
+                  sx={{ color: "#49326b" }}
                 >
                   How We Use Your Information
                 </Typography>
@@ -190,7 +194,7 @@ const PrivacyPolicy = () => {
                   variant="h6"
                   component="h3"
                   className="text-xl font-semibold text-blue-800 mb-3"
-                  sx={{color:'#49326b'}}
+                  sx={{ color: "#49326b" }}
                 >
                   Disclosure of Your Information
                 </Typography>
@@ -206,7 +210,7 @@ const PrivacyPolicy = () => {
                         variant="subtitle1"
                         component="h4"
                         className="font-medium text-blue-900 mb-2"
-                        sx={{color:'#49326b'}}
+                        sx={{ color: "#49326b" }}
                       >
                         Service Providers
                       </Typography>
@@ -224,7 +228,7 @@ const PrivacyPolicy = () => {
                         variant="subtitle1"
                         component="h4"
                         className="font-medium text-blue-900 mb-2"
-                        sx={{color:'#49326b'}}
+                        sx={{ color: "#49326b" }}
                       >
                         Financial Partners
                       </Typography>
@@ -242,7 +246,7 @@ const PrivacyPolicy = () => {
                         variant="subtitle1"
                         component="h4"
                         className="font-medium text-blue-900 mb-2"
-                        sx={{color:'#49326b'}}
+                        sx={{ color: "#49326b" }}
                       >
                         Regulatory Authorities
                       </Typography>
@@ -260,7 +264,7 @@ const PrivacyPolicy = () => {
                         variant="subtitle1"
                         component="h4"
                         className="font-medium text-blue-900 mb-2"
-                        sx={{color:'#49326b'}}
+                        sx={{ color: "#49326b" }}
                       >
                         Legal Situations
                       </Typography>
@@ -280,7 +284,7 @@ const PrivacyPolicy = () => {
                 <Typography
                   variant="h6"
                   component="h3"
-                  sx={{color:'#49326b'}}
+                  sx={{ color: "#49326b" }}
                 >
                   Data Security
                 </Typography>
@@ -291,15 +295,22 @@ const PrivacyPolicy = () => {
                   method of transmission over the Internet or electronic storage
                   is 100% secure.
                 </Typography>
-                <Box sx={{backgroundColor:'#49326b',padding:'10px',borderLeft:'7px solid #FFD700',borderRadius:'5px'}}>
-                  <Typography
-                    variant="body1"
-                    sx={{color:'#fff'}}
-                  >
+                <Box
+                  sx={{
+                    backgroundColor: "#49326b",
+                    padding: "10px",
+                    borderLeft: "7px solid #FFD700",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <Typography variant="body1" sx={{ color: "#fff" }}>
                     We maintain strict security standards and procedures with
                     respect to your information, including:
                   </Typography>
-                  <ul style={{color:'#fff'}} className="mt-2 list-disc pl-6 text-gray-700 space-y-1">
+                  <ul
+                    style={{ color: "#fff" }}
+                    className="mt-2 list-disc pl-6 text-gray-700 space-y-1"
+                  >
                     <li>Advanced encryption for data in transit and at rest</li>
                     <li>
                       Regular security assessments and penetration testing
@@ -321,7 +332,7 @@ const PrivacyPolicy = () => {
                   variant="h6"
                   component="h3"
                   className="text-xl font-semibold text-blue-800 mb-3"
-                  sx={{color:'#49326b'}}
+                  sx={{ color: "#49326b" }}
                 >
                   Your Rights
                 </Typography>
@@ -396,7 +407,7 @@ const PrivacyPolicy = () => {
                   variant="h6"
                   component="h3"
                   className="text-xl font-semibold text-blue-800 mb-3"
-                  sx={{color:'#49326b'}}
+                  sx={{ color: "#49326b" }}
                 >
                   Contact Us
                 </Typography>
@@ -428,7 +439,11 @@ const PrivacyPolicy = () => {
                       If you have any questions or concerns about this Privacy
                       Policy or our data practices, please contact us at:
                     </Typography>
-                    <Grid container spacing={2} sx={{display:'flex',flexDirection:'column'}}>
+                    <Grid
+                      container
+                      spacing={2}
+                      sx={{ display: "flex", flexDirection: "column" }}
+                    >
                       <Grid item xs={12} md={6}>
                         <Typography
                           variant="subtitle1"
@@ -438,7 +453,8 @@ const PrivacyPolicy = () => {
                           Email
                         </Typography>
                         <Typography variant="body2">
-                          <EmailIcon/>enquiry@deepanindia.com
+                          <EmailIcon />
+                          enquiry@deepanindia.com
                         </Typography>
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -449,7 +465,10 @@ const PrivacyPolicy = () => {
                         >
                           Phone
                         </Typography>
-                        <Typography variant="body2"><LocalPhoneIcon />+91-9884411611</Typography>
+                        <Typography variant="body2">
+                          <LocalPhoneIcon />
+                          +91-9884411611
+                        </Typography>
                       </Grid>
                       <Grid item xs={12}>
                         <Typography

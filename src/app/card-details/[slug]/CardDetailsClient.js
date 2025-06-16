@@ -215,11 +215,6 @@ const CardDetailsClient = () => {
           <Typography variant="h3" className="title">
             {data.title.toUpperCase()}
           </Typography>
-          <Typography
-            component="div"
-            dangerouslySetInnerHTML={{ __html: data.subTitle }}
-            className="subtitle"
-          />
         </ContentBox>
       </MainBox>
       <Main2Box>
@@ -228,6 +223,11 @@ const CardDetailsClient = () => {
             <ImageBox>
               <StyledImage src={imageSrc} alt={data.title} loading="lazy" />
             </ImageBox>
+            <Typography
+              component="div"
+              dangerouslySetInnerHTML={{ __html: data.subTitle }}
+              className="metaDescription"
+            />
             <Typography
               variant="body1"
               className="metaDescription"
@@ -252,10 +252,14 @@ const CardDetailsClient = () => {
               >
                 <Box sx={{ textAlign: "left" }}>
                   <Typography
-                    sx={{
-                      color: "#e4d4fa",
-                      fontSize: { xs: "0.9rem", sm: "1rem" },
-                    }}
+                   sx={{
+                    color: "#e4d4fa",
+                    fontSize: { xs: "0.9rem", sm: "1rem" },
+                    "& a": {
+                      color: "red",
+                      textDecoration: "none",
+                    },
+                  }}
                     component="div"
                     dangerouslySetInnerHTML={{
                       __html: `Written by <strong>${data?.author}</strong>`,
